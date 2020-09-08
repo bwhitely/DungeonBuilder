@@ -43,101 +43,173 @@ void MenuInterface::completeSets()
 
 void MenuInterface::mainMenu()
 {
-    while (true){
-        _display << "What would you like to do?\n"
-                 << "  (g)enerate the example level\n"
-                 << "  (r)andom dungeon level\n"
-                 << "  (q)uit\n";
+    _display << "What would you like to do?\n"
+             << "  (g)enerate the example level\n"
+             << "  (r)andom dungeon level\n"
+             << "  (q)uit\n";
 
-        char in;
-        _input >> in;
-        while (true){
+    char in;
+    _input >> in;
+
+    // failed input
+    if (_input.fail()){
+        _display << "fail\n" << std::endl;
+        _input.ignore();
+        mainMenu();
+
+        // if input is 'g'
+    } else if (in == 'r' && mainMenuOptions.count('g') == 1) {
+        _display << "Creating Example Dungeon Level..." << std::endl
+                 << "Dungeon level created!\n" << std::endl;
+
+        // if input is 'r'
+    } else if (in == 'g' && mainMenuOptions.count('r') == 1) {
+        std::string levelName;
+        int rows;
+        int cols;
+        char dungType;
+        bool withinRange = false;
+        bool validLevelType = false;
+
+        _display << "What would you like to call this level?" << std::endl;
+        _input.ignore();
+        std::getline(_input, levelName);
+
+        while (!withinRange){
+            _display << "How many rows in " + levelName << "?" << std::endl;
+            _input >> rows;
+
+            if ((rows >= 1) && (rows <= 4)){
+                break;
+            } else {
+                _display << "\nRow not within range. Please enter (1-4) inclusive.\n";
+
+            }
 
             // failed input
             if (_input.fail()){
-                _display << "fail\n" << std::endl;
-                _input.clear();
-                in = 'y';
-                break;
-
-                // if input is 'g'
-            } else if (in == 'r' && mainMenuOptions.count('g') == 1) {
-                _display << "Creating Example Dungeon Level..." << std::endl
-                         << "Dungeon level created!\n" << std::endl;
-                break;
-
-                // if input is 'r'
-            } else if (in == 'g' && mainMenuOptions.count('r') == 1) {
-                std::string levelName;
-                int rows;
-                int cols;
-                char dungType;
-                _display << "What would you like to call this level?" << std::endl;
-                _input.ignore();
-                std::getline(_input, levelName);
-                _display << "How many rows in " + levelName << "?" << std::endl;
-                _input >> rows;
-                _display << "How many columns in " + levelName << "?" << std::endl;
-                _input >> cols;
-                _display << "What type of dungeon level is it? (b)asic or (m)agical?" << std::endl;
-                _input >> dungType;
-                _display << "\nCreating " + levelName + "..." << std::endl;
-                _display << "Dungeon level created!\n" << std::endl;
-
-                // transition to the describe menu
-                describeMenu();
-
-                // if input is 'q' (quit)
-            } else if (in == 'q' && mainMenuOptions.count('q') == 1){
-                _display << "Are you sure you want to quin? y/n" << std::endl;
-                _input >> in;
-                if (in == 'y'){
-                    _display << "Goodbye!" << std::endl;
-                    break;
-                } else if (in == 'n'){
-                    _display << "\nTaking you back to main menu...\n" << std::endl;
-                    break;
-                }
+                failedIntInput();
             }
         }
-        // break again
-        if (in == 'y'){
-            break;
+        while (!withinRange){
+            _display << "How many columns in " + levelName << "?" << std::endl;
+            _input >> cols;
+
+            if ((cols >= 1) && (cols <= 4)){
+                break;
+            } else {
+                _display << "\nRow not within range. Please enter (1-4) inclusive.\n";
+            }
+
+            // failed input
+            if (_input.fail()){
+                failedIntInput();
+            }
         }
+
+        while (!validLevelType){
+            _display << "What type of dungeon level is it? (b)asic or (m)agical?" << std::endl;
+            _input >> dungType;
+            if (dungType != 'b' && dungType != 'm'){
+                _display << "\nInvalid type selection. Please select only 'b' or 'm'\n";
+                _input.ignore();
+            } else {
+                validLevelType = true;
+            }
+        }
+
+        _display << "\nCreating " + levelName + "..." << std::endl;
+        _display << "Dungeon level created!\n" << std::endl;
+
+        // transition to the describe menu
+        describeMenu();
+
+        // if input is 'q' (quit)
+    } else if (in == 'q' && mainMenuOptions.count('q') == 1){
+        _display << "Are you sure you want to quit? y/n" << std::endl;
+        _input >> in;
+        if (in == 'y'){
+            _display << "Goodbye!" << std::endl;
+
+        } else if (in == 'n'){
+            _display << "\nTaking you back to main menu...\n" << std::endl;
+            mainMenu();
+        }
+    } else if (mainMenuOptions.count(in) == 0){
+        _display << "Not a valid selection :^)\n" << std::endl;
+        _display.flush();
+        _input.sync();
+        mainMenu();
     }
+
 }
 
 void MenuInterface::describeMenu()
 {
-    while(true){
-        _display << "What would you like to do?\n"
-                 << "  (d)escribe the dungeon level\n"
-                 << "  (v)iew the dungeon level\n"
-                 << "  (r)eturn to the main menu\n";
+    _display << "What would you like to do?\n"
+             << "  (d)escribe the dungeon level\n"
+             << "  (v)iew the dungeon level\n"
+             << "  (r)eturn to the main menu\n";
 
-        char in;
-        _input >> in;
-        while (true){
+    char in;
+    _input >> in;
 
-            // failed input
-            if (_input.fail()){
-                _display << "fail\n" << std::endl;
-                _input.clear();
-                in = 'y';
-                break;
-            } else if (in == 'd' && describeMenuOptions.count('d') == 1) {
+    // failed input
+    if (_input.fail()){
+        _display << "fail\n" << std::endl;
+        _input.clear();
 
-            } else if (in == 'v' && describeMenuOptions.count('v') == 1) {
+    } else if (in == 'd' && describeMenuOptions.count('d') == 1) {
 
-            } else if (in == 'r' && describeMenuOptions.count('r') == 1) {
-                mainMenu();
-            }
-        }
+    } else if (in == 'v' && describeMenuOptions.count('v') == 1) {
+
+    } else if (in == 'r' && describeMenuOptions.count('r') == 1) {
+        _display << "\nReturning to main menu.\n\n";
+        mainMenu();
+    } else if (describeMenuOptions.count(in) == 0){
+        _display << "Not a valid selection :^)\n" << std::endl;
+        _input.sync();
+        describeMenu();
     }
 }
 
 void MenuInterface::explorationMenu()
 {
+    _display << "What would you like to do?\n"
+             << "  (d)escribe a room\n"
+             << "  (r)eturn to previous menu\n";
+    char in;
+    _input >> in;
 
+    // failed input
+    if (_input.fail()){
+        _display << "fail\n" << std::endl;
+        _input.clear();
+
+    } else if (in == 'd' && explorationMenuOptions.count('d') == 1){
+        _display << "Which room would you like to describe? (1-4)\n" << std::endl;
+
+        int roomNo;
+        _input >> roomNo;
+
+    } else if (in == 'r' && explorationMenuOptions.count('r') == 1){
+        _input.sync();
+        describeMenu();
+    } else if (explorationMenuOptions.count(in) == 0){
+        _display << "Not a valid selection :^)\n" << std::endl;
+        _input.sync();
+        explorationMenu();
+    }
+
+
+}
+
+void MenuInterface::failedIntInput()
+{
+    _display << "\nIncorrect input type. Please use an Integer next time.\n"
+                "Taking you back to main menu...\n\n";
+    _input.clear();
+    _input.sync();
+    mainMenu();
 }
 }

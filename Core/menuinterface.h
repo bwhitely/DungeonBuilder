@@ -20,6 +20,7 @@ public:
     void mainMenu();
     void describeMenu();
     void explorationMenu();
+    void failedIntInput();
 private:
     std::ostream& _display;
     std::istream& _input;
