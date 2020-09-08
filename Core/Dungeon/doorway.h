@@ -1,6 +1,9 @@
 #ifndef DOORWAY_H
 #define DOORWAY_H
 
+namespace core::dungeon {
+
+}
 
 class Doorway
 {

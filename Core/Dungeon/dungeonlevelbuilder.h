@@ -1,6 +1,9 @@
 #ifndef DUNGEONLEVELBUILDER_H
 #define DUNGEONLEVELBUILDER_H
 
+namespace core::dungeon {
+
+}
 
 class DungeonLevelBuilder
 {

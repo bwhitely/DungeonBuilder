@@ -1,6 +1,9 @@
 #ifndef MAGICALDUNGEONLEVEL_H
 #define MAGICALDUNGEONLEVEL_H
 
+namespace core::dungeon::magical {
+
+}
 
 class MagicalDungeonLevel
 {

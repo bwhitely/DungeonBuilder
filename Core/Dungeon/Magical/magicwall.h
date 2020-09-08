@@ -1,6 +1,9 @@
 #ifndef MAGICWALL_H
 #define MAGICWALL_H
 
+namespace core::dungeon::magical {
+
+}
 
 class MagicWall
 {

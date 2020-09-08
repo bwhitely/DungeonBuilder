@@ -1,6 +1,9 @@
 #ifndef ONEWAYDOOR_H
 #define ONEWAYDOOR_H
 
+namespace core::dungeon::common {
+
+}
 
 class OneWayDoor
 {

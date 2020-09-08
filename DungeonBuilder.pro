@@ -20,7 +20,9 @@ SOURCES += \
         Core/Dungeon/Magical/magicaldungeonlevelbuilder.cpp \
         Core/Dungeon/Magical/magicwall.cpp \
         Core/Dungeon/doorway.cpp \
+        Core/Dungeon/dungeonlevel.cpp \
         Core/Dungeon/dungeonlevelbuilder.cpp \
+        Core/Dungeon/room.cpp \
         Core/Dungeon/roomedge.cpp \
         Core/Dungeon/wall.cpp \
         Core/Items/consumeable.cpp \
@@ -46,7 +48,9 @@ HEADERS += \
     Core/Dungeon/Magical/magicaldungeonlevelbuilder.h \
     Core/Dungeon/Magical/magicwall.h \
     Core/Dungeon/doorway.h \
+    Core/Dungeon/dungeonlevel.h \
     Core/Dungeon/dungeonlevelbuilder.h \
+    Core/Dungeon/room.h \
     Core/Dungeon/roomedge.h \
     Core/Dungeon/wall.h \
     Core/Items/consumeable.h \

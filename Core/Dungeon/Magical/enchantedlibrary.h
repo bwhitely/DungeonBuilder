@@ -1,6 +1,9 @@
 #ifndef ENCHANTEDLIBRARY_H
 #define ENCHANTEDLIBRARY_H
 
+namespace core::dungeon::magical {
+
+}
 
 class EnchantedLibrary
 {

@@ -1,6 +1,9 @@
 #ifndef ALCHEMISTSLABORATORY_H
 #define ALCHEMISTSLABORATORY_H
 
+namespace core::dungeon::magical {
+
+}
 
 class AlchemistsLaboratory
 {

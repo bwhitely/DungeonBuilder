@@ -1,6 +1,9 @@
 #ifndef ROOM_H
 #define ROOM_H
 
+namespace core::dungeon {
+
+}
 
 class Room
 {
