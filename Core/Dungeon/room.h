@@ -6,6 +6,7 @@ class Room
 {
 public:
     Room();
+    enum Direction {North, South, East, West};
 };
 }
 

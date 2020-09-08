@@ -27,6 +27,7 @@ SOURCES += \
         Core/Dungeon/wall.cpp \
         Core/Items/consumeable.cpp \
         Core/Items/item.cpp \
+        Core/Items/weapon.cpp \
         Core/game.cpp \
         Core/menuinterface.cpp \
         main.cpp
@@ -55,5 +56,6 @@ HEADERS += \
     Core/Dungeon/wall.h \
     Core/Items/consumeable.h \
     Core/Items/item.h \
+    Core/Items/weapon.h \
     Core/game.h \
     Core/menuinterface.h
