@@ -10,6 +10,7 @@ SOURCES += \
         Core/Dungeon/Basic/basicdungeonlevelbuilder.cpp \
         Core/Dungeon/Basic/quartzchamber.cpp \
         Core/Dungeon/Basic/rockchamber.cpp \
+        Core/Dungeon/Basic/rockwall.cpp \
         Core/Dungeon/Common/blockeddoorway.cpp \
         Core/Dungeon/Common/lockeddoor.cpp \
         Core/Dungeon/Common/onewaydoor.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     Core/Dungeon/Basic/basicdungeonlevelbuilder.h \
     Core/Dungeon/Basic/quartzchamber.h \
     Core/Dungeon/Basic/rockchamber.h \
+    Core/Dungeon/Basic/rockwall.h \
     Core/Dungeon/Common/blockeddoorway.h \
     Core/Dungeon/Common/lockeddoor.h \
     Core/Dungeon/Common/onewaydoor.h \

@@ -1,8 +1,9 @@
 #ifndef ONEWAYDOOR_H
 #define ONEWAYDOOR_H
+#include <Core/Dungeon/doorway.h>
 
 namespace core::dungeon::common {
-class OneWayDoor
+class OneWayDoor : public Doorway
 {
 public:
     OneWayDoor();

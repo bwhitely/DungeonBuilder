@@ -3,8 +3,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     core::MenuInterface m = core::MenuInterface(cout, cin);
     m.displayWelcome("Ben Whitely", "Assignment 1: Dungeon Builder");
     // run main menu loop

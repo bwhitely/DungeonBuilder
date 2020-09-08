@@ -12,17 +12,16 @@ class Game {
     static Game instance();
     void setDungeonType(core::dungeon::DungeonLevelBuilder);
     void createExampleLevel();
-    void createRandomLevel(std::string &name, int width, int height);
+    // pass by referencing these
+    void createRandomLevel(std::string &name, int &width, int &height);
     void displayLevel();
     double randomDouble();
   private:
     Game();
-    Game theInstance();
+    ~Game();
+    static Game theInstance;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))};
     std::uniform_real_distribution<double> _realDistribution{0.0, 1.0};
-    std::string name;
-    int width;
-    int height;
 };
 }
 

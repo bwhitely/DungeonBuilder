@@ -1,9 +1,12 @@
 #include "room.h"
 
 namespace core::dungeon {
-Room::Room()
+
+}
+
+core::dungeon::Room::Room(int id)
 {
 
 }
-}
+
 
