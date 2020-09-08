@@ -4,9 +4,6 @@
 #include <string>
 
 namespace core {
-
-}
-
 class MenuInterface
 {
 public:
@@ -16,5 +13,7 @@ public:
     void displayWelcome(std::string const &author, std::string const &title) const;
     void run();
 };
+}
+
 
 #endif // MENUINTERFACE_H

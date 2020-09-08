@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    MenuInterface m = MenuInterface(cout, cin);
+    core::MenuInterface m = core::MenuInterface(cout, cin);
     m.displayWelcome("Ben Whitely", "Assignment 1: Dungeon Builder");
     m.run();
 

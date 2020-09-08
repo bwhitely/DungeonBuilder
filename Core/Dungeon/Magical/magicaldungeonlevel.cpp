@@ -1,9 +1,9 @@
 #include "magicaldungeonlevel.h"
 
-using namespace core::dungeon::magical;
-
-
+namespace core::dungeon::magical{
 MagicalDungeonLevel::MagicalDungeonLevel()
 {
 
 }
+}
+

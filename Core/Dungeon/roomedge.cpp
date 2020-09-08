@@ -1,8 +1,9 @@
 #include "roomedge.h"
 
-using namespace core::dungeon;
-
+namespace core::dungeon {
 RoomEdge::RoomEdge()
 {
 
 }
+}
+

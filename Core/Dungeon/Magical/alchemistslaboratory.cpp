@@ -1,8 +1,9 @@
 #include "alchemistslaboratory.h"
 
-using namespace core::dungeon::magical;
-
+namespace core::dungeon::magical{
 AlchemistsLaboratory::AlchemistsLaboratory()
 {
 
 }
+}
+

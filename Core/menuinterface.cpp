@@ -1,6 +1,6 @@
 #include "menuinterface.h"
-using namespace core;
 
+namespace core {
 MenuInterface::MenuInterface(std::ostream& display, std::istream& input) {
 //    string s;
 //    // If input fails
@@ -25,4 +25,5 @@ void MenuInterface::displayWelcome(const std::string& author, const std::string&
 
 void MenuInterface::run() {
 
+}
 }

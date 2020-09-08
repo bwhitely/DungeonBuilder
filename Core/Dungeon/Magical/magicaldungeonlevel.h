@@ -2,13 +2,12 @@
 #define MAGICALDUNGEONLEVEL_H
 
 namespace core::dungeon::magical {
-
-}
-
 class MagicalDungeonLevel
 {
 public:
     MagicalDungeonLevel();
 };
+}
+
 
 #endif // MAGICALDUNGEONLEVEL_H

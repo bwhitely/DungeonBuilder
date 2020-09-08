@@ -1,7 +1,6 @@
 #include "game.h"
 
-using namespace core;
-
+namespace core {
 Game::Game() {
 
 }
@@ -11,7 +10,7 @@ Game Game::instance() {
     return g;
 }
 
-void Game::setDungeonType(DungeonLevelBuilder) {
+void Game::setDungeonType(core::dungeon::DungeonLevelBuilder) {
 
 }
 
@@ -20,6 +19,7 @@ void Game::createExampleLevel() {
 }
 
 void Game::createRandomLevel(std::string& name, int with, int height) {
+
 }
 
 void Game::displayLevel() {
@@ -35,3 +35,5 @@ Game Game::theInstance() {
 
 
 }
+}
+

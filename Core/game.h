@@ -7,14 +7,12 @@
 
 namespace core{
 
-}
-
 class Game {
   public:
     static Game instance();
-    void setDungeonType(DungeonLevelBuilder);
+    void setDungeonType(core::dungeon::DungeonLevelBuilder);
     void createExampleLevel();
-    void createRandomLevel(std::string& name, int with, int height);
+    void createRandomLevel(std::string &name, int with, int height);
     void displayLevel();
     double randomDouble();
   private:
@@ -23,5 +21,7 @@ class Game {
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))};
     std::uniform_real_distribution<double> _realDistribution{0.0, 1.0};
 };
+}
+
 
 #endif // GAME_H

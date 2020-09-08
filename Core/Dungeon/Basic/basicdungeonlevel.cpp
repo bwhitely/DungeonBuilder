@@ -1,8 +1,10 @@
 #include "basicdungeonlevel.h"
 
-using namespace core::dungeon::basic;
-
+namespace core::dungeon::basic{
 BasicDungeonLevel::BasicDungeonLevel()
 {
 
 }
+}
+
+

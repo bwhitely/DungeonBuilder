@@ -1,8 +1,8 @@
 #include "wall.h"
 
-using namespace core::dungeon;
+namespace core::dungeon {
+Wall::Wall() {
 
-Wall::Wall()
-{
+}
 
 }

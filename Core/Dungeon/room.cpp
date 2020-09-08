@@ -1,8 +1,9 @@
 #include "room.h"
 
-using namespace core::dungeon;
-
+namespace core::dungeon {
 Room::Room()
 {
 
 }
+}
+
