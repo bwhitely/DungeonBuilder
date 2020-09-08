@@ -10,7 +10,7 @@ class Room
 {
 public:
     Room(int id);
-    enum Direction {North, South, East, West};
+    enum Direction : unsigned {North, South, East, West};
     void display(std::string);
     int id();
     core::items::Item item();

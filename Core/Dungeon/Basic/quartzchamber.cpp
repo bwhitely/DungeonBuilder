@@ -1,7 +1,7 @@
 #include "quartzchamber.h"
 
 namespace core::dungeon::basic {
-QuartzChamber::QuartzChamber()
+QuartzChamber::QuartzChamber(int id) : Room(id)
 {
 
 }

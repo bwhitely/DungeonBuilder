@@ -1,11 +1,12 @@
 #ifndef ALCHEMISTSLABORATORY_H
 #define ALCHEMISTSLABORATORY_H
+#include <Core/Dungeon/room.h>
 
 namespace core::dungeon::magical {
-class AlchemistsLaboratory
+class AlchemistsLaboratory : public Room
 {
 public:
-    AlchemistsLaboratory();
+    AlchemistsLaboratory(int id);
 };
 }
 

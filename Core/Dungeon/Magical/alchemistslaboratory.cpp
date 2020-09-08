@@ -1,7 +1,7 @@
 #include "alchemistslaboratory.h"
 
 namespace core::dungeon::magical{
-AlchemistsLaboratory::AlchemistsLaboratory()
+AlchemistsLaboratory::AlchemistsLaboratory(int id) : Room(id)
 {
 
 }

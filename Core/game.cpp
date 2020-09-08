@@ -9,10 +9,9 @@ Game::~Game() {
 
 }
 
-Game Game::instance() {
-    Game* g = new Game;
-    theInstance = *g;
-    return theInstance;
+Game* Game::instance() {
+    // return ref of theInstance
+    return &theInstance;
 }
 
 void Game::setDungeonType(core::dungeon::DungeonLevelBuilder) {
@@ -36,9 +35,5 @@ double Game::randomDouble() {
     return _realDistribution(_randomGenerator);
 }
 
-Game Game::theInstance() {
-
-
-}
 }
 

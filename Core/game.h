@@ -9,7 +9,8 @@ namespace core{
 
 class Game {
   public:
-    static Game instance();
+    // returns a pointer of the instance
+    static Game* instance();
     void setDungeonType(core::dungeon::DungeonLevelBuilder);
     void createExampleLevel();
     // pass by referencing these
@@ -19,6 +20,7 @@ class Game {
   private:
     Game();
     ~Game();
+    // static instance of Game
     static Game theInstance;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))};
     std::uniform_real_distribution<double> _realDistribution{0.0, 1.0};

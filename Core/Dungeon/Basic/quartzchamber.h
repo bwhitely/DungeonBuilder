@@ -6,7 +6,7 @@ namespace core::dungeon::basic {
 class QuartzChamber : public Room
 {
 public:
-    QuartzChamber();
+    QuartzChamber(int id);
 };
 }
 

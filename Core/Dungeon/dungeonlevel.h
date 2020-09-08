@@ -1,6 +1,7 @@
 #ifndef DUNGEONLEVEL_H
 #define DUNGEONLEVEL_H
 #include <string>
+#include <vector>
 #include <Core/Dungeon/room.h>
 
 namespace core::dungeon {
@@ -15,7 +16,7 @@ public:
     int numberOfRooms();
     std::string name();
     std::string description();
-    //std::string[] display();
+    std::vector<std::string> *display();
 };
 }
 

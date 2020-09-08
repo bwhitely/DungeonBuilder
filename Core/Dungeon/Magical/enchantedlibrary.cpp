@@ -1,7 +1,7 @@
 #include "enchantedlibrary.h"
 
 namespace core::dungeon::magical{
-EnchantedLibrary::EnchantedLibrary()
+EnchantedLibrary::EnchantedLibrary(int id) : Room(id)
 {
 
 }

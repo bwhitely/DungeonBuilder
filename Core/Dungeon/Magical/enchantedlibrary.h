@@ -1,11 +1,12 @@
 #ifndef ENCHANTEDLIBRARY_H
 #define ENCHANTEDLIBRARY_H
+#include <Core/Dungeon/room.h>
 
 namespace core::dungeon::magical {
-class EnchantedLibrary
+class EnchantedLibrary : public Room
 {
 public:
-    EnchantedLibrary();
+    EnchantedLibrary(int id);
 };
 }
 

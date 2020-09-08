@@ -3,6 +3,7 @@
 #include <set>
 #include <iostream>
 #include <istream>
+#include <Core/game.h>
 
 namespace core {
 
@@ -79,7 +80,7 @@ void MenuInterface::mainMenu() {
 
             // failed input
             if (_input.fail()) {
-                _display << "\nIncorrect input type. Please use an Integer next time.\n";
+                _display << "\nIncorrect input type. Please use an Integer.\n";
                 _input.clear();
                 _input.sync();
             }
@@ -98,7 +99,7 @@ void MenuInterface::mainMenu() {
 
             // failed input
             if (_input.fail()) {
-                _display << "\nIncorrect input type. Please use an Integer next time.\n";
+                _display << "\nIncorrect input type. Please use an Integer.\n";
                 _input.clear();
                 _input.sync();
             }
