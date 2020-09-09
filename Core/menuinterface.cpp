@@ -4,6 +4,8 @@
 #include <iostream>
 #include <istream>
 #include <Core/game.h>
+#include <Core/Dungeon/Basic/basicdungeonlevelbuilder.h>
+#include <Core/Dungeon/Magical/magicaldungeonlevelbuilder.h>
 
 namespace core {
 
@@ -56,12 +58,15 @@ void MenuInterface::mainMenu() {
         mainMenu();
 
         // if input is 'g'
-    } else if (in == 'r' && mainMenuOptions.count('g') == 1) {
+    } else if (in == 'g' && mainMenuOptions.count('g') == 1) {
         _display << "Creating Example Dungeon Level..." << std::endl
+
+                    //Game::instance()->createRandomLevel();
+
                  << "Dungeon level created!\n" << std::endl;
 
         // if input is 'r'
-    } else if (in == 'g' && mainMenuOptions.count('r') == 1) {
+    } else if (in == 'r' && mainMenuOptions.count('r') == 1) {
         std::string levelName;
         int rows;
         int cols;
@@ -121,6 +126,11 @@ void MenuInterface::mainMenu() {
                 _input.ignore();
             } else {
                 validLevelType = true;
+            }
+            if (dungType == 'b'){
+                Game::instance().setDungeonType(core::dungeon::basic::BasicDungeonLevelBuilder());
+            } else if (dungType == 'm'){
+                Game::instance().setDungeonType(core::dungeon::magical::MagicalDungeonLevelBuilder());
             }
         }
 

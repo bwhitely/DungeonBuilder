@@ -1,11 +1,20 @@
 #ifndef BASICDUNGEONLEVELBUILDER_H
 #define BASICDUNGEONLEVELBUILDER_H
+#include <Core/Dungeon/dungeonlevelbuilder.h>
 
 namespace core::dungeon::basic {
-class BasicDungeonLevelBuilder
+class BasicDungeonLevelBuilder : public DungeonLevelBuilder
 {
 public:
     BasicDungeonLevelBuilder();
+    void buildDungeonLevel(std::string name, int width, int height);
+    Room buildRoom(int id);
+    Room buildDoorway(Room origin, Room destination, core::dungeon::Room::Direction direction, MoveConstraints constraints);
+    void buildEntrance(Room room, core::dungeon::Room::Direction direction, MoveConstraints constraints);
+    void buildExit(Room room, core::dungeon::Room::Direction direction);
+    void buildItem(Room);
+    void buildCreature(Room);
+    DungeonLevel getDungeonLevel();
 };
 }
 

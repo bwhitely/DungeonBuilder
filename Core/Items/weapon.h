@@ -1,11 +1,13 @@
 #ifndef WEAPON_H
 #define WEAPON_H
+#include <Core/Items/item.h>
 
-
-class Weapon
+namespace core::items {
+class Weapon : public Item
 {
 public:
     Weapon();
 };
+}
 
 #endif // WEAPON_H

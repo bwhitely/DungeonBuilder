@@ -15,8 +15,8 @@ public:
     int id();
     core::items::Item item();
     void setItem(core::items::Item newItem);
-    //core::creatures::AbstractCreature creature();
-    //void setCreature(core::creatures::AbstractCreature newCreature);
+    AbstractCreature creature();
+    void setCreature(AbstractCreature newCreature);
 };
 }
 

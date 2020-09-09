@@ -4,8 +4,9 @@
 #include <string>
 #include <random>
 #include <ctime>
+#include <memory>
 
-namespace core{
+namespace core {
 
 class Game {
   public:
@@ -14,12 +15,11 @@ class Game {
     void setDungeonType(core::dungeon::DungeonLevelBuilder);
     void createExampleLevel();
     // pass by referencing these
-    void createRandomLevel(std::string &name, int &width, int &height);
+    void createRandomLevel(std::string& name, int& width, int& height);
     void displayLevel();
     double randomDouble();
   private:
     Game();
-    ~Game();
     // static instance of Game
     static Game theInstance;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))};

@@ -1,16 +1,13 @@
 #include "game.h"
+#include <Core/menuinterface.h>
 
 namespace core {
 Game::Game() {
 
 }
 
-Game::~Game() {
-
-}
-
-Game* Game::instance() {
-    // return ref of theInstance
+Game *Game::instance() {
+    Game *g = new Game;
     return &theInstance;
 }
 
@@ -27,7 +24,6 @@ void Game::createRandomLevel(std::string& name, int& with, int& height) {
 }
 
 void Game::displayLevel() {
-
 
 }
 
