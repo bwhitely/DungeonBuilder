@@ -4,21 +4,52 @@
 #include <Core/Items/item.h>
 #include <Core/Creatures/abstractcreature.h>
 #include <Core/Creatures/monster.h>
+#include <vector>
 
 namespace core::dungeon {
-class Room
-{
-public:
-    Room(int id);
-    enum Direction : unsigned {North, South, East, West};
-    void display(std::string);
-    int id();
-    core::items::Item item();
-    void setItem(core::items::Item newItem);
-    AbstractCreature creature();
-    void setCreature(AbstractCreature newCreature);
+class RoomEdge;
+
+class Room {
+  public:
+    Room() = delete;
+    Room(const Room& room) = delete;
+    Room(const int id);
+    // virtual destructor
+    virtual ~Room();
+
+    // overloading << as mentioned in specs
+    friend std::ostream& operator<<(std::ostream& out, const Room& room);
+
+    virtual std::string description() const = 0;
+    std::vector<std::string> display() const;
+    int id() const;
+    core::items::Item& item() const;
+    void setItem(core::items::Item& newItem);
+    AbstractCreature& creature() const;
+    void setCreature(AbstractCreature& newCreature);
+
+    // get/set room edges
+    void setNorth(RoomEdge*);
+    const RoomEdge& getNorth() const;
+    void setEast(RoomEdge*);
+    const RoomEdge& getEast() const;
+    void setSouth(RoomEdge*);
+    const RoomEdge& getSouth() const;
+    void setWest(RoomEdge*);
+    const RoomEdge& getWest() const;
+
+protected:
+    const int _id;
+    core::items::Item _item;
+    AbstractCreature _creature;
+    RoomEdge* _north;
+    RoomEdge* _east;
+    RoomEdge* _south;
+    RoomEdge* _west;
+
 };
 }
-
+// enum
+enum Direction : unsigned {North, South, East, West};
 
 #endif // ROOM_H

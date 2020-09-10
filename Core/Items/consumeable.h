@@ -6,7 +6,7 @@ namespace core::items {
 class Consumeable : public Item
 {
 public:
-    Consumeable();
+    Consumeable(std::string);
 };
 }
 

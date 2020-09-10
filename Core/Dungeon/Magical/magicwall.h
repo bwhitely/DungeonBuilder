@@ -6,7 +6,16 @@ namespace core::dungeon::magical {
 class MagicWall : public Wall
 {
 public:
-    MagicWall();
+    MagicWall() = delete;
+    MagicWall(Wall& other) = delete;
+
+    MagicWall(Direction direction);
+    virtual ~MagicWall();
+
+    bool isPassage() const override;
+    char displayCharacter() const override;
+    std::string description() const override;
+    void printDirection();
 };
 }
 

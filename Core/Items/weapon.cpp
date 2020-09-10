@@ -1,6 +1,6 @@
 #include "weapon.h"
 
-Weapon::Weapon()
-{
+namespace core::items {
+
 
 }

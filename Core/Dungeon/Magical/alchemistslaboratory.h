@@ -7,6 +7,9 @@ class AlchemistsLaboratory : public Room
 {
 public:
     AlchemistsLaboratory(int id);
+    virtual ~AlchemistsLaboratory();
+
+    std::string description() const override;
 };
 }
 

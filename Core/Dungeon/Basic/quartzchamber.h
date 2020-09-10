@@ -6,7 +6,10 @@ namespace core::dungeon::basic {
 class QuartzChamber : public Room
 {
 public:
-    QuartzChamber(int id);
+    QuartzChamber(const int id);
+    virtual ~QuartzChamber();
+
+    std::string description() const override;
 };
 }
 

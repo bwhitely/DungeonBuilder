@@ -7,6 +7,9 @@ class EnchantedLibrary : public Room
 {
 public:
     EnchantedLibrary(int id);
+    virtual ~EnchantedLibrary();
+
+    std::string description() const override;
 };
 }
 

@@ -6,7 +6,7 @@ namespace core::items {
 class Weapon : public Item
 {
 public:
-    Weapon();
+    Weapon(std::string name);
 };
 }
 

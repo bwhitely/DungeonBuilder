@@ -7,8 +7,7 @@ Game::Game() {
 }
 
 Game *Game::instance() {
-    Game *g = new Game;
-    return &theInstance;
+
 }
 
 void Game::setDungeonType(core::dungeon::DungeonLevelBuilder) {
@@ -23,7 +22,7 @@ void Game::createRandomLevel(std::string& name, int& with, int& height) {
 
 }
 
-void Game::displayLevel() {
+void Game::displayLevel() const {
 
 }
 

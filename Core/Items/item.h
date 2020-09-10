@@ -6,10 +6,7 @@ namespace core::items {
 class Item
 {
 public:
-    Item(std::string name);
-    Item clone();
-    std::string name();
-    char displayCharacter();
+    Item();
 };
 }
 

@@ -6,7 +6,10 @@ namespace core::dungeon::basic {
 class RockChamber : public Room
 {
 public:
-    RockChamber(int id);
+    RockChamber(const int id);
+    virtual ~RockChamber();
+
+    std::string description() const override;
 };
 }
 

@@ -7,7 +7,16 @@ namespace core::dungeon::basic{
 class RockWall : public Wall
 {
 public:
-    RockWall();
+    RockWall() = delete;
+    RockWall(Wall& other) = delete;
+
+    RockWall(Direction direction);
+    virtual ~RockWall();
+
+    bool isPassage() const override;
+    char displayCharacter() const override;
+    std::string description() const override;
+    void printDirection();
 };
 }
 

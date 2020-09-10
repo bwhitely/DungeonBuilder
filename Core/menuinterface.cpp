@@ -128,9 +128,7 @@ void MenuInterface::mainMenu() {
                 validLevelType = true;
             }
             if (dungType == 'b'){
-                Game::instance().setDungeonType(core::dungeon::basic::BasicDungeonLevelBuilder());
             } else if (dungType == 'm'){
-                Game::instance().setDungeonType(core::dungeon::magical::MagicalDungeonLevelBuilder());
             }
         }
 

@@ -31,7 +31,8 @@ SOURCES += \
         Core/Items/weapon.cpp \
         Core/game.cpp \
         Core/menuinterface.cpp \
-        main.cpp
+        main.cpp \
+        test.cpp
 
 HEADERS += \
     Core/Creatures/abstractcreature.h \
@@ -60,4 +61,5 @@ HEADERS += \
     Core/Items/item.h \
     Core/Items/weapon.h \
     Core/game.h \
-    Core/menuinterface.h
+    Core/menuinterface.h \
+    test.h
