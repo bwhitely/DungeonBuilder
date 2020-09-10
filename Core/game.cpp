@@ -8,11 +8,11 @@ Game::Game(){
 
 Game *Game::instance()
 {
-    if (!theInstance){
-        theInstance = new Game;
-        return theInstance;
-    }
-    return theInstance;
+//    if (!theInstance){
+//        theInstance = new Game;
+//        return theInstance;
+//    }
+//    return theInstance;
 }
 
 void Game::setDungeonType(core::dungeon::DungeonLevelBuilder) {
