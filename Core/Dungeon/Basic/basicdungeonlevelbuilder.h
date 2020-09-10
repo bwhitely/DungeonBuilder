@@ -6,6 +6,7 @@ namespace core::dungeon::basic {
 class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
   public:
     BasicDungeonLevelBuilder();
+    virtual ~BasicDungeonLevelBuilder();
     void BuildDungeonLevel(std::string name, int width, int height) override;
     void buildItem(Room*) override;
     Room* buildRoom(int id) override;
@@ -14,6 +15,8 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
     void buildExit(Room* room, Direction direction) override;
     void buildEntrance(Room* room, Direction direction) override;
     void buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) override;
+protected:
+    std::vector<Room*> rooms;
 };
 }
 

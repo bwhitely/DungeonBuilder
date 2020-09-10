@@ -7,6 +7,11 @@ BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
 
 }
 
+BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder()
+{
+
+}
+
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
     _name = name;
     _width = width;
@@ -19,8 +24,8 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {
     core::dungeon::basic::RockChamber* r = new core::dungeon::basic::RockChamber(id);
+    rooms.push_back(r);
     return r;
-    delete r;
 }
 
 void BasicDungeonLevelBuilder::buildCreature(Room* room) {
