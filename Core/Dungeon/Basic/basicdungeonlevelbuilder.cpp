@@ -34,7 +34,7 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
 }
 
 void BasicDungeonLevelBuilder::buildCreature(Room* room) {
-    Monster* m = new Monster("asd");
+    Monster* m = new Monster("Monster Name");
     room->setCreature(*m);
 }
 
