@@ -2,12 +2,17 @@
 #include <Core/menuinterface.h>
 
 namespace core {
-Game::Game() {
-
+Game::Game(){
+    theInstance = new Game;
 }
 
-Game *Game::instance() {
-
+Game *Game::instance()
+{
+    if (!theInstance){
+        theInstance = new Game;
+        return theInstance;
+    }
+    return theInstance;
 }
 
 void Game::setDungeonType(core::dungeon::DungeonLevelBuilder) {
@@ -23,7 +28,7 @@ void Game::createRandomLevel(std::string& name, int& with, int& height) {
 }
 
 void Game::displayLevel() const {
-
+    std::cout << "DISPLAY LEVEL" << std::endl;
 }
 
 double Game::randomDouble() {

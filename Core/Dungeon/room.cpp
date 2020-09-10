@@ -1,4 +1,5 @@
 #include "room.h"
+#include <iostream>
 
 namespace core::dungeon {
 
@@ -30,7 +31,7 @@ items::Item &Room::item() const
 
 }
 
-void Room::setItem(items::Item &newItem)
+void Room::setItem(items::Item newItem)
 {
 
 }

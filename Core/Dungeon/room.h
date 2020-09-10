@@ -24,7 +24,7 @@ class Room {
     std::vector<std::string> display();
     int id() const;
     core::items::Item& item() const;
-    void setItem(core::items::Item& newItem);
+    void setItem(core::items::Item newItem);
     AbstractCreature& creature() const;
     void setCreature(AbstractCreature& newCreature);
 

@@ -63,10 +63,28 @@ void Test::test()
 
     core::dungeon::basic::BasicDungeonLevelBuilder b = core::dungeon::basic::BasicDungeonLevelBuilder();
 
+    core::Game *game = game->instance();
+    game->setDungeonType(b);
+    game->displayLevel();
+
     b.BuildDungeonLevel("Cool Dungeon", 2, 2);
 
-    b.buildRoom(1);
-    b.buildRoom(2);
-    b.buildRoom(3);
+    for (int i = 0; i < 5; i++){
+        b.buildRoom(i);
+    }
+
+    for (int i = 0; i < 4; i++){
+        b.buildDoorway(b.rooms.at(i), b.rooms.at(i+1), e, MoveConstraints::None);
+    }
+
+    b.buildEntrance(b.rooms.at(1), Direction::South);
+    int size = b.rooms.size()-1;
+    b.buildExit(b.rooms.at(size), Direction::North);
+
+    b.buildItem(b.rooms.at(1));
+    b.buildCreature(b.rooms.at(2));
+
+    b.rooms.at(1)->creature();
+    b.getDungeonLevel();
 
 }
