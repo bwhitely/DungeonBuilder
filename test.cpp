@@ -11,6 +11,15 @@
 #include <string>
 #include <Core/Dungeon/Basic/rockchamber.h>
 #include <Core/Dungeon/Common/onewaydoor.h>
+#include <Core/Creatures/abstractcreature.h>
+#include <Core/Creatures/monster.h>
+#include <Core/Items/consumeable.h>
+#include <Core/Items/item.h>
+#include <Core/Items/weapon.h>
+#include <Core/Dungeon/dungeonlevelbuilder.h>
+#include <Core/Dungeon/Basic/basicdungeonlevelbuilder.h>
+#include <Core/Dungeon/Basic/basicdungeonlevel.h>
+#include <Core/game.h>
 
 namespace core{
 
@@ -22,32 +31,42 @@ Test::Test()
 
 void Test::test()
 {
-    Direction w = Direction::North;
-    Direction w2 = Direction::East;
-    Direction w3 = Direction::South;
-    Direction d4 = Direction::West;
+    Direction n = Direction::North;
+    Direction e = Direction::East;
+    Direction s = Direction::South;
+    Direction w = Direction::West;
 
-    core::dungeon::basic::RockWall* rockwall = new core::dungeon::basic::RockWall(w);
-    std::cout << rockwall->description() << "\n";
-    delete rockwall;
+    // new rock chamber with id = 1
+    core::dungeon::basic::RockChamber* r = new core::dungeon::basic::RockChamber(1);
+    // set rock chamber's north RoomEdge as an OpenDoorway
+    r->setNorth(new core::dungeon::common::OpenDoorway(n, false, false));
+    // rock chamber's east to rock onewaydoor
+    r->setEast(new core::dungeon::common::OneWayDoor(e, false, false));
+    // south to opendoorway
+    r->setSouth(new core::dungeon::common::OpenDoorway(s, false, false));
+    // west to rockwall
+    r->setWest(new core::dungeon::basic::RockWall(w));
 
-    core::dungeon::magical::MagicWall* mw = new core::dungeon::magical::MagicWall(w2);
-    std::cout << mw->description() << "\n";
-    delete mw;
+    std::cout << r->description() << std::endl;
+    std::cout << r->getNorth() << std::endl;
+    std::cout << r->getEast() << std::endl;
+    std::cout << r->getSouth() << std::endl;
+    std::cout << r->getWest() << std::endl;
 
-    core::dungeon::common::OpenDoorway* opendw = new core::dungeon::common::OpenDoorway(w, false, false);
-    std::cout << opendw->description();
+    Monster* m = new Monster("Goblin");
+    std::cout << m->name() << std::endl;
+    Monster goblin = Monster("goblin");
+    goblin.name();
 
-    core::dungeon::common::OpenDoorway* opendw2 = new core::dungeon::common::OpenDoorway(w3, false, false);
+    core::items::Weapon weap = core::items::Weapon("Iron Axe");
+    std::cout << weap.name() << std::endl;
 
-    opendw->connect(opendw2);
-    delete opendw2;
+    core::dungeon::basic::BasicDungeonLevelBuilder b = core::dungeon::basic::BasicDungeonLevelBuilder();
 
-    core::dungeon::basic::RockChamber r = core::dungeon::basic::RockChamber(1);
-    core::dungeon::common::OneWayDoor* owd = new core::dungeon::common::OneWayDoor(w, false, false);
-    core::dungeon::common::OneWayDoor* owd2 = new core::dungeon::common::OneWayDoor(w3, false, false);
-    owd->connect(owd2);
-    delete owd;
+    b.BuildDungeonLevel("Cool Dungeon", 2, 2);
 
+    b.buildRoom(1);
+    b.buildRoom(2);
+    b.buildRoom(3);
 
 }

@@ -11,14 +11,16 @@ class DungeonLevel {
     virtual ~DungeonLevel() = default;
 
     DungeonLevel(std::string name, int width, int height);
-    virtual bool addRoom(Room& room);
-    Room& retrieveRoom(int id);
+    bool addRoom(Room* room);
+    Room* retrieveRoom(int id);
     int width() const;
     int height() const;
     int numberOfRooms() const;
     std::string name() const;
     virtual std::string description() = 0;
     std::vector<std::string>* display();
+protected:
+    std::vector<Room*> _rooms;
 };
 }
 

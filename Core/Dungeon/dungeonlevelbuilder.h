@@ -12,7 +12,21 @@ namespace core::dungeon {
 class Room;
 class DungeonLevelBuilder {
   public:
+    virtual ~DungeonLevelBuilder();
+    virtual void BuildDungeonLevel(std::string name, int width, int height);
+    virtual Room* buildRoom(int id);
+    virtual void buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints);
+    virtual void buildEntrance(Room* room, Direction direction);
+    virtual void buildExit(Room* room, Direction direction);
+    virtual void buildItem(Room*);
+    virtual void buildCreature(Room*);
+    virtual DungeonLevel* getDungeonLevel();
+protected:
     DungeonLevelBuilder();
+    std::string _name;
+    int _width;
+    int _height;
+    Room* _origin;
 };
 }
 

@@ -15,6 +15,7 @@ class Game {
     Game& operator=(const Game&) = delete;
     // returns a pointer of the instance
     static Game* instance();
+
     void setDungeonType(core::dungeon::DungeonLevelBuilder);
     void createExampleLevel();
     // pass by referencing these

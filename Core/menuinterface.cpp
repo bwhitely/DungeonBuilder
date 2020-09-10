@@ -64,6 +64,7 @@ void MenuInterface::mainMenu() {
                     //Game::instance()->createRandomLevel();
 
                  << "Dungeon level created!\n" << std::endl;
+        describeMenu();
 
         // if input is 'r'
     } else if (in == 'r' && mainMenuOptions.count('r') == 1) {
@@ -116,6 +117,7 @@ void MenuInterface::mainMenu() {
             }
         }
 
+
         // Dungeon level type selection
         while (!validLevelType) {
             _display << "What type of dungeon level is it? (b)asic or (m)agical?" << std::endl;
@@ -128,13 +130,23 @@ void MenuInterface::mainMenu() {
                 validLevelType = true;
             }
             if (dungType == 'b'){
+                // Successful creation
+                _display << "\nCreating " + levelName + "..." << std::endl;
+
+                core::dungeon::basic::BasicDungeonLevelBuilder* b = new core::dungeon::basic::BasicDungeonLevelBuilder();
+                b->BuildDungeonLevel(levelName, rows, cols);
+                b->buildRoom(1);
+
+                _display << "Dungeon level created!\n" << std::endl;
             } else if (dungType == 'm'){
+                // Successful creation
+                _display << "\nCreating " + levelName + "..." << std::endl;
+
+
+                _display << "Dungeon level created!\n" << std::endl;
+
             }
         }
-
-        // Successful creation
-        _display << "\nCreating " + levelName + "..." << std::endl;
-        _display << "Dungeon level created!\n" << std::endl;
 
         // transition to the describe menu
         describeMenu();
@@ -177,6 +189,7 @@ void MenuInterface::describeMenu() {
     } else if (in == 'd' && describeMenuOptions.count('d') == 1) {
 
     } else if (in == 'v' && describeMenuOptions.count('v') == 1) {
+
 
     } else if (in == 'r' && describeMenuOptions.count('r') == 1) {
         _display << "\nReturning to main menu.\n\n";

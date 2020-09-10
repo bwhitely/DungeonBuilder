@@ -21,7 +21,7 @@ class Room {
     friend std::ostream& operator<<(std::ostream& out, const Room& room);
 
     virtual std::string description() const = 0;
-    std::vector<std::string> display() const;
+    std::vector<std::string> display();
     int id() const;
     core::items::Item& item() const;
     void setItem(core::items::Item& newItem);
