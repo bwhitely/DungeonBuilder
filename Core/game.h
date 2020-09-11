@@ -17,13 +17,15 @@ class Game {
     // returns a pointer of the instance
     static Game* instance();
 
-    void setDungeonType(core::dungeon::DungeonLevelBuilder);
+    void setDungeonType(core::dungeon::DungeonLevelBuilder *type);
     void createExampleLevel();
     // pass by referencing these
-    void createRandomLevel(std::string& name, int& width, int& height);
-    void displayLevel() const;
+    void createRandomLevel(std::string name, int width, int height);
+    void displayLevel(std::ostream &display) const;
     double randomDouble();
+    dungeon::DungeonLevelBuilder* getBuilder();
   private:
+    dungeon::DungeonLevelBuilder builder;
     // private constructor to prevent instancing
     Game();
     // static instance of Game

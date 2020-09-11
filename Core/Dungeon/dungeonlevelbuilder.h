@@ -12,6 +12,7 @@ namespace core::dungeon {
 class Room;
 class DungeonLevelBuilder {
   public:
+    DungeonLevelBuilder();
     virtual ~DungeonLevelBuilder();
     virtual void BuildDungeonLevel(std::string name, int width, int height);
     virtual Room* buildRoom(int id);
@@ -22,7 +23,6 @@ class DungeonLevelBuilder {
     virtual void buildCreature(Room*);
     virtual DungeonLevel* getDungeonLevel();
 protected:
-    DungeonLevelBuilder();
     std::string _name;
     int _width;
     int _height;

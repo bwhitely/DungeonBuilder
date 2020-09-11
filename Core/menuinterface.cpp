@@ -61,8 +61,6 @@ void MenuInterface::mainMenu() {
     } else if (in == 'g' && mainMenuOptions.count('g') == 1) {
         _display << "Creating Example Dungeon Level..." << std::endl
 
-                    //Game::instance()->createRandomLevel();
-
                  << "Dungeon level created!\n" << std::endl;
         describeMenu();
 
@@ -136,7 +134,7 @@ void MenuInterface::mainMenu() {
                 Game* g;
                 int maxID = 3;// rows*cols;
                 core::dungeon::basic::BasicDungeonLevelBuilder* b = new core::dungeon::basic::BasicDungeonLevelBuilder();
-                g->setDungeonType(*b);
+                g->setDungeonType(b);
 
                 b->BuildDungeonLevel(levelName, rows, cols);
 
@@ -149,7 +147,6 @@ void MenuInterface::mainMenu() {
                 }
                 b->buildEntrance(b->rooms.at(1), Direction::South);
 
-                g->displayLevel();
 
                 _display << "Dungeon level created!\n" << std::endl;
             } else if (dungType == 'm'){

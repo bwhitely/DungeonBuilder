@@ -20,6 +20,8 @@
 #include <Core/Dungeon/Basic/basicdungeonlevelbuilder.h>
 #include <Core/Dungeon/Basic/basicdungeonlevel.h>
 #include <Core/game.h>
+#include <Core/Dungeon/Basic/basicdungeonlevel.h>
+#include <memory>
 
 namespace core{
 
@@ -61,30 +63,23 @@ void Test::test()
     core::items::Weapon weap = core::items::Weapon("Iron Axe");
     std::cout << weap.name() << std::endl;
 
-    core::dungeon::basic::BasicDungeonLevelBuilder b = core::dungeon::basic::BasicDungeonLevelBuilder();
+    core::dungeon::basic::BasicDungeonLevel* level; // final product
+    core::Game* game = game->instance(); // director
 
-    core::Game *game = game->instance();
-    game->setDungeonType(b);
-    game->displayLevel();
+    core::dungeon::basic::BasicDungeonLevelBuilder* basicb = new core::dungeon::basic::BasicDungeonLevelBuilder(); // concrete builder
 
-    b.BuildDungeonLevel("Cool Dungeon", 2, 2);
+    std::cout << "Dungeon" << std::endl;
 
-    for (int i = 0; i < 5; i++){
-        b.buildRoom(i);
-    }
+    game->setDungeonType(basicb); // director sets dungeon type
+    game->createRandomLevel("name", 5, 5); // director creates level
 
-    for (int i = 0; i < 4; i++){
-        b.buildDoorway(b.rooms.at(i), b.rooms.at(i+1), e, MoveConstraints::None);
-    }
 
-    b.buildEntrance(b.rooms.at(1), Direction::South);
-    int size = b.rooms.size()-1;
-    b.buildExit(b.rooms.at(size), Direction::North);
+    game->getBuilder()->BuildDungeonLevel("name", 5, 5);
+    game->getBuilder()->buildRoom(1);
+    std::cout << "\n\n" << game->getBuilder()->getDungeonLevel()->numberOfRooms() << std::endl;
+    game->getBuilder()->buildItem(game->getBuilder()->getDungeonLevel()->retrieveRoom(1));
+    //game->displayLevel(std::cout);
+    //game->getBuilder()->
 
-    b.buildItem(b.rooms.at(1));
-    b.buildCreature(b.rooms.at(2));
-
-    b.rooms.at(1)->creature();
-    b.getDungeonLevel();
 
 }

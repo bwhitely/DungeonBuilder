@@ -8,19 +8,22 @@ namespace core::dungeon {
 class DungeonLevel {
   public:
     DungeonLevel() = delete;
-    virtual ~DungeonLevel() = default;
+    virtual ~DungeonLevel();
 
     DungeonLevel(std::string name, int width, int height);
-    bool addRoom(Room* room);
-    Room* retrieveRoom(int id);
-    int width() const;
-    int height() const;
-    int numberOfRooms() const;
-    std::string name() const;
+    virtual bool addRoom(Room* room);
+    virtual Room* retrieveRoom(int id);
+    virtual int width() const;
+    virtual int height() const;
+    virtual int numberOfRooms() const;
+    virtual std::string name() const;
     virtual std::string description() = 0;
-    std::vector<std::string>* display();
+    virtual std::vector<std::string> display();
 protected:
     std::vector<Room*> _rooms;
+    std::string _name;
+    int _width;
+    int _height;
 };
 }
 
