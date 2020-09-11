@@ -30,13 +30,13 @@ class Room {
 
     // get/set room edges
     void setNorth(RoomEdge*);
-    const RoomEdge& getNorth() const;
+    const RoomEdge* getNorth() const;
     void setEast(RoomEdge*);
-    const RoomEdge& getEast() const;
+    const RoomEdge* getEast() const;
     void setSouth(RoomEdge*);
-    const RoomEdge& getSouth() const;
+    const RoomEdge* getSouth() const;
     void setWest(RoomEdge*);
-    const RoomEdge& getWest() const;
+    const RoomEdge* getWest() const;
 
 protected:
     const int _id;

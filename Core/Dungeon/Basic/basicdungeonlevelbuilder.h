@@ -18,7 +18,8 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
 
     // Room vector
     std::vector<Room*> rooms;
-
+  private:
+    DungeonLevel* level;
 };
 }
 

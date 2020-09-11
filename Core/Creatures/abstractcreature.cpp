@@ -14,7 +14,7 @@ AbstractCreature AbstractCreature::clone()
 
 std::string AbstractCreature::name()
 {
-    return _name;
+
 }
 
 char AbstractCreature::displayCharacter()

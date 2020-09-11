@@ -51,9 +51,9 @@ void Room::setNorth(RoomEdge* edge)
     _north = edge;
 }
 
-const RoomEdge &Room::getNorth() const
+const RoomEdge *Room::getNorth() const
 {
-    return *_north;
+    return _north;
 }
 
 void Room::setEast(RoomEdge* edge)
@@ -61,9 +61,9 @@ void Room::setEast(RoomEdge* edge)
     _east = edge;
 }
 
-const RoomEdge &Room::getEast() const
+const RoomEdge *Room::getEast() const
 {
-    return *_east;
+    return _east;
 }
 
 void Room::setSouth(RoomEdge* edge)
@@ -71,9 +71,9 @@ void Room::setSouth(RoomEdge* edge)
     _south = edge;
 }
 
-const RoomEdge &Room::getSouth() const
+const RoomEdge *Room::getSouth() const
 {
-    return *_south;
+    return _south;
 }
 
 void Room::setWest(RoomEdge* edge)
@@ -81,9 +81,9 @@ void Room::setWest(RoomEdge* edge)
     _west = edge;
 }
 
-const RoomEdge &Room::getWest() const
+const RoomEdge *Room::getWest() const
 {
-    return *_west;
+    return _west;
 }
 
 std::ostream& operator<<(std::ostream &out, const Room &room)

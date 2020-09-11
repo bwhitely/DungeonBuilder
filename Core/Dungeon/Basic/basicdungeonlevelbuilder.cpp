@@ -3,6 +3,7 @@
 #include <Core/Dungeon/Common/opendoorway.h>
 #include <Core/Creatures/abstractcreature.h>
 #include <Core/Creatures/monster.h>
+#include <Core/Dungeon/Basic/basicdungeonlevel.h>
 
 namespace core::dungeon::basic {
 
@@ -12,24 +13,25 @@ BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder()
 {
-
+    level = nullptr;
 }
 
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
-
-    _name = name;
-    _width = width;
-    _height = height;
+    level = new core::dungeon::basic::BasicDungeonLevel(name, width, height);
 }
 
 void BasicDungeonLevelBuilder::buildItem(Room* room) {
     core::items::Item* item = new core::items::Item("Cool Item");
     room->setItem(*item);
-
 }
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {
     core::dungeon::basic::RockChamber* r = new core::dungeon::basic::RockChamber(id);
+    r->setNorth(new core::dungeon::common::OpenDoorway(Direction::North, true, false));
+    r->setEast(new core::dungeon::common::OpenDoorway(Direction::East, false, false));
+    r->setSouth(new core::dungeon::common::OpenDoorway(Direction::South, false, false));
+    r->setWest(new core::dungeon::common::OpenDoorway(Direction::West, false, false));
+
     rooms.push_back(r);
     return r;
 }
@@ -40,7 +42,7 @@ void BasicDungeonLevelBuilder::buildCreature(Room* room) {
 }
 
 DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
-
+    return level;
 }
 
 void BasicDungeonLevelBuilder::buildExit(Room* room, Direction direction) {

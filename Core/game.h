@@ -13,19 +13,20 @@ class Game {
     // deleting defaults
     Game(const Game& other) = delete;
     Game& operator=(const Game&) = delete;
+    ~Game();
 
     // returns a pointer of the instance
     static Game* instance();
 
-    void setDungeonType(core::dungeon::DungeonLevelBuilder *type);
+    void setDungeonType(std::unique_ptr<core::dungeon::DungeonLevelBuilder> builder);
     void createExampleLevel();
     // pass by referencing these
     void createRandomLevel(std::string name, int width, int height);
     void displayLevel(std::ostream &display) const;
     double randomDouble();
-    dungeon::DungeonLevelBuilder* getBuilder();
+
   private:
-    dungeon::DungeonLevelBuilder builder;
+    std::unique_ptr<core::dungeon::DungeonLevelBuilder> theBuilder;
     // private constructor to prevent instancing
     Game();
     // static instance of Game

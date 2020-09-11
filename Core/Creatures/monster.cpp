@@ -13,3 +13,13 @@ Monster::~Monster() {
 AbstractCreature Monster::clone() {
 
 }
+
+std::string Monster::name()
+{
+    return _name;
+}
+
+char Monster::displayCharacter()
+{
+    return 'M';
+}

@@ -50,36 +50,35 @@ void Test::test()
     r->setWest(new core::dungeon::basic::RockWall(w));
 
     std::cout << r->description() << std::endl;
-    std::cout << r->getNorth() << std::endl;
-    std::cout << r->getEast() << std::endl;
-    std::cout << r->getSouth() << std::endl;
-    std::cout << r->getWest() << std::endl;
+    std::cout << *r->getNorth() << std::endl;
+    std::cout << *r->getEast() << std::endl;
+    std::cout << *r->getSouth() << std::endl;
+    std::cout << *r->getWest() << std::endl;
 
-    Monster* m = new Monster("Goblin");
-    std::cout << m->name() << std::endl;
     Monster goblin = Monster("goblin");
-    goblin.name();
+    std::cout << goblin.name() << std::endl;
 
     core::items::Weapon weap = core::items::Weapon("Iron Axe");
     std::cout << weap.name() << std::endl;
 
-    core::dungeon::basic::BasicDungeonLevel* level; // final product
     core::Game* game = game->instance(); // director
 
-    core::dungeon::basic::BasicDungeonLevelBuilder* basicb = new core::dungeon::basic::BasicDungeonLevelBuilder(); // concrete builder
+    // new concrete dungeon builder
+    std::unique_ptr<core::dungeon::basic::BasicDungeonLevelBuilder> bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
 
-    std::cout << "Dungeon" << std::endl;
+    // game setDungeonType(concreteBuilder)
+    game->setDungeonType(std::move(bd));
+    // game create...Level(...)
+    game->createRandomLevel("Test Name", 2, 2);
+    // concreteBuilder buildDungeonLevel(name, width, height)
+    bd->BuildDungeonLevel("Test Name", 2, 2);
+//    // concreteBuilder buildRoom()
+//    core::dungeon::Room* r1 = bd->buildRoom(1);
+//    bd->getDungeonLevel()->addRoom(r1);
 
-    game->setDungeonType(basicb); // director sets dungeon type
-    game->createRandomLevel("name", 5, 5); // director creates level
+    //core::dungeon::Doorway *dw = bd->buildDoorway(bd->getDungeonLevel()->retrieveRoom(1).)
 
-
-    game->getBuilder()->BuildDungeonLevel("name", 5, 5);
-    game->getBuilder()->buildRoom(1);
-    std::cout << "\n\n" << game->getBuilder()->getDungeonLevel()->numberOfRooms() << std::endl;
-    game->getBuilder()->buildItem(game->getBuilder()->getDungeonLevel()->retrieveRoom(1));
     //game->displayLevel(std::cout);
-    //game->getBuilder()->
 
 
 }

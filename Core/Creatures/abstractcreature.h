@@ -12,8 +12,8 @@ public:
     AbstractCreature() = delete;
     AbstractCreature(std::string name);
     virtual AbstractCreature clone();
-    std::string name();
-    char displayCharacter();
+    virtual std::string name();
+    virtual char displayCharacter();
 protected:
     std::string _name;
     char _char;
