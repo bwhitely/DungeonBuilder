@@ -39,7 +39,7 @@ int DungeonLevel::numberOfRooms() const
 
 std::string DungeonLevel::name() const
 {
-
+    return _name;
 }
 
 std::vector<std::string> DungeonLevel::display()

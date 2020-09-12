@@ -151,7 +151,7 @@ void MenuInterface::mainMenu() {
 
                 bd->buildCreature(bd->getDungeonLevel()->retrieveRoom(1));
 
-               _display << "TEST " + bd->getDungeonLevel()->retrieveRoom(1)->display().at(1) << std::endl;
+               _display << bd->getDungeonLevel()->retrieveRoom(1)->display().at(1) << std::endl;
 
                 _display << "Dungeon level created!\n" << std::endl;
 

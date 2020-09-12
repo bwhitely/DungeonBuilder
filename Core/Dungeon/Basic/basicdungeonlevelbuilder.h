@@ -1,6 +1,8 @@
 #ifndef BASICDUNGEONLEVELBUILDER_H
 #define BASICDUNGEONLEVELBUILDER_H
 #include <Core/Dungeon/dungeonlevelbuilder.h>
+#include <memory>
+#include <Core/Dungeon/Basic/basicdungeonlevel.h>
 
 namespace core::dungeon::basic {
 class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
@@ -19,7 +21,7 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
     // Room vector
     std::vector<Room*> rooms;
   private:
-    DungeonLevel* level;
+    BasicDungeonLevel* level;
 };
 }
 
