@@ -43,8 +43,7 @@ void Game::createRandomLevel(std::string name, int width, int height) {
 }
 
 void Game::displayLevel(std::ostream &display) const {
-
-
+    display << theBuilder->getDungeonLevel()->retrieveRoom(1)->description();
 }
 
 double Game::randomDouble() {

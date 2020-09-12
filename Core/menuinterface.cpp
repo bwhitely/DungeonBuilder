@@ -6,6 +6,7 @@
 #include <Core/game.h>
 #include <Core/Dungeon/Basic/basicdungeonlevelbuilder.h>
 #include <Core/Dungeon/Magical/magicaldungeonlevelbuilder.h>
+#include <Core/Dungeon/Basic/basicdungeonlevel.h>
 
 namespace core {
 
@@ -43,6 +44,9 @@ void MenuInterface::completeSets() {
 }
 
 void MenuInterface::mainMenu() {
+    core::Game* game = game->instance(); // director
+
+
     _display << "What would you like to do?\n"
              << "  (g)enerate the example level\n"
              << "  (r)andom dungeon level\n"
@@ -131,14 +135,31 @@ void MenuInterface::mainMenu() {
                 // Successful creation
                 _display << "\nCreating " + levelName + "..." << std::endl;
 
+                // new concrete dungeon builder
+                std::unique_ptr<core::dungeon::basic::BasicDungeonLevelBuilder> bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
+
+                // game setDungeonType(concreteBuilder)
+                game->setDungeonType(std::move(bd));
+                // game create...Level(...)
+                game->createRandomLevel("Test Name", 2, 2);
+                // concreteBuilder buildDungeonLevel(name, width, height)
+                bd->BuildDungeonLevel("Test Name", 2, 2);
+
+                bd->buildRoom(1);
+
+                bd->buildItem(bd->getDungeonLevel()->retrieveRoom(1));
+
+                bd->buildCreature(bd->getDungeonLevel()->retrieveRoom(1));
+
+               _display << "TEST " + bd->getDungeonLevel()->retrieveRoom(1)->display().at(1) << std::endl;
+
+                _display << "Dungeon level created!\n" << std::endl;
+
 
                 _display << "Dungeon level created!\n" << std::endl;
             } else if (dungType == 'm'){
                 // Successful creation
                 _display << "\nCreating " + levelName + "..." << std::endl;
-
-
-                _display << "Dungeon level created!\n" << std::endl;
 
             }
         }
@@ -168,6 +189,7 @@ void MenuInterface::mainMenu() {
 }
 
 void MenuInterface::describeMenu() {
+
     _display << "What would you like to do?\n"
              << "  (d)escribe the dungeon level\n"
              << "  (v)iew the dungeon level\n"
@@ -184,7 +206,6 @@ void MenuInterface::describeMenu() {
     } else if (in == 'd' && describeMenuOptions.count('d') == 1) {
 
     } else if (in == 'v' && describeMenuOptions.count('v') == 1) {
-
 
     } else if (in == 'r' && describeMenuOptions.count('r') == 1) {
         _display << "\nReturning to main menu.\n\n";
