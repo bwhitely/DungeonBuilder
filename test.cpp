@@ -23,16 +23,23 @@
 #include <Core/Dungeon/Basic/basicdungeonlevel.h>
 #include <memory>
 
-namespace core{
+using namespace std;
+using namespace core;
+using namespace core::dungeon;
+using namespace core::dungeon::basic;
+using namespace core::dungeon::magical;
+using namespace core::dungeon::common;
+using namespace core::items;
+using namespace core::creatures;
+
+namespace core {
 
 }
-Test::Test()
-{
+Test::Test() {
 
 }
 
-void Test::test()
-{
+void Test::test() {
     Direction n = Direction::North;
     Direction e = Direction::East;
     Direction s = Direction::South;
@@ -41,11 +48,11 @@ void Test::test()
     // new rock chamber with id = 1
     core::dungeon::basic::RockChamber* r = new core::dungeon::basic::RockChamber(1);
     // set rock chamber's north RoomEdge as an OpenDoorway
-    r->setNorth(new core::dungeon::common::OpenDoorway(n, false, false));
+    r->setNorth(new core::dungeon::common::OpenDoorway(n));
     // rock chamber's east to rock onewaydoor
-    r->setEast(new core::dungeon::common::OneWayDoor(e, false, false));
+    r->setEast(new core::dungeon::common::OneWayDoor(e));
     // south to opendoorway
-    r->setSouth(new core::dungeon::common::OpenDoorway(s, false, false));
+    r->setSouth(new core::dungeon::common::OpenDoorway(s));
     // west to rockwall
     r->setWest(new core::dungeon::basic::RockWall(w));
 
@@ -69,18 +76,8 @@ void Test::test()
     // game setDungeonType(concreteBuilder)
     game->setDungeonType(std::move(bd));
     // game create...Level(...)
-    game->createRandomLevel("Test Name", 2, 2);
-
-    bd->buildRoom(1);
-
-//    // concreteBuilder buildRoom()
-
-//    core::dungeon::Room* r1 = bd->buildRoom(1);
-//    bd->getDungeonLevel()->addRoom(r1);
-
-    //core::dungeon::Doorway *dw = bd->buildDoorway(bd->getDungeonLevel()->retrieveRoom(1).)
-
-    //game->displayLevel(std::cout);
+    //game->createRandomLevel("Test Name", 2, 2);
+    game->createExampleLevel();
 
 
 }

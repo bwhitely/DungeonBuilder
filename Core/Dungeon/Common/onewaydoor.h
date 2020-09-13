@@ -6,7 +6,7 @@ namespace core::dungeon::common {
 class OneWayDoor : public Doorway
 {
 public:
-    OneWayDoor(Direction direction, bool entrance, bool exit);
+    OneWayDoor(Direction direction);
     virtual ~OneWayDoor();
     void connect(Doorway* opposite);
     bool isEntrance();

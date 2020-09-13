@@ -18,7 +18,8 @@ class Doorway : public RoomEdge {
     bool isExit();
 protected:
     Direction _direction;
-
+    bool _entrance;
+    bool _exit;
 };
 }
 

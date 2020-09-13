@@ -131,7 +131,8 @@ void MenuInterface::mainMenu() {
             } else {
                 validLevelType = true;
             }
-            if (dungType == 'b'){
+
+            if (dungType == 'b') {
                 // Successful creation
                 _display << "\nCreating " + levelName + "..." << std::endl;
 
@@ -152,7 +153,7 @@ void MenuInterface::mainMenu() {
                 _display << "Dungeon level created!\n" << std::endl;
                 describeMenu();
 
-            } else if (dungType == 'm'){
+            } else if (dungType == 'm') {
                 // Successful creation
                 _display << "\nCreating " + levelName + "..." << std::endl;
 

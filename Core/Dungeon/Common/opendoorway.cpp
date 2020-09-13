@@ -2,9 +2,7 @@
 #include <iostream>
 namespace core::dungeon::common {
 
-OpenDoorway::OpenDoorway(Direction direction, bool entrance, bool exit): Doorway{direction} {
-    _entrance = entrance;
-    _exit = exit;
+OpenDoorway::OpenDoorway(Direction direction): Doorway{direction} {
 }
 
 OpenDoorway::~OpenDoorway() {

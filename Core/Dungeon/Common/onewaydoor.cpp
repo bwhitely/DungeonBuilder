@@ -3,9 +3,7 @@
 
 namespace core::dungeon::common{
 
-OneWayDoor::OneWayDoor(Direction direction, bool entrance, bool exit): Doorway{direction} {
-    _entrance = entrance;
-    _exit = exit;
+OneWayDoor::OneWayDoor(Direction direction): Doorway{direction} {
 }
 
 OneWayDoor::~OneWayDoor()

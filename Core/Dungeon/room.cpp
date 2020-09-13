@@ -19,7 +19,7 @@ Room::~Room(){
 std::vector<std::string> Room::display()
 {
 
-    std::string s = "+----I----+";
+
 }
 
 int Room::id() const

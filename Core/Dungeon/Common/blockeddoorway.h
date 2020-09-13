@@ -6,7 +6,7 @@ namespace core::dungeon::common {
 class BlockedDoorWay : public Doorway
 {
 public:
-    BlockedDoorWay(Direction direction, bool entrance, bool exit);
+    BlockedDoorWay(Direction direction);
     virtual ~BlockedDoorWay();
     void connect(Doorway* opposite);
     bool isEntrance();

@@ -3,9 +3,8 @@
 
 namespace core::dungeon::common{
 
-BlockedDoorWay::BlockedDoorWay(Direction direction, bool entrance, bool exit): Doorway{direction} {
-    _entrance = entrance;
-    _exit = exit;
+BlockedDoorWay::BlockedDoorWay(Direction direction): Doorway{direction} {
+
 }
 
 BlockedDoorWay::~BlockedDoorWay()

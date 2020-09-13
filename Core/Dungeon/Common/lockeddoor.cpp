@@ -3,9 +3,7 @@
 
 namespace core::dungeon::common{
 
-LockedDoor::LockedDoor(Direction direction, bool entrance, bool exit): Doorway{direction} {
-    _entrance = entrance;
-    _exit = exit;
+LockedDoor::LockedDoor(Direction direction): Doorway{direction} {
 }
 
 LockedDoor::~LockedDoor()
