@@ -14,7 +14,7 @@ Game::Game() {
 Game::~Game()
 {
     // reset theBuilder unique ptr
-    theBuilder.reset();
+    theBuilder = nullptr;
     theInstance = nullptr;
 }
 
@@ -28,11 +28,8 @@ Game* Game::instance() {
 
 void Game::setDungeonType(std::unique_ptr<dungeon::DungeonLevelBuilder> builder)
 {
-    // move pointer
     theBuilder = std::move(builder);
 }
-
-
 
 void Game::createExampleLevel() {
 

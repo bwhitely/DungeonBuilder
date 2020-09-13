@@ -61,17 +61,17 @@ void Test::test()
     core::items::Weapon weap = core::items::Weapon("Iron Axe");
     std::cout << weap.name() << std::endl;
 
-//    core::Game* game = game->instance(); // director
+    core::Game* game = game->instance(); // director
 
-//    // new concrete dungeon builder
-//    std::unique_ptr<core::dungeon::basic::BasicDungeonLevelBuilder> bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
+    // new concrete dungeon builder
+    std::unique_ptr<core::dungeon::basic::BasicDungeonLevelBuilder> bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
 
-//    // game setDungeonType(concreteBuilder)
-//    game->setDungeonType(std::move(bd));
-//    // game create...Level(...)
-//    game->createRandomLevel("Test Name", 2, 2);
-//    // concreteBuilder buildDungeonLevel(name, width, height)
-//    bd->BuildDungeonLevel("Test Name", 2, 2);
+    // game setDungeonType(concreteBuilder)
+    game->setDungeonType(std::move(bd));
+    // game create...Level(...)
+    game->createRandomLevel("Test Name", 2, 2);
+
+    bd->buildRoom(1);
 
 //    // concreteBuilder buildRoom()
 

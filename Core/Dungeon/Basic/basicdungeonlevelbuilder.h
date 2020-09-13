@@ -18,8 +18,6 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
     void buildEntrance(Room* room, Direction direction) override;
     void buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) override;
 
-    // Room vector
-    std::vector<Room*> rooms;
   private:
     BasicDungeonLevel* level;
 };

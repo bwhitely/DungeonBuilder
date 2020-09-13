@@ -18,7 +18,7 @@ MenuInterface::MenuInterface(std::ostream& display, std::istream& input) : _disp
 void MenuInterface::displayWelcome(const std::string& author, const std::string& title) const {
     _display << "Welcome to: " + title << std::endl
              << "Developed by " + author << std::endl
-             << "C++\n" << std::endl;
+             << "COMP 3023 Software Development with C++\n" << std::endl;
 }
 
 void MenuInterface::run() {
@@ -136,27 +136,22 @@ void MenuInterface::mainMenu() {
                 _display << "\nCreating " + levelName + "..." << std::endl;
 
                 // new concrete dungeon builder
+                //core::dungeon::basic::BasicDungeonLevelBuilder* bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
                 std::unique_ptr<core::dungeon::basic::BasicDungeonLevelBuilder> bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
 
                 // game setDungeonType(concreteBuilder)
-                game->setDungeonType(std::move(bd));
+                game->setDungeonType(move(bd));
+
+                std::cout << "please work" << std::endl;
                 // game create...Level(...)
                 game->createRandomLevel("Test Name", 2, 2);
-                // concreteBuilder buildDungeonLevel(name, width, height)
-                bd->BuildDungeonLevel("Test Name", 2, 2);
+                std::cout << "please work" << std::endl;
 
                 bd->buildRoom(1);
 
-                bd->buildItem(bd->getDungeonLevel()->retrieveRoom(1));
-
-                bd->buildCreature(bd->getDungeonLevel()->retrieveRoom(1));
-
-               _display << bd->getDungeonLevel()->retrieveRoom(1)->display().at(1) << std::endl;
-
                 _display << "Dungeon level created!\n" << std::endl;
+                describeMenu();
 
-
-                _display << "Dungeon level created!\n" << std::endl;
             } else if (dungType == 'm'){
                 // Successful creation
                 _display << "\nCreating " + levelName + "..." << std::endl;

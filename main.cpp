@@ -8,12 +8,13 @@ using namespace std;
 
 int main() {
     core::MenuInterface m = core::MenuInterface(cout, cin);
-    m.displayWelcome("Redacted", "Assignment 1: Dungeon Builder");
+    m.displayWelcome("Ben Whitely", "Assignment 1: Dungeon Builder");
 
     Test t;
     t.test();
     // run main menu loop
-    m.run();
+//    m.run();
+
 
     return 0;
 }

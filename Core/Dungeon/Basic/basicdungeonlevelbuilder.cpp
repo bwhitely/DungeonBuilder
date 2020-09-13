@@ -4,6 +4,7 @@
 #include <Core/Creatures/abstractcreature.h>
 #include <Core/Creatures/monster.h>
 #include <Core/Dungeon/Basic/basicdungeonlevel.h>
+#include <iostream>
 
 namespace core::dungeon::basic {
 
@@ -26,13 +27,20 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
 }
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {
+    std::cout << "1" << std::endl;
     core::dungeon::basic::RockChamber* r = new core::dungeon::basic::RockChamber(id);
+    std::cout << "2" << std::endl;
     r->setNorth(new core::dungeon::common::OpenDoorway(Direction::North, true, false));
+    std::cout << "3" << std::endl;
     r->setEast(new core::dungeon::common::OpenDoorway(Direction::East, false, false));
+    std::cout << "4" << std::endl;
     r->setSouth(new core::dungeon::common::OpenDoorway(Direction::South, false, false));
+    std::cout << "5" << std::endl;
     r->setWest(new core::dungeon::common::OpenDoorway(Direction::West, false, false));
+    std::cout << "6" << std::endl;
 
-    rooms.push_back(r);
+    level->addRoom(r);
+    std::cout << "7" << std::endl;
     return r;
 }
 
