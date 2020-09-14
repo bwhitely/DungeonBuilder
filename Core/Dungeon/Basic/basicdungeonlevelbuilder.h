@@ -17,11 +17,7 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
     void buildExit(Room* room, Direction direction) override;
     void buildEntrance(Room* room, Direction direction) override;
     void buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) override;
-
-    int randomInt();
-    int randomIntTwo();
-    int randomIntThree();
-
+    int getRandomNumber(int min, int max);
   private:
     BasicDungeonLevel* level;
 };

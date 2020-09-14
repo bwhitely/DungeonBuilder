@@ -17,7 +17,6 @@ Room::~Room() {
 
 std::vector<std::string> Room::display() {
 
-
 }
 
 int Room::id() const {

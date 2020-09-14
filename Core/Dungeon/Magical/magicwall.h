@@ -16,6 +16,7 @@ public:
     char displayCharacter() const override;
     std::string description() const override;
     void printDirection();
+
 };
 }
 

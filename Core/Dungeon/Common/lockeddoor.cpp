@@ -28,12 +28,12 @@ bool LockedDoor::isExit()
 
 bool LockedDoor::isPassage() const
 {
-
+    return false;
 }
 
 char LockedDoor::displayCharacter() const
 {
-
+    return '@';
 }
 
 std::string LockedDoor::description() const

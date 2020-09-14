@@ -26,12 +26,5 @@ void Doorway::connect(Doorway* opposite) {
 
 }
 
-bool Doorway::isEntrance() {
-
-}
-
-bool Doorway::isExit() {
-
-}
 
 }

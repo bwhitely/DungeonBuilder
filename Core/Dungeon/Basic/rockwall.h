@@ -16,7 +16,9 @@ public:
     bool isPassage() const override;
     char displayCharacter() const override;
     std::string description() const override;
+
     void printDirection();
+
 };
 }
 

@@ -38,6 +38,9 @@ class Room {
     void setWest(RoomEdge*);
     const RoomEdge* getWest() const;
 
+    void setEntrance() const;
+    void setExit() const;
+
 protected:
     const int _id;
     core::items::Item* _item;

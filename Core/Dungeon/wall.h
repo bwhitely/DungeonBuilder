@@ -13,6 +13,7 @@ class Wall : public RoomEdge {
     virtual bool isPassage() const override = 0;
     virtual char displayCharacter() const override = 0;
     virtual std::string description() const override = 0;
+
 };
 }
 

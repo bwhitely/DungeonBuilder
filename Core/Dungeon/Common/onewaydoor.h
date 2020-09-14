@@ -6,7 +6,7 @@ namespace core::dungeon::common {
 class OneWayDoor : public Doorway
 {
 public:
-    OneWayDoor(Direction direction);
+    OneWayDoor(Direction direction, bool entrance, bool exit);
     virtual ~OneWayDoor();
     void connect(Doorway* opposite);
     bool isEntrance();
@@ -14,6 +14,7 @@ public:
     bool isPassage() const override;
     char displayCharacter() const override;
     std::string description() const override;
+
 protected:
     Direction _direction;
     Doorway* _opposite;

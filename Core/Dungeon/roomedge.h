@@ -14,11 +14,12 @@ class RoomEdge {
     RoomEdge(Direction _direction);
     RoomEdge(const RoomEdge& other) = delete;
 
-    friend std::ostream &operator<<(std::ostream& out, const RoomEdge& roomEdge);  //operator overload (<<) //operator overload (<<)
+    friend std::ostream &operator<<(std::ostream& out, const RoomEdge& roomEdge);  //operator overload (<<)
 
     virtual std::string description() const = 0;
     virtual char displayCharacter() const = 0;
     virtual bool isPassage() const = 0;
+
     const Direction& direction();
 
   protected:

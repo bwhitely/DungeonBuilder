@@ -14,8 +14,6 @@ class Doorway : public RoomEdge {
     virtual std::string description() const override;
 
     void connect(Doorway* opposite);
-    bool isEntrance();
-    bool isExit();
 protected:
     Direction _direction;
     bool _entrance;

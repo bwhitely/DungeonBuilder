@@ -29,12 +29,12 @@ bool BlockedDoorWay::isExit()
 
 bool BlockedDoorWay::isPassage() const
 {
-
+    return false;
 }
 
 char BlockedDoorWay::displayCharacter() const
 {
-
+    return 'X';
 }
 
 std::string BlockedDoorWay::description() const

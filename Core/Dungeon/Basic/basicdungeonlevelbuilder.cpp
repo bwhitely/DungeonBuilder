@@ -16,7 +16,7 @@
 namespace core::dungeon::basic {
 
 BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
-
+    srand(time(NULL));
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
@@ -28,8 +28,7 @@ void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, in
 }
 
 void BasicDungeonLevelBuilder::buildItem(Room* room) {
-    int r = randomIntThree();
-    std::cout << "build item " << r << std::endl;
+    int r = getRandomNumber(1, 6);
 
     if (r == 1) {
         items::Item* i = new items::Item("Health Potion");
@@ -53,8 +52,7 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
 }
 
 void BasicDungeonLevelBuilder::buildCreature(Room* room) {
-    int r = randomIntTwo();
-    std::cout << "build c " << r << std::endl;
+    int r = getRandomNumber(1, 3);
 
     if (r == 1) {
         Monster* m = new Monster("Goblin");
@@ -70,6 +68,7 @@ void BasicDungeonLevelBuilder::buildCreature(Room* room) {
 }
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {
+    int x = getRandomNumber(1,2);
     Room* r = nullptr;
 
     // level is null
@@ -77,7 +76,7 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
         return nullptr;
         // level not null
     } else {
-        if (randomInt() == 1) {
+        if (x == 1) {
             r = new core::dungeon::basic::RockChamber(id);
             r->setNorth(new RockWall(North));
             r->setEast(new RockWall(East));
@@ -85,17 +84,14 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
             r->setWest(new RockWall(West));
             level->addRoom(r);
 
-        } else if (randomInt() == 2) {
+        } else if (x == 2) {
             r = new core::dungeon::basic::QuartzChamber(id);
             r->setNorth(new RockWall(North));
             r->setEast(new RockWall(East));
             r->setSouth(new RockWall(South));
             r->setWest(new RockWall(West));
             level->addRoom(r);
-
         }
-
-        std::cout << "built room" << std::endl;
 
         return r;
     }
@@ -108,25 +104,25 @@ DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
 
 void BasicDungeonLevelBuilder::buildExit(Room* room, Direction direction) {
     if (direction == North) {
-        room->setNorth(new core::dungeon::common::OneWayDoor(North));
+        room->setNorth(new core::dungeon::common::OneWayDoor(North, false, true));
     } else if (direction == East) {
-        room->setEast(new core::dungeon::common::OneWayDoor(East));
+        room->setEast(new core::dungeon::common::OneWayDoor(East, false, true));
     } else if (direction == South) {
-        room->setSouth(new core::dungeon::common::OneWayDoor(South));
+        room->setSouth(new core::dungeon::common::OneWayDoor(South, false, true));
     } else if (direction == West) {
-        room->setWest(new core::dungeon::common::OneWayDoor(West));
+        room->setWest(new core::dungeon::common::OneWayDoor(West, false, true));
     }
 }
 
 void BasicDungeonLevelBuilder::buildEntrance(Room* room, Direction direction) {
     if (direction == North) {
-        room->setNorth(new core::dungeon::common::OneWayDoor(direction));
+        room->setNorth(new core::dungeon::common::OneWayDoor(North, true, false));
     } else if (direction == East) {
-        room->setEast(new core::dungeon::common::OneWayDoor(direction));
+        room->setEast(new core::dungeon::common::OneWayDoor(East, true, false));
     } else if (direction == South) {
-        room->setSouth(new core::dungeon::common::OneWayDoor(direction));
+        room->setSouth(new core::dungeon::common::OneWayDoor(South, true, false));
     } else if (direction == West) {
-        room->setWest(new core::dungeon::common::OneWayDoor(direction));
+        room->setWest(new core::dungeon::common::OneWayDoor(West, true, false));
     }
 }
 
@@ -153,17 +149,17 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
     // OneWayDoor @ Origin, OpenDoorway @ Destination
     else if (constraints == 1) {
         if (direction == Direction::North) {
-            origin->setNorth(new core::dungeon::common::OneWayDoor(direction));
+            origin->setNorth(new core::dungeon::common::OneWayDoor(direction, false, false));
             destination->setSouth(new core::dungeon::common::OpenDoorway(Direction::South));
         } else if (direction == Direction::East) {
-            origin->setEast(new core::dungeon::common::OneWayDoor(direction));
+            origin->setEast(new core::dungeon::common::OneWayDoor(direction, false, false));
             destination->setWest(new core::dungeon::common::OpenDoorway(Direction::West));
         } else if (direction == Direction::South) {
-            origin->setSouth(new core::dungeon::common::OneWayDoor(direction));
+            origin->setSouth(new core::dungeon::common::OneWayDoor(direction, false, false));
             origin->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
 
         } else if (direction == Direction::West) {
-            origin->setWest(new core::dungeon::common::OneWayDoor(direction));
+            origin->setWest(new core::dungeon::common::OneWayDoor(direction, false, false));
             origin->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
         }
 
@@ -171,17 +167,17 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
     } else if (constraints == 2) {
         if (direction == Direction::North) {
             origin->setNorth(new core::dungeon::common::OpenDoorway(direction));
-            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South));
+            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South, false, false));
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::OpenDoorway(direction));
-            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West));
+            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West, false, false));
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::OpenDoorway(direction));
-            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North));
+            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
 
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::OpenDoorway(direction));
-            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East));
+            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
         }
 
         // BlockDoorway @ Origin & Destination
@@ -224,16 +220,16 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
     } else if (constraints == 6) {
         if (direction == Direction::North) {
             origin->setNorth(new core::dungeon::common::LockedDoor(direction));
-            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South));
+            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South, false, false));
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::LockedDoor(direction));
-            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West));
+            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West, false, false));
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::LockedDoor(direction));
-            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North));
+            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::LockedDoor(direction));
-            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East));
+            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
         }
 
         // OpenDoorway @ Origin, LockedDoor @ Destination
@@ -256,16 +252,16 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
     } else if (constraints == 9) {
         if (direction == Direction::North) {
             origin->setNorth(new core::dungeon::common::LockedDoor(direction));
-            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South));
+            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South, false, false));
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::LockedDoor(direction));
-            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West));
+            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West, false, false));
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::LockedDoor(direction));
-            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North));
+            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::LockedDoor(direction));
-            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East));
+            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
         }
 
         // do nothing, is exit
@@ -289,20 +285,14 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
     }
 }
 
-int BasicDungeonLevelBuilder::randomInt() {
-    // random int between 1 and 2
-    srand(time(0));
-    return rand() % 2;
-}
-
-int BasicDungeonLevelBuilder::randomIntTwo() {
-    // random int between 1 and 3
-    return rand() % 4 + 1;
-}
-
-int BasicDungeonLevelBuilder::randomIntThree() {
-    // random int between 1 and 6
-    return rand() % 6 + 1;
+int BasicDungeonLevelBuilder::getRandomNumber(int min, int max)
+{
+    // I've tried like 5 different methods of getting random integers and they're all
+    // seeded and end up giving the same results every single time the program runs. This was the best I could come up with,
+    // It's mostly random but each program start one or two digits generally stay the same.
+    static constexpr double fraction { 1.0 / (RAND_MAX + 1.0) };  // static used for efficiency, so we only calculate this value once
+    // evenly distribute the random number across our range
+    return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
 }
 
 }

@@ -2,9 +2,8 @@
 
 using namespace core::creatures;
 
-AbstractCreature::AbstractCreature(std::string name)
+AbstractCreature::AbstractCreature(std::string name) : _name{name}, isBoss{false}
 {
-    _name = name;
 }
 
 AbstractCreature::~AbstractCreature()
