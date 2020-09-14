@@ -70,7 +70,7 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
 }
 
 DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
-    // transfer of ownership
+    // needs transfer of ownership
     return level;
 }
 

@@ -13,8 +13,6 @@ public:
     Monster(std::string name);
     virtual ~Monster();
     AbstractCreature clone() override;
-    std::string name() override;
-    char displayCharacter() override;
 
 };
 

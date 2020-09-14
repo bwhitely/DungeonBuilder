@@ -27,17 +27,17 @@ int Room::id() const
 
 }
 
-items::Item &Room::item()
+items::Item Room::item()
 {
-
+    return _item;
 }
 
 void Room::setItem(items::Item newItem)
 {
-
+    _item = newItem;
 }
 
-AbstractCreature &Room::creature()
+AbstractCreature Room::creature()
 {
     return _creature;
 }

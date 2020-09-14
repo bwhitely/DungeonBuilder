@@ -11,20 +11,8 @@ Monster::~Monster() {
 }
 
 AbstractCreature Monster::clone() {
-
+    //return new Monster(*this);
 }
 
-std::string Monster::name()
-{
-    return _name;
-}
-
-char Monster::displayCharacter()
-{
-    if (isBoss){
-        return 'M' + '*';
-    }
-    return 'M';
-}
 
 

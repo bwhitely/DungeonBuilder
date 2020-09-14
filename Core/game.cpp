@@ -12,7 +12,7 @@ Game::Game() {
 }
 
 Game::~Game() {
-    // reset theBuilder unique ptr
+    // reset theBuilder ptr
     theBuilder = nullptr;
     theInstance = nullptr;
     std::cout << "Destroyed Game" << std::endl;
@@ -30,10 +30,6 @@ Game* Game::instance() {
 void Game::setDungeonType(std::unique_ptr<dungeon::DungeonLevelBuilder> builder) {
     theBuilder = std::move(builder);
 
-    if (theBuilder) {
-        std::cout << "finished setting dungeon level" << std::endl;
-    }
-
 }
 
 void Game::createExampleLevel() {
@@ -45,24 +41,15 @@ void Game::createExampleLevel() {
     }
 
     // Build rooms
-    core::dungeon::Room* r1 = theBuilder->buildRoom(1);
-    rooms.push_back(r1);
-    core::dungeon::Room* r2 = theBuilder->buildRoom(2);
-    rooms.push_back(r2);
-    core::dungeon::Room* r3 = theBuilder->buildRoom(3);
-    rooms.push_back(r3);
-    core::dungeon::Room* r4 = theBuilder->buildRoom(4);
-    rooms.push_back(r4);
-    core::dungeon::Room* r5 = theBuilder->buildRoom(5);
-    rooms.push_back(r5);
-    core::dungeon::Room* r6 = theBuilder->buildRoom(6);
-    rooms.push_back(r6);
-    core::dungeon::Room* r7 = theBuilder->buildRoom(7);
-    rooms.push_back(r7);
-    core::dungeon::Room* r8 = theBuilder->buildRoom(8);
-    rooms.push_back(r8);
-    core::dungeon::Room* r9 = theBuilder->buildRoom(9);
-    rooms.push_back(r9);
+    rooms.push_back(theBuilder->buildRoom(1));
+    rooms.push_back(theBuilder->buildRoom(2));
+    rooms.push_back(theBuilder->buildRoom(3));
+    rooms.push_back(theBuilder->buildRoom(4));
+    rooms.push_back(theBuilder->buildRoom(5));
+    rooms.push_back(theBuilder->buildRoom(6));
+    rooms.push_back(theBuilder->buildRoom(7));
+    rooms.push_back(theBuilder->buildRoom(8));
+    rooms.push_back(theBuilder->buildRoom(9));
 
     // first row
     theBuilder->buildDoorway(rooms.at(0), rooms.at(1), East, None);
@@ -79,20 +66,26 @@ void Game::createExampleLevel() {
     theBuilder->buildDoorway(rooms.at(6), rooms.at(7), East, DestinationLocked|OriginLocked);
     theBuilder->buildDoorway(rooms.at(7), rooms.at(8), East, None);
 
+    // entrance
     theBuilder->buildEntrance(rooms.at(0), North);
-
+    // exit
     theBuilder->buildExit(rooms.at(8), East);
 
+    // items
     theBuilder->buildItem(rooms.at(2));
     theBuilder->buildItem(rooms.at(4));
     theBuilder->buildItem(rooms.at(6));
 
+    // creatures
     theBuilder->buildCreature(rooms.at(2));
     theBuilder->buildCreature(rooms.at(4));
     theBuilder->buildCreature(rooms.at(8));
     rooms.at(8)->creature().setBoss();
 
-    theBuilder->getDungeonLevel();
+    std::cout << "Successful" << std::endl;
+
+    // get dungeon level
+//    theBuilder->getDungeonLevel();
 
 }
 

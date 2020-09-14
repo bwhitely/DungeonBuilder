@@ -11,11 +11,12 @@ class AbstractCreature
 public:
     AbstractCreature() = delete;
     AbstractCreature(std::string name);
+
+    //virtual ~AbstractCreature();
     virtual AbstractCreature clone();
     virtual std::string name();
     virtual char displayCharacter();
     void setBoss();
-
 protected:
     bool isBoss;
     std::string _name;
