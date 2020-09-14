@@ -81,9 +81,9 @@ void Game::createExampleLevel() {
     theBuilder->buildCreature(rooms.at(2));
     theBuilder->buildCreature(rooms.at(4));
     theBuilder->buildCreature(rooms.at(8));
-    rooms.at(8)->creature().setBoss();
+    rooms.at(8)->creature()->setBoss();
 
-    std::cout << rooms.at(8)->creature().name();
+    std::cout << rooms.at(8)->creature()->name() << std::endl;
     std::cout << "Successful" << std::endl;
 
     // get dungeon level

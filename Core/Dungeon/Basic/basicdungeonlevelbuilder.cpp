@@ -33,22 +33,22 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
 
     if (r == 1) {
         items::Item* i = new items::Item("Health Potion");
-        room->setItem(*i);
+        room->setItem(i);
     } else if (r == 2) {
         items::Item* i = new items::Item("Molotov Cocktail");
-        room->setItem(*i);
+        room->setItem(i);
     } else if (r == 3) {
         items::Item* i = new items::Item("Smoke Bomb");
-        room->setItem(*i);
+        room->setItem(i);
     } else if (r == 4) {
         items::Item* i = new items::Item("Boomerang");
-        room->setItem(*i);
+        room->setItem(i);
     } else if (r == 5) {
         items::Item* i = new items::Item("Short Sword");
-        room->setItem(*i);
+        room->setItem(i);
     } else if (r == 6) {
         items::Item* i = new items::Item("Battle Axe");
-        room->setItem(*i);
+        room->setItem(i);
     }
 }
 
@@ -58,13 +58,13 @@ void BasicDungeonLevelBuilder::buildCreature(Room* room) {
 
     if (r == 1) {
         Monster* m = new Monster("Goblin");
-        room->setCreature(*m);
+        room->setCreature(m);
     } else if (r == 2) {
         Monster* m = new Monster("Werewolf");
-        room->setCreature(*m);
+        room->setCreature(m);
     } else if (r == 3) {
         Monster* m = new Monster("Evil Wizard");
-        room->setCreature(*m);
+        room->setCreature(m);
     }
 
 }

@@ -3,7 +3,7 @@
 
 namespace core::dungeon {
 
-Room::Room(const int id): _id{id}, _item{"No Name Item"}, _creature{"No Name Creature"}, _north{nullptr}, _east{nullptr}, _south{nullptr}, _west{nullptr}
+Room::Room(const int id): _id{id}, _north{nullptr}, _east{nullptr}, _south{nullptr}, _west{nullptr}
 {
 
 }
@@ -27,22 +27,22 @@ int Room::id() const
 
 }
 
-items::Item Room::item()
+items::Item* Room::item()
 {
     return _item;
 }
 
-void Room::setItem(items::Item newItem)
+void Room::setItem(items::Item* newItem)
 {
     _item = newItem;
 }
 
-AbstractCreature Room::creature()
+AbstractCreature* Room::creature()
 {
     return _creature;
 }
 
-void Room::setCreature(AbstractCreature &newCreature)
+void Room::setCreature(AbstractCreature* newCreature)
 {
     _creature = newCreature;
 }

@@ -23,10 +23,10 @@ class Room {
     virtual std::string description() const = 0;
     std::vector<std::string> display();
     int id() const;
-    core::items::Item item();
-    void setItem(core::items::Item newItem);
-    AbstractCreature creature();
-    void setCreature(AbstractCreature& newCreature);
+    core::items::Item* item();
+    void setItem(core::items::Item* newItem);
+    AbstractCreature* creature();
+    void setCreature(AbstractCreature* newCreature);
 
     // get/set room edges
     void setNorth(RoomEdge*);
@@ -40,8 +40,8 @@ class Room {
 
 protected:
     const int _id;
-    core::items::Item _item;
-    AbstractCreature _creature;
+    core::items::Item* _item;
+    AbstractCreature* _creature;
     RoomEdge* _north;
     RoomEdge* _east;
     RoomEdge* _south;
