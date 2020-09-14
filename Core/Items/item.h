@@ -11,6 +11,7 @@ public:
     virtual ~Item();
 
     virtual Item clone();
+
     std::string name();
     char displayCharacter();
     void setChar(char c);

@@ -27,7 +27,7 @@ int Room::id() const
 
 }
 
-items::Item &Room::item() const
+items::Item &Room::item()
 {
 
 }
@@ -37,9 +37,9 @@ void Room::setItem(items::Item newItem)
 
 }
 
-AbstractCreature &Room::creature() const
+AbstractCreature &Room::creature()
 {
-
+    return _creature;
 }
 
 void Room::setCreature(AbstractCreature &newCreature)

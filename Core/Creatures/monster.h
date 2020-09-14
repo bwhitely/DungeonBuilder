@@ -15,6 +15,7 @@ public:
     AbstractCreature clone() override;
     std::string name() override;
     char displayCharacter() override;
+
 };
 
 #endif // MONSTER_H

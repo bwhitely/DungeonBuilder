@@ -21,5 +21,10 @@ std::string Monster::name()
 
 char Monster::displayCharacter()
 {
+    if (isBoss){
+        return 'M' + '*';
+    }
     return 'M';
 }
+
+

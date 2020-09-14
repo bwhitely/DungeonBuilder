@@ -14,7 +14,10 @@ public:
     virtual AbstractCreature clone();
     virtual std::string name();
     virtual char displayCharacter();
+    void setBoss();
+
 protected:
+    bool isBoss;
     std::string _name;
     char _char;
 };

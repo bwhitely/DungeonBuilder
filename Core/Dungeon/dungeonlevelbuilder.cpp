@@ -16,7 +16,7 @@ void DungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int hei
 }
 
 Room* DungeonLevelBuilder::buildRoom(int id) {
-    std::cout << "please dont" << std::endl;
+
 }
 
 void DungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) {

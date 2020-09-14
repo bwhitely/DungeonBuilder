@@ -19,7 +19,7 @@ bool DungeonLevel::addRoom(Room *room)
 
 Room *DungeonLevel::retrieveRoom(int id)
 {
-    return _rooms.at(1);
+    return _rooms.at(id);
 }
 
 int DungeonLevel::width() const
@@ -44,7 +44,7 @@ std::string DungeonLevel::name() const
 
 std::vector<std::string> DungeonLevel::display()
 {
-    Room* r = _rooms.at(1);
+    Room* r = _rooms.at(0);
     r->display();
 }
 

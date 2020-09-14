@@ -19,5 +19,13 @@ std::string AbstractCreature::name()
 
 char AbstractCreature::displayCharacter()
 {
+    if (isBoss){
+        return 'M' + '*';
+    }
+    return 'M';
+}
 
+void AbstractCreature::setBoss()
+{
+    isBoss = true;
 }

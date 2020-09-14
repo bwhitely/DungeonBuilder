@@ -10,6 +10,8 @@
 #include <time.h>
 #include <Core/Dungeon/Basic/quartzchamber.h>
 #include <Core/Dungeon/Common/onewaydoor.h>
+#include <Core/Dungeon/Common/blockeddoorway.h>
+#include <Core/Dungeon/Common/lockeddoor.h>
 
 namespace core::dungeon::basic {
 
@@ -22,12 +24,17 @@ BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
 }
 
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
-    level = new core::dungeon::basic::BasicDungeonLevel(name, width, height);
+    level = new BasicDungeonLevel(name, width, height);
 }
 
 void BasicDungeonLevelBuilder::buildItem(Room* room) {
     core::items::Item* item = new core::items::Item("Cool Item");
     room->setItem(*item);
+}
+
+void BasicDungeonLevelBuilder::buildCreature(Room* room) {
+    Monster* m = new Monster("Monster Name");
+    room->setCreature(*m);
 }
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {
@@ -40,18 +47,18 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
     } else {
         if (randomInt() == 1) {
             r = new core::dungeon::basic::RockChamber(id);
-            r->setNorth(new RockWall(Direction::North));
-            r->setEast(new RockWall(Direction::East));
-            r->setSouth(new RockWall(Direction::South));
-            r->setWest(new RockWall(Direction::West));
+            r->setNorth(new RockWall(North));
+            r->setEast(new RockWall(East));
+            r->setSouth(new RockWall(South));
+            r->setWest(new RockWall(West));
             level->addRoom(r);
 
         } else if (randomInt() == 2) {
             r = new core::dungeon::basic::QuartzChamber(id);
-            r->setNorth(new RockWall(Direction::North));
-            r->setEast(new RockWall(Direction::East));
-            r->setSouth(new RockWall(Direction::South));
-            r->setWest(new RockWall(Direction::West));
+            r->setNorth(new RockWall(North));
+            r->setEast(new RockWall(East));
+            r->setSouth(new RockWall(South));
+            r->setWest(new RockWall(West));
             level->addRoom(r);
 
         }
@@ -62,56 +69,191 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
     }
 }
 
-void BasicDungeonLevelBuilder::buildCreature(Room* room) {
-    Monster* m = new Monster("Monster Name");
-    room->setCreature(*m);
-}
-
 DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
+    // transfer of ownership
     return level;
 }
 
 void BasicDungeonLevelBuilder::buildExit(Room* room, Direction direction) {
-    if (direction == Direction::North) {
-        room->setNorth(new core::dungeon::common::OneWayDoor(Direction::North));
-    } else if (direction == Direction::East) {
-        room->setEast(new core::dungeon::common::OneWayDoor(Direction::East));
-    } else if (direction == Direction::South) {
-        room->setSouth(new core::dungeon::common::OneWayDoor(Direction::South));
-    } else if (direction == Direction::West) {
-        room->setWest(new core::dungeon::common::OneWayDoor(Direction::West));
+    if (direction == North) {
+        room->setNorth(new core::dungeon::common::OneWayDoor(North));
+    } else if (direction == East) {
+        room->setEast(new core::dungeon::common::OneWayDoor(East));
+    } else if (direction == South) {
+        room->setSouth(new core::dungeon::common::OneWayDoor(South));
+    } else if (direction == West) {
+        room->setWest(new core::dungeon::common::OneWayDoor(West));
     }
 }
 
 void BasicDungeonLevelBuilder::buildEntrance(Room* room, Direction direction) {
-    if (direction == Direction::North) {
+    if (direction == North) {
         room->setNorth(new core::dungeon::common::OneWayDoor(direction));
-    } else if (direction == Direction::East) {
+    } else if (direction == East) {
         room->setEast(new core::dungeon::common::OneWayDoor(direction));
-    } else if (direction == Direction::South) {
+    } else if (direction == South) {
         room->setSouth(new core::dungeon::common::OneWayDoor(direction));
-    } else if (direction == Direction::West) {
+    } else if (direction == West) {
         room->setWest(new core::dungeon::common::OneWayDoor(direction));
     }
 }
 
 void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) {
-    if (direction == Direction::North) {
-        origin->setNorth(new core::dungeon::common::OpenDoorway(direction));
-        destination->setSouth(new core::dungeon::common::OpenDoorway(direction));
+    /** This code block is preeeety ugly sorry,
+     * might change the setN/E/S/W functions to a more modular function later if I get time*/
 
-    } else if (direction == Direction::East) {
-        origin->setEast(new core::dungeon::common::OpenDoorway(direction));
-        destination->setWest(new core::dungeon::common::OpenDoorway(direction));
+    // OpenDoorway @ Origin & Destination
+    if (constraints == 0) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::OpenDoorway(direction));
+            destination->setSouth(new core::dungeon::common::OpenDoorway(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::OpenDoorway(direction));
+            destination->setWest(new core::dungeon::common::OpenDoorway(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::OpenDoorway(direction));
+            origin->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::OpenDoorway(direction));
+            origin->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
+        }
+    }
+    // OneWayDoor @ Origin, OpenDoorway @ Destination
+    else if (constraints == 1) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::OneWayDoor(direction));
+            destination->setSouth(new core::dungeon::common::OpenDoorway(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::OneWayDoor(direction));
+            destination->setWest(new core::dungeon::common::OpenDoorway(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::OneWayDoor(direction));
+            origin->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
 
-    } else if (direction == Direction::South) {
-        origin->setSouth(new core::dungeon::common::OpenDoorway(direction));
-        origin->setNorth(new core::dungeon::common::OpenDoorway(direction));
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::OneWayDoor(direction));
+            origin->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
+        }
 
-    } else if (direction == Direction::West) {
-        origin->setWest(new core::dungeon::common::OpenDoorway(direction));
-        origin->setEast(new core::dungeon::common::OpenDoorway(direction));
+        // OpenDoorway @ Origin, OneWayDoor @ Destination
+    } else if (constraints == 2) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::OpenDoorway(direction));
+            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::OpenDoorway(direction));
+            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::OpenDoorway(direction));
+            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North));
 
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::OpenDoorway(direction));
+            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East));
+        }
+
+        // BlockDoorway @ Origin & Destination
+    } else if (constraints == 3) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::BlockedDoorWay(direction));
+            destination->setSouth(new core::dungeon::common::BlockedDoorWay(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::BlockedDoorWay(direction));
+            destination->setWest(new core::dungeon::common::BlockedDoorWay(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::BlockedDoorWay(direction));
+            origin->setNorth(new core::dungeon::common::BlockedDoorWay(Direction::North));
+
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::BlockedDoorWay(direction));
+            origin->setEast(new core::dungeon::common::BlockedDoorWay(Direction::East));
+        }
+
+        // LockDoor @ Origin, OpenDoorway @ Destination
+    } else if (constraints == 4) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::LockedDoor(direction));
+            destination->setSouth(new core::dungeon::common::OpenDoorway(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::LockedDoor(direction));
+            destination->setWest(new core::dungeon::common::OpenDoorway(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::LockedDoor(direction));
+            origin->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::LockedDoor(direction));
+            origin->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
+        }
+
+        // do nothing, is entrance
+    }  else if (constraints == 5) {
+
+        // LockedDoor @ Origin, OneWayDoor @ Destination
+    } else if (constraints == 6) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::LockedDoor(direction));
+            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::LockedDoor(direction));
+            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::LockedDoor(direction));
+            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North));
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::LockedDoor(direction));
+            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East));
+        }
+
+        // OpenDoorway @ Origin, LockedDoor @ Destination
+    } else if (constraints == 8) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::OpenDoorway(direction));
+            destination->setSouth(new core::dungeon::common::LockedDoor(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::OpenDoorway(direction));
+            destination->setWest(new core::dungeon::common::LockedDoor(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::OpenDoorway(direction));
+            origin->setNorth(new core::dungeon::common::LockedDoor(Direction::North));
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::OpenDoorway(direction));
+            origin->setEast(new core::dungeon::common::LockedDoor(Direction::East));
+        }
+
+        // LockedDoor @ Origin, OneWayDoor @ Destination
+    } else if (constraints == 9) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::LockedDoor(direction));
+            destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::LockedDoor(direction));
+            destination->setWest(new core::dungeon::common::OneWayDoor(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::LockedDoor(direction));
+            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North));
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::LockedDoor(direction));
+            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East));
+        }
+
+        // do nothing, is exit
+    } else if (constraints == 10) {
+
+        // LockDoor @ Origin & Destination
+    } else if (constraints == 12) {
+        if (direction == Direction::North) {
+            origin->setNorth(new core::dungeon::common::LockedDoor(direction));
+            destination->setSouth(new core::dungeon::common::LockedDoor(Direction::South));
+        } else if (direction == Direction::East) {
+            origin->setEast(new core::dungeon::common::LockedDoor(direction));
+            destination->setWest(new core::dungeon::common::LockedDoor(Direction::West));
+        } else if (direction == Direction::South) {
+            origin->setSouth(new core::dungeon::common::LockedDoor(direction));
+            origin->setNorth(new core::dungeon::common::LockedDoor(Direction::North));
+        } else if (direction == Direction::West) {
+            origin->setWest(new core::dungeon::common::LockedDoor(direction));
+            origin->setEast(new core::dungeon::common::LockedDoor(Direction::East));
+        }
     }
 }
 

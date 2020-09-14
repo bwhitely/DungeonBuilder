@@ -23,9 +23,9 @@ class Room {
     virtual std::string description() const = 0;
     std::vector<std::string> display();
     int id() const;
-    core::items::Item& item() const;
+    core::items::Item& item();
     void setItem(core::items::Item newItem);
-    AbstractCreature& creature() const;
+    AbstractCreature& creature();
     void setCreature(AbstractCreature& newCreature);
 
     // get/set room edges
