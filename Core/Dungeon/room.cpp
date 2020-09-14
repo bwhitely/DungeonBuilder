@@ -44,7 +44,7 @@ AbstractCreature Room::creature()
 
 void Room::setCreature(AbstractCreature &newCreature)
 {
-
+    _creature = newCreature;
 }
 
 void Room::setNorth(RoomEdge* edge)

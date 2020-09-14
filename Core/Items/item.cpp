@@ -11,7 +11,7 @@ Item::~Item()
 
 }
 
-Item Item::clone()
+Item* Item::clone()
 {
 
 }
@@ -24,11 +24,6 @@ std::string Item::name()
 char Item::displayCharacter()
 {
     return 'L';
-}
-
-void Item::setChar(char c)
-{
-
 }
 
 }

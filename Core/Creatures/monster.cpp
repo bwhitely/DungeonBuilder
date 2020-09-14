@@ -10,8 +10,9 @@ Monster::~Monster() {
 
 }
 
-AbstractCreature Monster::clone() {
-    //return new Monster(*this);
+AbstractCreature* Monster::clone() {
+    // deep copy
+    return new Monster(*this);
 }
 
 

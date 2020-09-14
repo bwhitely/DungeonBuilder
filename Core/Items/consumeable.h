@@ -8,7 +8,7 @@ class Consumeable : public Item
 public:
     Consumeable(std::string);
     virtual ~Consumeable();
-    Item clone() override;
+    Item *clone() override;
 };
 }
 

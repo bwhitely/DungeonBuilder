@@ -12,9 +12,9 @@ Weapon::~Weapon()
 
 }
 
-Item Weapon::clone()
+Item* Weapon::clone()
 {
-
+    return new Weapon(*this);
 }
 
 

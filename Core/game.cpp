@@ -40,6 +40,7 @@ void Game::createExampleLevel() {
         theBuilder->BuildDungeonLevel("Example Level", 3, 3);
     }
 
+
     // Build rooms
     rooms.push_back(theBuilder->buildRoom(1));
     rooms.push_back(theBuilder->buildRoom(2));
@@ -82,6 +83,7 @@ void Game::createExampleLevel() {
     theBuilder->buildCreature(rooms.at(8));
     rooms.at(8)->creature().setBoss();
 
+    std::cout << rooms.at(8)->creature().name();
     std::cout << "Successful" << std::endl;
 
     // get dungeon level

@@ -8,7 +8,7 @@ class Weapon : public Item
 public:
     Weapon(std::string name);
     virtual ~Weapon();
-    Item clone() override;
+    Item* clone() override;
 };
 }
 

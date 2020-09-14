@@ -12,9 +12,9 @@ Consumeable::~Consumeable()
 
 }
 
-Item Consumeable::clone()
+Item* Consumeable::clone()
 {
-
+    return new Consumeable(*this);
 }
 
 }

@@ -12,7 +12,7 @@ class Monster : public AbstractCreature
 public:
     Monster(std::string name);
     virtual ~Monster();
-    AbstractCreature clone() override;
+    AbstractCreature* clone() override;
 
 };
 

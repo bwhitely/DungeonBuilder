@@ -40,33 +40,6 @@ Test::Test() {
 }
 
 void Test::test() {
-    Direction n = Direction::North;
-    Direction e = Direction::East;
-    Direction s = Direction::South;
-    Direction w = Direction::West;
-
-    // new rock chamber with id = 1
-    core::dungeon::basic::RockChamber* r = new core::dungeon::basic::RockChamber(1);
-    // set rock chamber's north RoomEdge as an OpenDoorway
-    r->setNorth(new core::dungeon::common::OpenDoorway(n));
-    // rock chamber's east to rock onewaydoor
-    r->setEast(new core::dungeon::common::OneWayDoor(e));
-    // south to opendoorway
-    r->setSouth(new core::dungeon::common::OpenDoorway(s));
-    // west to rockwall
-    r->setWest(new core::dungeon::basic::RockWall(w));
-
-    std::cout << r->description() << std::endl;
-    std::cout << *r->getNorth() << std::endl;
-    std::cout << *r->getEast() << std::endl;
-    std::cout << *r->getSouth() << std::endl;
-    std::cout << *r->getWest() << std::endl;
-
-    Monster goblin = Monster("goblin");
-    std::cout << goblin.name() << std::endl;
-
-    core::items::Weapon weap = core::items::Weapon("Iron Axe");
-    std::cout << weap.name() << std::endl;
 
     core::Game* game = game->instance(); // director
 

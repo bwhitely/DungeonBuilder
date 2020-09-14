@@ -28,13 +28,45 @@ void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, in
 }
 
 void BasicDungeonLevelBuilder::buildItem(Room* room) {
-    core::items::Item* item = new core::items::Item("Cool Item");
-    room->setItem(*item);
+    int r = randomIntThree();
+    std::cout << "build item " << r << std::endl;
+
+    if (r == 1) {
+        items::Item* i = new items::Item("Health Potion");
+        room->setItem(*i);
+    } else if (r == 2) {
+        items::Item* i = new items::Item("Molotov Cocktail");
+        room->setItem(*i);
+    } else if (r == 3) {
+        items::Item* i = new items::Item("Smoke Bomb");
+        room->setItem(*i);
+    } else if (r == 4) {
+        items::Item* i = new items::Item("Boomerang");
+        room->setItem(*i);
+    } else if (r == 5) {
+        items::Item* i = new items::Item("Short Sword");
+        room->setItem(*i);
+    } else if (r == 6) {
+        items::Item* i = new items::Item("Battle Axe");
+        room->setItem(*i);
+    }
 }
 
 void BasicDungeonLevelBuilder::buildCreature(Room* room) {
-    Monster* m = new Monster("Monster Name");
-    room->setCreature(*m);
+    int r = randomIntTwo();
+    std::cout << "build c " << r << std::endl;
+
+    if (r == 1) {
+        Monster* m = new Monster("Goblin");
+        room->setCreature(*m);
+    } else if (r == 2) {
+        Monster* m = new Monster("Werewolf");
+        room->setCreature(*m);
+    } else if (r == 3) {
+        Monster* m = new Monster("Evil Wizard");
+        room->setCreature(*m);
+    }
+
 }
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {
@@ -259,8 +291,18 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
 int BasicDungeonLevelBuilder::randomInt() {
     // random int between 1 and 2
-    srand(time(NULL));
+    srand(time(0));
     return rand() % 2;
+}
+
+int BasicDungeonLevelBuilder::randomIntTwo() {
+    // random int between 1 and 3
+    return rand() % 4 + 1;
+}
+
+int BasicDungeonLevelBuilder::randomIntThree() {
+    // random int between 1 and 6
+    return rand() % 6 + 1;
 }
 
 }
