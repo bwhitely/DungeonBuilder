@@ -13,6 +13,8 @@ Room::~Room() {
     _south = nullptr;
     _west = nullptr;
     _east = nullptr;
+    _item = nullptr;
+    _creature = nullptr;
 }
 
 std::vector<std::string> Room::display() {
@@ -43,7 +45,7 @@ void Room::setNorth(RoomEdge* edge) {
     _north = edge;
 }
 
-const RoomEdge* Room::getNorth() const {
+RoomEdge* Room::getNorth(){
     return _north;
 }
 
@@ -51,7 +53,7 @@ void Room::setEast(RoomEdge* edge) {
     _east = edge;
 }
 
-const RoomEdge* Room::getEast() const {
+RoomEdge* Room::getEast(){
     return _east;
 }
 
@@ -59,7 +61,7 @@ void Room::setSouth(RoomEdge* edge) {
     _south = edge;
 }
 
-const RoomEdge* Room::getSouth() const {
+RoomEdge* Room::getSouth() {
     return _south;
 }
 
@@ -67,7 +69,7 @@ void Room::setWest(RoomEdge* edge) {
     _west = edge;
 }
 
-const RoomEdge* Room::getWest() const {
+RoomEdge* Room::getWest(){
     return _west;
 }
 

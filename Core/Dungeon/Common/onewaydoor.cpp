@@ -11,6 +11,8 @@ OneWayDoor::OneWayDoor(Direction direction, bool entrance, bool exit): Doorway{d
 
 OneWayDoor::~OneWayDoor()
 {
+    if (_opposite)
+        _opposite = nullptr;
     std::cout << "Deleting OneWayDoor";
 }
 

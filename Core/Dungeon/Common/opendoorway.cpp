@@ -6,6 +6,9 @@ OpenDoorway::OpenDoorway(Direction direction): Doorway{direction} {
 }
 
 OpenDoorway::~OpenDoorway() {
+    if (_opposite)
+        _opposite = nullptr;
+
     std::cout << "Deleting Opendoorway";
 }
 
@@ -27,9 +30,10 @@ bool OpenDoorway::isPassage() const {
 }
 
 char OpenDoorway::displayCharacter() const {
-    if (_entrance){
+    if (_entrance) {
         return 'I';
     }
+
     if(_direction == North) {
         return '^';
     } else if (_direction == East) {

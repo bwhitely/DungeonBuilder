@@ -9,6 +9,8 @@ BlockedDoorWay::BlockedDoorWay(Direction direction): Doorway{direction} {
 
 BlockedDoorWay::~BlockedDoorWay()
 {
+    if (_opposite)
+        _opposite = nullptr;
     std::cout << "Deleting BlockedDoorWay";
 }
 

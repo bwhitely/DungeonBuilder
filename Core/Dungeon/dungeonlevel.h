@@ -20,6 +20,7 @@ class DungeonLevel {
     virtual std::string description() = 0;
     virtual std::vector<std::string> display();
 protected:
+    std::shared_ptr<std::vector<Room>> rooms;
     std::vector<Room*> _rooms;
     std::string _name;
     int _width;

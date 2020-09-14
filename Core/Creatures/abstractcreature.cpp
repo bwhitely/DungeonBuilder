@@ -11,10 +11,11 @@ AbstractCreature::~AbstractCreature()
 
 }
 
-AbstractCreature* AbstractCreature::clone()
+std::unique_ptr<AbstractCreature> AbstractCreature::clone()
 {
 
 }
+
 
 std::string AbstractCreature::name()
 {

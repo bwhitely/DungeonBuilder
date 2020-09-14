@@ -28,7 +28,6 @@ protected:
     std::string _name;
     int _width;
     int _height;
-    Room* _origin;
 };
 }
 

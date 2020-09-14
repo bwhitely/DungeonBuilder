@@ -22,6 +22,16 @@ std::string Doorway::description() const {
 
 }
 
+bool Doorway::isEntrance()
+{
+
+}
+
+bool Doorway::isExit()
+{
+
+}
+
 void Doorway::connect(Doorway* opposite) {
 
 }

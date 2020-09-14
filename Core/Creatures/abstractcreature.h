@@ -1,6 +1,7 @@
 #ifndef ABSTRACTCREATURE_H
 #define ABSTRACTCREATURE_H
 #include <string>
+#include <memory>
 
 namespace core::creatures {
 
@@ -13,7 +14,7 @@ public:
     AbstractCreature(std::string name);
 
     virtual ~AbstractCreature();
-    virtual AbstractCreature* clone();
+    virtual std::unique_ptr<AbstractCreature> clone();
     virtual std::string name();
     virtual char displayCharacter();
     void setBoss();

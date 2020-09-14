@@ -8,6 +8,9 @@ LockedDoor::LockedDoor(Direction direction): Doorway{direction} {
 
 LockedDoor::~LockedDoor()
 {
+    // remove dangling ptr
+    if (_opposite)
+        _opposite = nullptr;
     std::cout << "Deleting LockedDoor";
 }
 
