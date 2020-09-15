@@ -43,16 +43,6 @@ void Game::createExampleLevel() {
     for (int i = 1; i < 10; i++){
         rooms.push_back(theBuilder->buildRoom(i));
     }
-    // Build rooms
-    rooms.push_back(theBuilder->buildRoom(1));
-    rooms.push_back(theBuilder->buildRoom(2));
-    rooms.push_back(theBuilder->buildRoom(3));
-    rooms.push_back(theBuilder->buildRoom(4));
-    rooms.push_back(theBuilder->buildRoom(5));
-    rooms.push_back(theBuilder->buildRoom(6));
-    rooms.push_back(theBuilder->buildRoom(7));
-    rooms.push_back(theBuilder->buildRoom(8));
-    rooms.push_back(theBuilder->buildRoom(9));
 
     // first row
     theBuilder->buildDoorway(rooms.at(0), rooms.at(1), East, None); // rm 1 East
