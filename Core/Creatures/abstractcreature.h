@@ -14,7 +14,7 @@ public:
     AbstractCreature(std::string name);
 
     virtual ~AbstractCreature();
-    virtual std::unique_ptr<AbstractCreature> clone();
+    virtual AbstractCreature* clone();
     virtual std::string name();
     virtual char displayCharacter();
     void setBoss();

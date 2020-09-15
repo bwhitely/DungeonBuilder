@@ -20,8 +20,10 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
     int getRandomNumber(int min, int max);
   private:
     BasicDungeonLevel* level;
-    std::vector<Monster*> monsters;
-    std::vector<core::items::Item*> items;
+    std::vector<AbstractCreature*> creatures;
+    std::vector<std::unique_ptr<core::items::Item>> items;
+//    std::vector<Monster*> monsters;
+//    std::vector<core::items::Item*> items;
 };
 }
 

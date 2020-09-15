@@ -10,9 +10,9 @@ Monster::~Monster() {
 
 }
 
-std::unique_ptr<AbstractCreature> Monster::clone() {
+AbstractCreature* Monster::clone() {
     // deep copy
-    return std::make_unique<Monster>(*this);
+    return new AbstractCreature(*this);
 }
 
 

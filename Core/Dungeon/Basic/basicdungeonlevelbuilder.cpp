@@ -17,10 +17,29 @@ namespace core::dungeon::basic {
 
 BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
     srand(time(NULL));
+    // add items to vectors
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Health Potion")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Molotov Cocktail")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Smoke Bomb")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Boomerang")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Shord Sword")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Battle Axe")));
+
+    // add creatures to vectors
+    creatures.push_back(new AbstractCreature("Goblin"));
+    creatures.push_back(new AbstractCreature("Werewolf"));
+    creatures.push_back(new AbstractCreature("Evil Wizard"));
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
+    // set level to null
     level = nullptr;
+
+    // clear creature pointers
+    for (AbstractCreature* c : creatures){
+        delete c;
+    }
+    creatures.clear();
 }
 
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
@@ -32,40 +51,30 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
     int r = getRandomNumber(1, 6);
 
     if (r == 1) {
-        items::Item* i = new items::Item("Health Potion");
-        room->setItem(i);
+        room->setItem(items.at(0)->clone());
     } else if (r == 2) {
-        items::Item* i = new items::Item("Molotov Cocktail");
-        room->setItem(i);
+        room->setItem(items.at(1)->clone());
     } else if (r == 3) {
-        items::Item* i = new items::Item("Smoke Bomb");
-        room->setItem(i);
+        room->setItem(items.at(2)->clone());
     } else if (r == 4) {
-        items::Item* i = new items::Item("Boomerang");
-        room->setItem(i);
+        room->setItem(items.at(3)->clone());
     } else if (r == 5) {
-        items::Item* i = new items::Item("Short Sword");
-        room->setItem(i);
+        room->setItem(items.at(4)->clone());
     } else if (r == 6) {
-        items::Item* i = new items::Item("Battle Axe");
-        room->setItem(i);
+        room->setItem(items.at(5)->clone());
     }
+
 }
 
 void BasicDungeonLevelBuilder::buildCreature(Room* room) {
-//    Monster *m2 = new Monster("Monster");
-//    AbstractCreature *m1 = m2->clone();
     int r = getRandomNumber(1, 3);
 
     if (r == 1) {
-        Monster* m = new Monster("Goblin");
-        room->setCreature(m);
+        room->setCreature(creatures.at(0)->clone());
     } else if (r == 2) {
-        Monster* m = new Monster("Werewolf");
-        room->setCreature(m);
+        room->setCreature(creatures.at(1)->clone());
     } else if (r == 3) {
-        Monster* m = new Monster("Evil Wizard");
-        room->setCreature(m);
+        room->setCreature(creatures.at(2)->clone());
     }
 
 }

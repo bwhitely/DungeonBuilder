@@ -11,7 +11,7 @@ AbstractCreature::~AbstractCreature()
 
 }
 
-std::unique_ptr<AbstractCreature> AbstractCreature::clone()
+AbstractCreature* AbstractCreature::clone()
 {
 
 }
