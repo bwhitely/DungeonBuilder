@@ -52,4 +52,6 @@ void Test::test() {
     //game->createRandomLevel("Test Name", 2, 2);
     game->createExampleLevel();
 
+    game->displayLevel(std::cout);
+
 }

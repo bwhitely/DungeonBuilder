@@ -1,5 +1,11 @@
 #include "room.h"
 #include <iostream>
+#include "Common/opendoorway.h"
+#include <Core/Dungeon/Common/onewaydoor.h>
+#include <Core/Dungeon/Common/opendoorway.h>
+#include <Core/Dungeon/Common/lockeddoor.h>
+#include <Core/Dungeon/Common/blockeddoorway.h>
+#include <Core/Dungeon/Basic/rockwall.h>
 
 namespace core::dungeon {
 
@@ -18,7 +24,38 @@ Room::~Room() {
 }
 
 std::vector<std::string> Room::display() {
+    std::vector<std::string> room = {
+        {'+', '-', '-', '-', this->getNorth()->displayCharacter(), '-', '-', '-', '-', '+', ' ', ' '},
+        {'|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', ' '},
+        {this->getWest()->displayCharacter(), ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', this->getEast()->displayCharacter(), ' ', ' '},
+        {'|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', ' '},
+        {'+', '-', '-', '-', this->getSouth()->displayCharacter(), '-', '-', '-', '-', '+', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
+    };
 
+    // if Rooms southedge is NOT a rockwall it must be a Doorway, so add a pipeline to connect the rooms
+    if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(this->getSouth())) {
+
+    } else {
+        room.at(5).at(4) = '|';
+    }
+
+    if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(this->getEast())) {
+
+    } else {
+        room.at(2).at(10) = '-';
+        room.at(2).at(11) = '-';
+    }
+
+    if (_item) {
+        room.at(2).at(6) = item()->displayCharacter();
+    }
+
+    if (_creature) {
+        room.at(2).at(4) = 'M';
+        //room.at(2).at(4) = creature()->displayCharacter();
+    }
+    return room;
 }
 
 int Room::id() const {
@@ -45,7 +82,7 @@ void Room::setNorth(RoomEdge* edge) {
     _north = edge;
 }
 
-RoomEdge* Room::getNorth(){
+RoomEdge* Room::getNorth() {
     return _north;
 }
 
@@ -53,7 +90,7 @@ void Room::setEast(RoomEdge* edge) {
     _east = edge;
 }
 
-RoomEdge* Room::getEast(){
+RoomEdge* Room::getEast() {
     return _east;
 }
 
@@ -69,7 +106,7 @@ void Room::setWest(RoomEdge* edge) {
     _west = edge;
 }
 
-RoomEdge* Room::getWest(){
+RoomEdge* Room::getWest() {
     return _west;
 }
 

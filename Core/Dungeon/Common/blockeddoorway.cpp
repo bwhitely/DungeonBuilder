@@ -4,6 +4,7 @@
 namespace core::dungeon::common{
 
 BlockedDoorWay::BlockedDoorWay(Direction direction): Doorway{direction} {
+    _direction = direction;
 
 }
 

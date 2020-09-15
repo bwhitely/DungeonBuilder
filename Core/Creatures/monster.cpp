@@ -7,7 +7,6 @@ Monster::Monster(std::string name) : AbstractCreature{name} {
 }
 
 Monster::~Monster() {
-
 }
 
 AbstractCreature* Monster::clone() {

@@ -50,36 +50,35 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
 
     int r = getRandomNumber(1, 6);
 
-    if (r == 1) {
+    // clone existing item into room
+    if (r == 1)
         room->setItem(items.at(0)->clone());
-    } else if (r == 2) {
+     else if (r == 2)
         room->setItem(items.at(1)->clone());
-    } else if (r == 3) {
+     else if (r == 3)
         room->setItem(items.at(2)->clone());
-    } else if (r == 4) {
+     else if (r == 4)
         room->setItem(items.at(3)->clone());
-    } else if (r == 5) {
+     else if (r == 5)
         room->setItem(items.at(4)->clone());
-    } else if (r == 6) {
+     else if (r == 6)
         room->setItem(items.at(5)->clone());
-    }
-
 }
 
 void BasicDungeonLevelBuilder::buildCreature(Room* room) {
     int r = getRandomNumber(1, 3);
 
-    if (r == 1) {
+    // clone existing creature into room
+    if (r == 1)
         room->setCreature(creatures.at(0)->clone());
-    } else if (r == 2) {
+     else if (r == 2)
         room->setCreature(creatures.at(1)->clone());
-    } else if (r == 3) {
+     else if (r == 3)
         room->setCreature(creatures.at(2)->clone());
-    }
-
 }
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {
+    // get int between 1 and 2
     int x = getRandomNumber(1, 2);
     Room* r = nullptr;
 
@@ -89,6 +88,7 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
         // level not null
     } else {
         if (x == 1) {
+            // Set all edges to RockWalls, will replace with doors in further functions
             r = new core::dungeon::basic::RockChamber(id);
             r->setNorth(new RockWall(North));
             r->setEast(new RockWall(East));
@@ -113,30 +113,30 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
 DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
     // needs transfer of ownership
     return level;
+    delete level;
+
 }
 
 void BasicDungeonLevelBuilder::buildExit(Room* room, Direction direction) {
-    if (direction == North) {
+    if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, false, true));
-    } else if (direction == East) {
+     else if (direction == East)
         room->setEast(new core::dungeon::common::OneWayDoor(East, false, true));
-    } else if (direction == South) {
+     else if (direction == South)
         room->setSouth(new core::dungeon::common::OneWayDoor(South, false, true));
-    } else if (direction == West) {
+     else if (direction == West)
         room->setWest(new core::dungeon::common::OneWayDoor(West, false, true));
-    }
 }
 
 void BasicDungeonLevelBuilder::buildEntrance(Room* room, Direction direction) {
-    if (direction == North) {
+    if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, true, false));
-    } else if (direction == East) {
+     else if (direction == East)
         room->setEast(new core::dungeon::common::OneWayDoor(East, true, false));
-    } else if (direction == South) {
+     else if (direction == South)
         room->setSouth(new core::dungeon::common::OneWayDoor(South, true, false));
-    } else if (direction == West) {
+     else if (direction == West)
         room->setWest(new core::dungeon::common::OneWayDoor(West, true, false));
-    }
 }
 
 void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) {
@@ -157,6 +157,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
             if (d1 == nullptr || d2 == nullptr) {
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::OpenDoorway(direction));
@@ -170,10 +171,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::OpenDoorway(direction));
-            origin->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
+            destination->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getNorth());
@@ -183,10 +185,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::OpenDoorway(direction));
-            origin->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
+            destination->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -196,6 +199,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
     }
@@ -203,7 +207,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
     else if (constraints == 1) {
         if (direction == Direction::North) {
             origin->setNorth(new core::dungeon::common::OneWayDoor(direction, false, false));
-            destination->setSouth(new core::dungeon::common::OpenDoorway(Direction::South));
+            destination->setSouth(new core::dungeon::common::OneWayDoor(North, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getNorth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getSouth());
@@ -213,10 +217,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::OneWayDoor(direction, false, false));
-            destination->setWest(new core::dungeon::common::OpenDoorway(Direction::West));
+            destination->setWest(new core::dungeon::common::OneWayDoor(East, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getEast());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getWest());
@@ -225,10 +230,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
             if (d1 == nullptr || d2 == nullptr) {
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::OneWayDoor(direction, false, false));
-            origin->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
+            destination->setNorth(new core::dungeon::common::OneWayDoor(South, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getNorth());
@@ -238,11 +244,12 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
 
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::OneWayDoor(direction, false, false));
-            origin->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
+            destination->setEast(new core::dungeon::common::OneWayDoor(West, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -252,6 +259,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
 
@@ -269,6 +277,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::OpenDoorway(direction));
@@ -282,10 +291,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::OpenDoorway(direction));
-            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
+            destination->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getNorth());
@@ -295,11 +305,12 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
 
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::OpenDoorway(direction));
-            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
+            destination->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -309,6 +320,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
 
@@ -326,6 +338,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::BlockedDoorWay(direction));
@@ -339,10 +352,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::BlockedDoorWay(direction));
-            origin->setNorth(new core::dungeon::common::BlockedDoorWay(Direction::North));
+            destination->setNorth(new core::dungeon::common::BlockedDoorWay(Direction::North));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getNorth());
@@ -352,11 +366,12 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
 
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::BlockedDoorWay(direction));
-            origin->setEast(new core::dungeon::common::BlockedDoorWay(Direction::East));
+            destination->setEast(new core::dungeon::common::BlockedDoorWay(Direction::East));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -366,6 +381,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
 
@@ -383,6 +399,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::LockedDoor(direction));
@@ -396,10 +413,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::LockedDoor(direction));
-            origin->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
+            destination->setNorth(new core::dungeon::common::OpenDoorway(Direction::North));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getNorth());
@@ -409,10 +427,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::LockedDoor(direction));
-            origin->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
+            destination->setEast(new core::dungeon::common::OpenDoorway(Direction::East));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -422,6 +441,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
 
@@ -442,6 +462,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::LockedDoor(direction));
@@ -455,10 +476,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::LockedDoor(direction));
-            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
+            destination->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getWest());
@@ -468,10 +490,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::LockedDoor(direction));
-            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
+            destination->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -481,6 +504,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
 
@@ -498,6 +522,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::OpenDoorway(direction));
@@ -511,10 +536,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::OpenDoorway(direction));
-            origin->setNorth(new core::dungeon::common::LockedDoor(Direction::North));
+            destination->setNorth(new core::dungeon::common::LockedDoor(Direction::North));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getNorth());
@@ -524,10 +550,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::OpenDoorway(direction));
-            origin->setEast(new core::dungeon::common::LockedDoor(Direction::East));
+            destination->setEast(new core::dungeon::common::LockedDoor(Direction::East));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -537,6 +564,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
 
@@ -554,6 +582,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::LockedDoor(direction));
@@ -567,10 +596,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::LockedDoor(direction));
-            origin->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
+            destination->setNorth(new core::dungeon::common::OneWayDoor(Direction::North, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getNorth());
@@ -580,10 +610,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::LockedDoor(direction));
-            origin->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
+            destination->setEast(new core::dungeon::common::OneWayDoor(Direction::East, false, false));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -593,6 +624,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
 
@@ -613,6 +645,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::East) {
             origin->setEast(new core::dungeon::common::LockedDoor(direction));
@@ -626,10 +659,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::South) {
             origin->setSouth(new core::dungeon::common::LockedDoor(direction));
-            origin->setNorth(new core::dungeon::common::LockedDoor(Direction::North));
+            destination->setNorth(new core::dungeon::common::LockedDoor(Direction::North));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getSouth());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getNorth());
@@ -639,10 +673,11 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         } else if (direction == Direction::West) {
             origin->setWest(new core::dungeon::common::LockedDoor(direction));
-            origin->setEast(new core::dungeon::common::LockedDoor(Direction::East));
+            destination->setEast(new core::dungeon::common::LockedDoor(Direction::East));
             // cast to Doorway* and conect doorways
             Doorway* d1 = dynamic_cast<Doorway*>(origin->getWest());
             Doorway* d2 = dynamic_cast<Doorway*>(destination->getEast());
@@ -652,6 +687,7 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
 
             } else {
                 d1->connect(d2);
+                d2->connect(d1);
             }
         }
     }

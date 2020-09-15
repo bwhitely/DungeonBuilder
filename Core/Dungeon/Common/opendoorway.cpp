@@ -3,6 +3,7 @@
 namespace core::dungeon::common {
 
 OpenDoorway::OpenDoorway(Direction direction): Doorway{direction} {
+    _direction = direction;
 }
 
 OpenDoorway::~OpenDoorway() {
@@ -26,13 +27,17 @@ bool OpenDoorway::isExit() {
 }
 
 bool OpenDoorway::isPassage() const {
-
+    // if opposite is an opendoorway then it's a passage
+    if (OpenDoorway* b = dynamic_cast<OpenDoorway*>(_opposite)){
+        // delete pointer object
+        delete b;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 char OpenDoorway::displayCharacter() const {
-    if (_entrance) {
-        return 'I';
-    }
 
     if(_direction == North) {
         return '^';

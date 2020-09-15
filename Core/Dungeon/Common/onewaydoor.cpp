@@ -50,7 +50,7 @@ char OneWayDoor::displayCharacter() const
         return 'O';
 
     } if (_direction == North){
-        return 'v';
+        return '^';
     } else if (_direction == East){
         return '>';
     } else if (_direction == South){

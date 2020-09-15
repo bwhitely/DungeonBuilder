@@ -10,6 +10,9 @@
 
 namespace core {
 
+// declare Director once here so I don't need to create multiple due scoping from separating the menu options
+core::Game* game = game->instance();
+
 MenuInterface::MenuInterface(std::ostream& display, std::istream& input) : _display(std::cout), _input(std::cin),
     mainMenuOptions{}, describeMenuOptions{}, explorationMenuOptions{} {
 
@@ -44,8 +47,6 @@ void MenuInterface::completeSets() {
 }
 
 void MenuInterface::mainMenu() {
-    core::Game* game = game->instance(); // director
-
 
     _display << "What would you like to do?\n"
              << "  (g)enerate the example level\n"

@@ -8,7 +8,6 @@ AbstractCreature::AbstractCreature(std::string name) : _name{name}, isBoss{false
 
 AbstractCreature::~AbstractCreature()
 {
-
 }
 
 AbstractCreature* AbstractCreature::clone()
