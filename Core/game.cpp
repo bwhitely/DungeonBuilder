@@ -43,7 +43,7 @@ void Game::createExampleLevel() {
     for (int i = 1; i < 10; i++){
         rooms.push_back(theBuilder->buildRoom(i));
     }
-
+//asdas
     // first row
     theBuilder->buildDoorway(rooms.at(0), rooms.at(1), East, None); // rm 1 East
     theBuilder->buildDoorway(rooms.at(0), rooms.at(3), South, OriginImpassable); // rm 1 south
