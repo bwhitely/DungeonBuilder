@@ -1,8 +1,9 @@
 #include "abstractcreature.h"
+#include <iostream>
 
 using namespace core::creatures;
 
-AbstractCreature::AbstractCreature(std::string name) : _name{name}, isBoss{false}
+AbstractCreature::AbstractCreature(std::string name) : _name{name}, _isBoss{false}
 {
 }
 
@@ -23,14 +24,16 @@ std::string AbstractCreature::name()
 
 char AbstractCreature::displayCharacter()
 {
-    if (isBoss){
-        return 'M' + '*';
-    }
     return 'M';
 }
 
 void AbstractCreature::setBoss()
 {
-    isBoss = true;
+    _isBoss = true;
     _name = "Evil " + _name;
+}
+
+bool AbstractCreature::isBoss()
+{
+    return _isBoss;
 }

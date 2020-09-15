@@ -18,8 +18,9 @@ public:
     virtual std::string name();
     virtual char displayCharacter();
     void setBoss();
+    bool isBoss();
 protected:
-    bool isBoss;
+    bool _isBoss;
     std::string _name;
     char _char;
 };

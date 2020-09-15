@@ -44,15 +44,15 @@ void Game::createExampleLevel() {
         rooms.push_back(theBuilder->buildRoom(i));
     }
     // Build rooms
-//    rooms.push_back(theBuilder->buildRoom(1));
-//    rooms.push_back(theBuilder->buildRoom(2));
-//    rooms.push_back(theBuilder->buildRoom(3));
-//    rooms.push_back(theBuilder->buildRoom(4));
-//    rooms.push_back(theBuilder->buildRoom(5));
-//    rooms.push_back(theBuilder->buildRoom(6));
-//    rooms.push_back(theBuilder->buildRoom(7));
-//    rooms.push_back(theBuilder->buildRoom(8));
-//    rooms.push_back(theBuilder->buildRoom(9));
+    rooms.push_back(theBuilder->buildRoom(1));
+    rooms.push_back(theBuilder->buildRoom(2));
+    rooms.push_back(theBuilder->buildRoom(3));
+    rooms.push_back(theBuilder->buildRoom(4));
+    rooms.push_back(theBuilder->buildRoom(5));
+    rooms.push_back(theBuilder->buildRoom(6));
+    rooms.push_back(theBuilder->buildRoom(7));
+    rooms.push_back(theBuilder->buildRoom(8));
+    rooms.push_back(theBuilder->buildRoom(9));
 
     // first row
     theBuilder->buildDoorway(rooms.at(0), rooms.at(1), East, None); // rm 1 East
@@ -65,7 +65,7 @@ void Game::createExampleLevel() {
     theBuilder->buildDoorway(rooms.at(3), rooms.at(6), South, OriginImpassable | DestinationImpassable); // rm 4 south
     theBuilder->buildDoorway(rooms.at(4), rooms.at(7), South, None); // rm 5 east
     theBuilder->buildDoorway(rooms.at(4), rooms.at(5), East, None); // rm 5 south
-    //theBuilder->buildDoorway(rooms.at(5), rooms.at(2), North, )
+
     // third row
     theBuilder->buildDoorway(rooms.at(6), rooms.at(7), East, DestinationLocked | OriginLocked);
     theBuilder->buildDoorway(rooms.at(7), rooms.at(8), East, None);

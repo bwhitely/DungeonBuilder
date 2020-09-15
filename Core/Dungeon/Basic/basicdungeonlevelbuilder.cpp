@@ -113,8 +113,6 @@ Room* BasicDungeonLevelBuilder::buildRoom(int id) {
 DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
     // needs transfer of ownership
     return level;
-    delete level;
-
 }
 
 void BasicDungeonLevelBuilder::buildExit(Room* room, Direction direction) {

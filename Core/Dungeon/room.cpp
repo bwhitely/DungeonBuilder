@@ -6,6 +6,8 @@
 #include <Core/Dungeon/Common/lockeddoor.h>
 #include <Core/Dungeon/Common/blockeddoorway.h>
 #include <Core/Dungeon/Basic/rockwall.h>
+#include <Core/Creatures/abstractcreature.h>
+#include <Core/Creatures/monster.h>
 
 namespace core::dungeon {
 
@@ -53,7 +55,9 @@ std::vector<std::string> Room::display() {
 
     if (_creature) {
         room.at(2).at(4) = 'M';
-        //room.at(2).at(4) = creature()->displayCharacter();
+//        if (_creature->isBoss()){
+//            room.at(2).at(5) = '*';
+//        }
     }
     return room;
 }

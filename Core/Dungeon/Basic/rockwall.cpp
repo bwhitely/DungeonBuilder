@@ -4,7 +4,7 @@
 namespace core::dungeon::basic {
 
 RockWall::RockWall(Direction direction): Wall{direction} {
-
+    _direction = direction;
 }
 
 RockWall::~RockWall() {

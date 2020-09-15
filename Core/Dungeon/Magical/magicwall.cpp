@@ -4,7 +4,7 @@
 namespace core::dungeon::magical {
 
 MagicWall::MagicWall(Direction direction): Wall{direction} {
-
+    _direction = direction;
 }
 
 MagicWall::~MagicWall() {
@@ -12,7 +12,7 @@ MagicWall::~MagicWall() {
 }
 
 bool MagicWall::isPassage() const {
-
+    return false;
 }
 
 char MagicWall::displayCharacter() const {
