@@ -18,28 +18,25 @@ namespace core::dungeon::basic {
 BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
     srand(time(NULL));
     // add items to vectors
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Health Potion")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Molotov Cocktail")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Smoke Bomb")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Boomerang")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Shord Sword")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Item("Battle Axe")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Health Potion")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Molotov Cocktail")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Smoke Bomb")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Weapon("Boomerang")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Weapon("Shord Sword")));
+    items.push_back(std::unique_ptr<items::Item>(new core::items::Weapon("Battle Axe")));
 
     // add creatures to vectors
-    creatures.push_back(new AbstractCreature("Goblin"));
-    creatures.push_back(new AbstractCreature("Werewolf"));
-    creatures.push_back(new AbstractCreature("Evil Wizard"));
+    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Goblin")));
+    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Werewolf")));
+    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Evil Wizard")));
+//    creatures.push_back(new AbstractCreature("Goblin"));
+//    creatures.push_back(new AbstractCreature("Werewolf"));
+//    creatures.push_back(new AbstractCreature("Evil Wizard"));
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
     // set level to null
     level = nullptr;
-
-    // clear creature pointers
-    for (AbstractCreature* c : creatures){
-        delete c;
-    }
-    creatures.clear();
 }
 
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
@@ -53,15 +50,15 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
     // clone existing item into room
     if (r == 1)
         room->setItem(items.at(0)->clone());
-     else if (r == 2)
+    else if (r == 2)
         room->setItem(items.at(1)->clone());
-     else if (r == 3)
+    else if (r == 3)
         room->setItem(items.at(2)->clone());
-     else if (r == 4)
+    else if (r == 4)
         room->setItem(items.at(3)->clone());
-     else if (r == 5)
+    else if (r == 5)
         room->setItem(items.at(4)->clone());
-     else if (r == 6)
+    else if (r == 6)
         room->setItem(items.at(5)->clone());
 }
 
@@ -71,15 +68,16 @@ void BasicDungeonLevelBuilder::buildCreature(Room* room) {
     // clone existing creature into room
     if (r == 1)
         room->setCreature(creatures.at(0)->clone());
-     else if (r == 2)
+    else if (r == 2)
         room->setCreature(creatures.at(1)->clone());
-     else if (r == 3)
+    else if (r == 3)
         room->setCreature(creatures.at(2)->clone());
 }
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {
     // get int between 1 and 2
     int x = getRandomNumber(1, 2);
+
     Room* r = nullptr;
 
     // level is null
@@ -118,22 +116,22 @@ DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
 void BasicDungeonLevelBuilder::buildExit(Room* room, Direction direction) {
     if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, false, true));
-     else if (direction == East)
+    else if (direction == East)
         room->setEast(new core::dungeon::common::OneWayDoor(East, false, true));
-     else if (direction == South)
+    else if (direction == South)
         room->setSouth(new core::dungeon::common::OneWayDoor(South, false, true));
-     else if (direction == West)
+    else if (direction == West)
         room->setWest(new core::dungeon::common::OneWayDoor(West, false, true));
 }
 
 void BasicDungeonLevelBuilder::buildEntrance(Room* room, Direction direction) {
     if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, true, false));
-     else if (direction == East)
+    else if (direction == East)
         room->setEast(new core::dungeon::common::OneWayDoor(East, true, false));
-     else if (direction == South)
+    else if (direction == South)
         room->setSouth(new core::dungeon::common::OneWayDoor(South, true, false));
-     else if (direction == West)
+    else if (direction == West)
         room->setWest(new core::dungeon::common::OneWayDoor(West, true, false));
 }
 

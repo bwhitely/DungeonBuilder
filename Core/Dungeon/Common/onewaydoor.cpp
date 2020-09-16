@@ -64,7 +64,5 @@ std::string OneWayDoor::description() const
 {
     return "One Way Door";
 }
-
-
 }
 

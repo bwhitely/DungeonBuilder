@@ -12,7 +12,8 @@
 namespace core::dungeon {
 
 Room::Room(const int id): _id{id}, _north{nullptr}, _east{nullptr}, _south{nullptr}, _west{nullptr} {
-
+    _creature = nullptr;
+    _item = nullptr;
 }
 
 Room::~Room() {
@@ -27,22 +28,24 @@ Room::~Room() {
 
 std::vector<std::string> Room::display() {
     std::vector<std::string> room = {
-        {'+', '-', '-', '-', this->getNorth()->displayCharacter(), '-', '-', '-', '-', '+', ' ', ' '},
+        {'+', '-', '-', '-', _north->displayCharacter(), '-', '-', '-', '-', '+', ' ', ' '},
         {'|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', ' '},
-        {this->getWest()->displayCharacter(), ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', this->getEast()->displayCharacter(), ' ', ' '},
+        {_west->displayCharacter(), ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', _east->displayCharacter(), ' ', ' '},
         {'|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', ' '},
-        {'+', '-', '-', '-', this->getSouth()->displayCharacter(), '-', '-', '-', '-', '+', ' ', ' '},
+        {'+', '-', '-', '-', _south->displayCharacter(), '-', '-', '-', '-', '+', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
     };
 
     // if Rooms southedge is NOT a rockwall it must be a Doorway, so add a pipeline to connect the rooms
-    if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(this->getSouth())) {
+    if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(_south)) {
 
     } else {
         room.at(5).at(4) = '|';
     }
+    // if east isnt a wall, add connectors
+    if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(_east)) {
 
-    if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(this->getEast())) {
+    } else if (_east->displayCharacter() == 'O') {
 
     } else {
         room.at(2).at(10) = '-';
@@ -50,14 +53,14 @@ std::vector<std::string> Room::display() {
     }
 
     if (_item) {
-        room.at(2).at(6) = item()->displayCharacter();
+        room.at(2).at(6) = item().displayCharacter();
     }
 
     if (_creature) {
         room.at(2).at(4) = 'M';
-//        if (_creature->isBoss()){
-//            room.at(2).at(5) = '*';
-//        }
+        if (_creature->isBoss()){
+            room.at(2).at(5) = '*';
+        }
     }
     return room;
 }
@@ -66,20 +69,22 @@ int Room::id() const {
     return _id;
 }
 
-items::Item* Room::item() {
-    return _item;
+items::Item &Room::item() const
+{
+    return *_item;
 }
 
-void Room::setItem(items::Item* newItem) {
-    _item = newItem;
+void Room::setItem(std::unique_ptr<items::Item> newItem)
+{
+    _item = std::move(newItem);
 }
 
-AbstractCreature* Room::creature() {
-    return _creature;
+AbstractCreature& Room::creature() const {
+    return *_creature;
 }
 
-void Room::setCreature(AbstractCreature* newCreature) {
-    _creature = newCreature;
+void Room::setCreature(std::unique_ptr<AbstractCreature> newCreature) {
+    _creature = std::move(newCreature);
 }
 
 void Room::setNorth(RoomEdge* edge) {

@@ -14,9 +14,8 @@ public:
     void displayWelcome(std::string const &author, std::string const &title) const;
     void run();
     // Using sets for input validation because I have in the past
-    // Hopefully I don't lose marks for not using io manip methods?
     void completeSets();
-    // Had to split the menus into sub-menus
+    // Had to split the menus into sub-menus otherwise it's too messy
     void mainMenu();
     void describeMenu();
     void explorationMenu();

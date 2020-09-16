@@ -4,14 +4,14 @@ using namespace core::creatures;
 
 Monster::Monster(std::string name) : AbstractCreature{name} {
     _name = name;
+    _isBoss = false;
 }
 
 Monster::~Monster() {
 }
 
-AbstractCreature* Monster::clone() {
-    // deep copy
-    return new AbstractCreature(*this);
+std::unique_ptr<AbstractCreature> Monster::clone() {
+    return std::make_unique<Monster>(*this);
 }
 
 

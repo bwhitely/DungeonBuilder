@@ -1,6 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 #include <string>
+#include <memory>
 
 namespace core::items {
 class Item
@@ -10,7 +11,7 @@ public:
     Item(std::string name);
     virtual ~Item();
 
-    virtual Item* clone();
+    virtual std::unique_ptr<Item> clone() = 0;
 
     std::string name();
     char displayCharacter();

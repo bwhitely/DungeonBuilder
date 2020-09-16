@@ -3,15 +3,18 @@
 
 using namespace core::creatures;
 
-AbstractCreature::AbstractCreature(std::string name) : _name{name}, _isBoss{false}
+AbstractCreature::AbstractCreature(std::string name)
 {
+    _name = name;
+    _isBoss = false;
 }
 
 AbstractCreature::~AbstractCreature()
 {
+
 }
 
-AbstractCreature* AbstractCreature::clone()
+std::unique_ptr<AbstractCreature> AbstractCreature::clone()
 {
 
 }

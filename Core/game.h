@@ -20,12 +20,12 @@ class Game {
 
     void setDungeonType(std::unique_ptr<dungeon::DungeonLevelBuilder> builder);
     void createExampleLevel();
-    // pass by referencing these
     void createRandomLevel(std::string name, int width, int height);
     void displayLevel(std::ostream &display) const;
     double randomDouble();
 
   private:
+    // unique ptr to builder
     std::unique_ptr<dungeon::DungeonLevelBuilder> theBuilder;
     // private constructor to prevent instancing
     Game();

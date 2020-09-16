@@ -11,7 +11,7 @@ Item::~Item()
 
 }
 
-Item* Item::clone()
+std::unique_ptr<Item> Item::clone()
 {
 
 }

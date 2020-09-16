@@ -3,6 +3,8 @@
 #include <Core/Dungeon/dungeonlevelbuilder.h>
 #include <memory>
 #include <Core/Dungeon/Basic/basicdungeonlevel.h>
+#include <Core/Items/consumeable.h>
+#include <Core/Items/weapon.h>
 
 namespace core::dungeon::basic {
 class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
@@ -20,7 +22,8 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
     int getRandomNumber(int min, int max);
   private:
     BasicDungeonLevel* level;
-    std::vector<AbstractCreature*> creatures;
+//    std::vector<AbstractCreature*> creatures;
+    std::vector<std::unique_ptr<AbstractCreature>> creatures;
     std::vector<std::unique_ptr<core::items::Item>> items;
 };
 }

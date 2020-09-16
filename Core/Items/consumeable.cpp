@@ -4,7 +4,7 @@ namespace core::items {
 
 Consumeable::Consumeable(std::string name) : Item{name}
 {
-
+    _name = name;
 }
 
 Consumeable::~Consumeable()
@@ -12,9 +12,9 @@ Consumeable::~Consumeable()
 
 }
 
-Item* Consumeable::clone()
+std::unique_ptr<Item> Consumeable::clone()
 {
-    return new Consumeable(*this);
+    return std::make_unique<Consumeable>(*this);
 }
 
 }
