@@ -29,9 +29,6 @@ BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
     creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Goblin")));
     creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Werewolf")));
     creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Evil Wizard")));
-//    creatures.push_back(new AbstractCreature("Goblin"));
-//    creatures.push_back(new AbstractCreature("Werewolf"));
-//    creatures.push_back(new AbstractCreature("Evil Wizard"));
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
@@ -45,25 +42,32 @@ void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, in
 
 void BasicDungeonLevelBuilder::buildItem(Room* room) {
 
-    int r = getRandomNumber(1, 6);
+    int r = getRandomNumber(1, 100);
+    int r2 = getRandomNumber(1, 3);
 
-    // clone existing item into room
-    if (r == 1)
-        room->setItem(items.at(0)->clone());
-    else if (r == 2)
-        room->setItem(items.at(1)->clone());
-    else if (r == 3)
-        room->setItem(items.at(2)->clone());
-    else if (r == 4)
-        room->setItem(items.at(3)->clone());
-    else if (r == 5)
-        room->setItem(items.at(4)->clone());
-    else if (r == 6)
-        room->setItem(items.at(5)->clone());
+    // Roughly a 65% chance it's a Consumeable
+    if (r <= 65) {
+        if (r2 == 1)
+            room->setItem(items.at(0)->clone());
+        else if (r2 == 2)
+            room->setItem(items.at(1)->clone());
+        else if (r == 3)
+            room->setItem(items.at(2)->clone());
+
+        // Roughly a 35% chance it's a Weapon
+    } else if (r > 65) {
+        if (r2 == 1)
+            room->setItem(items.at(3)->clone());
+        if (r2 == 2)
+            room->setItem(items.at(4)->clone());
+        if (r2 == 3)
+            room->setItem(items.at(5)->clone());
+    }
 }
 
 void BasicDungeonLevelBuilder::buildCreature(Room* room) {
     int r = getRandomNumber(1, 3);
+
 
     // clone existing creature into room
     if (r == 1)
@@ -72,6 +76,12 @@ void BasicDungeonLevelBuilder::buildCreature(Room* room) {
         room->setCreature(creatures.at(1)->clone());
     else if (r == 3)
         room->setCreature(creatures.at(2)->clone());
+
+    // If this is the last room, set the creature to a boss.
+    if (room->id() == level->numberOfRooms()) {
+        room->creature().setBoss();
+    }
+
 }
 
 Room* BasicDungeonLevelBuilder::buildRoom(int id) {

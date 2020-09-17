@@ -27,7 +27,6 @@ void MenuInterface::displayWelcome(const std::string& author, const std::string&
 void MenuInterface::run() {
     completeSets();
     mainMenu();
-
 }
 
 void MenuInterface::completeSets() {
@@ -134,28 +133,15 @@ void MenuInterface::mainMenu() {
             }
 
             if (dungType == 'b') {
-                // Successful creation
+
                 _display << "\nCreating " + levelName + "..." << std::endl;
 
-                // new concrete dungeon builder
-                //core::dungeon::basic::BasicDungeonLevelBuilder* bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
-                std::unique_ptr<core::dungeon::basic::BasicDungeonLevelBuilder> bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
-
-                // game setDungeonType(concreteBuilder)
-                game->setDungeonType(move(bd));
-
-                std::cout << "please work" << std::endl;
-                // game create...Level(...)
-                game->createRandomLevel("Test Name", 2, 2);
-                std::cout << "please work" << std::endl;
-
-                bd->buildRoom(1);
-
                 _display << "Dungeon level created!\n" << std::endl;
+
                 describeMenu();
 
             } else if (dungType == 'm') {
-                // Successful creation
+
                 _display << "\nCreating " + levelName + "..." << std::endl;
 
             }
@@ -212,6 +198,7 @@ void MenuInterface::describeMenu() {
         _input.sync();
         describeMenu();
     }
+
 }
 
 void MenuInterface::explorationMenu() {

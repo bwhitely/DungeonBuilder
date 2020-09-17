@@ -36,13 +36,13 @@ std::vector<std::string> Room::display() {
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
     };
 
-    // if Rooms southedge is NOT a rockwall it must be a Doorway, so add a pipeline to connect the rooms
+    // if Rooms south edge is NOT a rockwall it must be a Doorway, so add a pipeline to connect the doorways
     if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(_south)) {
 
     } else {
         room.at(5).at(4) = '|';
     }
-    // if east isnt a wall, add connectors
+    // If Rooms east edge is NOT a rockkwall, it must be a Doorway, so add two dashes to connect the doorways
     if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(_east)) {
 
     } else if (_east->displayCharacter() == 'O') {

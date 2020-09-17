@@ -12,7 +12,7 @@ RockChamber::~RockChamber()
     delete this;
 }
 
-std::string RockChamber::description() const
+std::string RockChamber::description () const
 {
     return "A chamber that intimidates those who enter. (Rock Chamber) \n"
             "To the NORTH is a \n"

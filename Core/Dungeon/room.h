@@ -28,7 +28,6 @@ class Room {
 
     AbstractCreature& creature() const;
     void setCreature(std::unique_ptr<AbstractCreature> creature);
-    //void setCreature(AbstractCreature* newCreature);
 
     // get/set room edges
     void setNorth(RoomEdge*);
