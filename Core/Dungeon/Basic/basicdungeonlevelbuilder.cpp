@@ -58,8 +58,10 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
     } else if (r > 65) {
         if (r2 == 1)
             room->setItem(items.at(3)->clone());
+
         if (r2 == 2)
             room->setItem(items.at(4)->clone());
+
         if (r2 == 3)
             room->setItem(items.at(5)->clone());
     }
@@ -450,12 +452,10 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
                 d2->connect(d1);
             }
         }
+    }
 
-        // do nothing, is entrance
-    }  else if (constraints == 5) {
-
-        /** LockedDoor @ Origin, OneWayDoor @ Destination */
-    } else if (constraints == 6) {
+    /** LockedDoor @ Origin, OneWayDoor @ Destination */
+    else if (constraints == 6) {
         if (direction == Direction::North) {
             origin->setNorth(new core::dungeon::common::LockedDoor(direction));
             destination->setSouth(new core::dungeon::common::OneWayDoor(Direction::South, false, false));
@@ -634,11 +634,10 @@ void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Dir
             }
         }
 
-        /** do nothing, is exit */
-    } else if (constraints == 10) {
+    }
 
-        /** LockDoor @ Origin & Destination */
-    } else if (constraints == 12) {
+    /** LockDoor @ Origin & Destination */
+    else if (constraints == 12) {
         if (direction == Direction::North) {
             origin->setNorth(new core::dungeon::common::LockedDoor(direction));
             destination->setSouth(new core::dungeon::common::LockedDoor(Direction::South));

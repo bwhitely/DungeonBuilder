@@ -63,12 +63,14 @@ void MenuInterface::mainMenu() {
 
         // if input is 'g'
     } else if (in == 'g' && mainMenuOptions.count('g') == 1) {
-        _display << "Creating Example Dungeon Level..." << std::endl
+        _display << "Creating Example Dungeon Level..." << std::endl;
 
-                 << "Dungeon level created!\n" << std::endl;
+        game->createExampleLevel();
+
+        _display << "Dungeon level created!\n" << std::endl;
         describeMenu();
 
-        // if input is 'r'
+        //Input is 'r'
     } else if (in == 'r' && mainMenuOptions.count('r') == 1) {
         std::string levelName;
         int rows;

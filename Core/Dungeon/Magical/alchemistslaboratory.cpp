@@ -9,7 +9,7 @@ AlchemistsLaboratory::AlchemistsLaboratory(int id): Room{id}
 
 AlchemistsLaboratory::~AlchemistsLaboratory()
 {
-
+    delete this;
 }
 
 std::string AlchemistsLaboratory::description() const

@@ -12,7 +12,6 @@ BlockedDoorWay::~BlockedDoorWay()
 {
     if (_opposite)
         _opposite = nullptr;
-    std::cout << "Deleting BlockedDoorWay";
 }
 
 void BlockedDoorWay::connect(Doorway *opposite)
@@ -42,7 +41,7 @@ char BlockedDoorWay::displayCharacter() const
 
 std::string BlockedDoorWay::description() const
 {
-    return "Blocked Door Way";
+    return "Blocked Doorway";
 }
 
 }

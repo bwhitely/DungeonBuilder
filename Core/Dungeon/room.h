@@ -42,6 +42,8 @@ class Room {
     void setEntrance() const;
     void setExit() const;
 
+    int numberOfEdges();
+
 protected:
     const int _id;
     std::unique_ptr<items::Item> _item;

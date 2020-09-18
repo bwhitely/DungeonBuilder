@@ -16,7 +16,10 @@ bool MagicWall::isPassage() const {
 }
 
 char MagicWall::displayCharacter() const {
-
+    if (_direction == North || _direction == South)
+        return '-';
+    else if (_direction == East || _direction == West)
+        return '|';
 }
 
 std::string MagicWall::description() const {

@@ -51,7 +51,7 @@ void Test::test() {
     // create Example level
     game->createRandomLevel("Random Level", 3, 3);
 
-    /** game->createExampleLevel();*/
+    //game->createExampleLevel();
     // Display Level
     game->displayLevel(std::cout);
 

@@ -15,7 +15,6 @@ Game::~Game() {
     // reset theBuilder ptr
     theBuilder = nullptr;
     theInstance = nullptr;
-    std::cout << "Destroyed Game" << std::endl;
 }
 
 Game* Game::instance() {
@@ -52,8 +51,8 @@ void Game::createExampleLevel() {
     // Second row of Rooms
     theBuilder->buildDoorway(rooms.at(3), rooms.at(4), East, OriginImpassable);
     theBuilder->buildDoorway(rooms.at(3), rooms.at(6), South, OriginImpassable | DestinationImpassable);
-    theBuilder->buildDoorway(rooms.at(4), rooms.at(7), South, None);
     theBuilder->buildDoorway(rooms.at(4), rooms.at(5), East, None);
+    theBuilder->buildDoorway(rooms.at(4), rooms.at(7), South, None);
     // Third row of Rooms
     theBuilder->buildDoorway(rooms.at(6), rooms.at(7), East, DestinationLocked | OriginLocked);
     theBuilder->buildDoorway(rooms.at(7), rooms.at(8), East, None);
@@ -143,9 +142,6 @@ void Game::createRandomLevel(std::string name, int width, int height) {
                 theBuilder->buildItem(rooms.at(i));
         }
 
-        /** Build Doorways */
-
-
         /** Build Entrance */
         // Get a double for probability purposes
         double r = randomDouble();
@@ -200,7 +196,7 @@ void Game::createRandomLevel(std::string name, int width, int height) {
         // Get the last row of Rooms index
         int lastRow = (height * width) - width;
 
-        // Get a new double for this
+        // Get a new double
         r = randomDouble();
 
         // Row has 3 or 4 Rooms
@@ -256,6 +252,73 @@ void Game::createRandomLevel(std::string name, int width, int height) {
                     theBuilder->buildExit(rooms.at(numRooms - 1), South);
                 else
                     theBuilder->buildExit(rooms.at(numRooms - 1), East);
+            }
+        }
+    }
+
+    /** Build Doorways */
+    MoveConstraints c;
+    double r1;
+
+    for (int i = 1; i <= numRooms; i++) {
+        r1 = randomDouble();
+
+        // This is not correct
+        // Traversable
+        if (r1 < 0.4) {
+            if (r1 < 0.133)
+                c = None; // 0 2x
+            else if (r1 < 0.2)
+                c = DestinationImpassable; // 2 1x
+            else if (r1 < 0.266)
+                c = DestinationLocked; // 8 1x
+            else if (r1 < 0.333)
+                c = OriginLocked; // 4 1x
+            else
+                c = OriginImpassable; // 1 1x
+            // Locked
+        } else if (r1 >= 0.4 && r1 < 0.7) {
+            if (r1 < 0.5)
+                c = DestinationLocked | OriginLocked; // 12 1x
+            else if (r1 < 0.55)
+                c = OriginLocked; // 4 2x
+            else if (r1 < 0.6)
+                c = DestinationLocked; // 8 2x
+            else if (r1 < 0.65)
+                c = DestinationLocked | OriginImpassable; // 3 1x
+            else
+                c = OriginLocked | DestinationImpassable; // 6 1x
+        } else {
+            if (r1 < 0.8)
+                c = DestinationImpassable | OriginImpassable; // 3 2x
+            else if (r1 < 0.85)
+                c = DestinationImpassable; // 2 2x
+            else if (r1 < 0.90)
+                c = OriginImpassable; // 1 2x
+            else if (r1 < 0.95)
+                c = OriginLocked | DestinationImpassable; //6 2x
+            else
+                c = DestinationLocked | OriginImpassable; // 9 1x
+        }
+
+        // Not last col, add door from East (origin) to West (destination)
+        if (i % width != 0) {
+            theBuilder->buildDoorway(rooms.at(i - 1), rooms.at(i), East, c);
+        }
+
+        // if Non-corner room has less than 2 doorways total, add another doorway to South edge
+        if (rooms.at(i - 1)->numberOfEdges() < 2) {
+            if (i <= numRooms - width) {
+                theBuilder->buildDoorway(rooms.at(i - 1), rooms.at((i - 1) + width), South, c);
+            }
+            // Otherwise roll for a south doorway, 50% chance
+        } else {
+            r1 = randomDouble();
+            if (r1 < 0.5) {
+                // Not last row, add Door from South (origin) to North (destination)
+                if (i <= numRooms - width) {
+                    theBuilder->buildDoorway(rooms.at(i - 1), rooms.at((i - 1) + width), South, c);
+                }
             }
         }
     }

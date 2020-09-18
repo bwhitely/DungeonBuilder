@@ -38,16 +38,14 @@ std::vector<std::string> Room::display() {
 
     // if Rooms south edge is NOT a rockwall it must be a Doorway, so add a pipeline to connect the doorways
     if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(_south)) {
-
-    } else {
+        // Not an exit
+    } else if (_south->displayCharacter() != 'O'){
         room.at(5).at(4) = '|';
     }
     // If Rooms east edge is NOT a rockkwall, it must be a Doorway, so add two dashes to connect the doorways
     if (core::dungeon::basic::RockWall* r = dynamic_cast<basic::RockWall*>(_east)) {
 
-    } else if (_east->displayCharacter() == 'O') {
-
-    } else {
+    } else if (_east->displayCharacter() != 'O' && _east->displayCharacter() != 'I'){
         room.at(2).at(10) = '-';
         room.at(2).at(11) = '-';
     }
@@ -117,6 +115,20 @@ void Room::setWest(RoomEdge* edge) {
 
 RoomEdge* Room::getWest() {
     return _west;
+}
+
+int Room::numberOfEdges()
+{
+    int num = 0;
+    if (Doorway* r = dynamic_cast<Doorway*>(_south))
+        num++;
+    if (Doorway* r = dynamic_cast<Doorway*>(_north))
+        num++;
+    if (Doorway* r = dynamic_cast<Doorway*>(_east))
+        num++;
+    if (Doorway* r = dynamic_cast<Doorway*>(_west))
+        num++;
+    return num;
 }
 
 std::ostream& operator<<(std::ostream& out, const Room& room) {
