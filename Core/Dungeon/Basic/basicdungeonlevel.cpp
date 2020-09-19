@@ -16,7 +16,10 @@ BasicDungeonLevel::~BasicDungeonLevel()
 
 std::string BasicDungeonLevel::description()
 {
-    return "Description of BasicDungeonLevel";
+    std::string s = name() + "\n";
+            s += "Size: " + std::to_string(width()) + " x " + std::to_string(height()) + "\n";
+            s += "Type: Dark Cave (Basic Dungeon)\n";
+    return s;
 }
 
 }

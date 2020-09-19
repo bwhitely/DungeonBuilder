@@ -7,7 +7,13 @@
 #include <Core/Dungeon/Basic/basicdungeonlevelbuilder.h>
 #include <Core/Dungeon/Magical/magicaldungeonlevelbuilder.h>
 #include <Core/Dungeon/Basic/basicdungeonlevel.h>
-
+using namespace std;
+using namespace core;
+using namespace core::dungeon;
+using namespace core::dungeon::basic;
+using namespace core::dungeon::magical;
+using namespace core::items;
+using namespace core::creatures;
 namespace core {
 
 // declare Director once here so I don't need to create multiple due scoping from separating the menu options
@@ -79,9 +85,20 @@ void MenuInterface::mainMenu() {
         bool withinRange = false;
         bool validLevelType = false;
 
-        _display << "What would you like to call this level?" << std::endl;
-        _input.ignore();
-        std::getline(_input, levelName);
+        while (true) {
+            _display << "What would you like to call this level?" << std::endl;
+            _input.ignore();
+            std::getline(_input, levelName);
+
+            // Empty name
+            if (levelName == "") {
+                _display << "Name cannot be empty." << std::endl;
+                _input.clear();
+                _input.sync();
+            } else {
+                break;
+            }
+        }
 
         // Dungeon row selection
         while (!withinRange) {
@@ -136,15 +153,23 @@ void MenuInterface::mainMenu() {
 
             if (dungType == 'b') {
 
-                _display << "\nCreating " + levelName + "..." << std::endl;
+                std::unique_ptr<BasicDungeonLevelBuilder> bd{new BasicDungeonLevelBuilder()};
+;                _display << "\nCreating " + levelName + "..." << std::endl;
+
+                game->setDungeonType(std::move(bd));
 
                 _display << "Dungeon level created!\n" << std::endl;
 
                 describeMenu();
 
             } else if (dungType == 'm') {
+                std::unique_ptr<MagicalDungeonLevelBuilder> md{new MagicalDungeonLevelBuilder()};
 
                 _display << "\nCreating " + levelName + "..." << std::endl;
+
+                game->setDungeonType(std::move(md));
+                _display << "Dungeon level created!\n" << std::endl;
+
 
             }
         }
@@ -189,8 +214,19 @@ void MenuInterface::describeMenu() {
         _input.clear();
 
     } else if (in == 'd' && describeMenuOptions.count('d') == 1) {
-
+        _display << game->levelDescription() << std::endl;
+        describeMenu();
     } else if (in == 'v' && describeMenuOptions.count('v') == 1) {
+        game->displayLevel(_display);
+
+        while (true){
+            char c;
+            _display << "*Press Enter to continue*\n" << std::endl;
+            _input >> c;
+            if (_input.get() == '\n')
+                break;
+        }
+        describeMenu();
 
     } else if (in == 'r' && describeMenuOptions.count('r') == 1) {
         _display << "\nReturning to main menu.\n\n";
@@ -219,7 +255,7 @@ void MenuInterface::explorationMenu() {
 
         int roomNo;
         _input >> roomNo;
-
+        _display << game->roomDescription(1) << std::endl;
     } else if (in == 'r' && explorationMenuOptions.count('r') == 1) {
         _input.sync();
         describeMenu();

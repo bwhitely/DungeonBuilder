@@ -25,6 +25,7 @@ class Game {
     void displayLevel(std::ostream &display) const;
     double randomDouble();
     std::string roomDescription(int id);
+    std::string levelDescription();
 
   private:
     // unique ptr to builder

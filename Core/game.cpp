@@ -250,7 +250,7 @@ void Game::createRandomLevel(std::string name, int width, int height) {
         // 25% for creature AND not in first room
         else if (r < 0.25 && i != 0)
             theBuilder->buildCreature(rooms.at(i));
-        if (r >= 0.65 && i != 0)
+        else if (r >= 0.65 && i != 0)
             theBuilder->buildItem(rooms.at(i));
     }
 
@@ -354,10 +354,15 @@ std::string Game::roomDescription(int id)
     s += "To the WEST is " + _level->retrieveRoom(id)->getWest()->description() + "\n";
 
     if (_level->retrieveRoom(id)->hasCreature())
-        s += "There is a monster to fight.";
+        s += "There is a " + _level->retrieveRoom(id)->creature().name() + " to fight.";
     if (_level->retrieveRoom(id)->hasItem())
-        s += "There is an item to pick up.";
+        s += "There is a " + _level->retrieveRoom(id)->item().name() + " to pick up.";
     return s;
+}
+
+std::string Game::levelDescription()
+{
+    return _level->description();
 }
 
 }
