@@ -43,6 +43,11 @@ class Room {
     void setExit() const;
 
     int numberOfEdges();
+    bool hasCreature();
+    bool hasItem();
+
+    bool containsExit();
+    bool containsEntrance();
 
 protected:
     const int _id;

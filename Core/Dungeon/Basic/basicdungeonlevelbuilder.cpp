@@ -80,7 +80,7 @@ void BasicDungeonLevelBuilder::buildCreature(Room* room) {
         room->setCreature(creatures.at(2)->clone());
 
     // If this is the last room, set the creature to a boss.
-    if (room->id() == level->numberOfRooms()) {
+    if (room->containsExit()) {
         room->creature().setBoss();
     }
 

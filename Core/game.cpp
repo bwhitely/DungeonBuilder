@@ -1,6 +1,9 @@
 #include "game.h"
 #include <Core/menuinterface.h>
 #include <Core/Dungeon/Common/onewaydoor.h>
+#include <Core/Dungeon/Basic/rockwall.h>
+#include <Core/Dungeon/Basic/quartzchamber.h>
+#include <Core/Dungeon/Basic/rockchamber.h>
 
 namespace core {
 
@@ -118,30 +121,6 @@ void Game::createRandomLevel(std::string name, int width, int height) {
         for (int i = 1; i < numRooms + 1; i++)
             rooms.push_back(theBuilder->buildRoom(i));
 
-        /** Build Items & Creatures */
-        // Randomly add items/creatures
-        for (int i = 0; i < theBuilder->getDungeonLevel()->numberOfRooms(); i++) {
-            // Get a random double each loop to ensure there's actually a 25%/35% chance for items/creatures to spawn each loop
-            double r = randomDouble();
-
-            // If it's the last room, set creature. Will be made a Boss inside buildCreature()
-            if (i == theBuilder->getDungeonLevel()->numberOfRooms() - 1)
-                theBuilder->buildCreature(rooms.at(i));
-            // 25% for creature AND not in first room
-            else if (r < 0.25 && i != 0)
-                theBuilder->buildCreature(rooms.at(i));
-
-            // reroll again for item, otherwise every room with an item would also have a monster
-            r = randomDouble();
-
-            // 35% for item AND not in first room OR last room (so I can have explicit logic for last room)
-            if (r < 0.35 && i != 0 && i != theBuilder->getDungeonLevel()->numberOfRooms() - 1)
-                theBuilder->buildItem(rooms.at(i));
-            // In last room, add an Item
-            else if (i == theBuilder->getDungeonLevel()->numberOfRooms() - 1)
-                theBuilder->buildItem(rooms.at(i));
-        }
-
         /** Build Entrance */
         // Get a double for probability purposes
         double r = randomDouble();
@@ -256,6 +235,25 @@ void Game::createRandomLevel(std::string name, int width, int height) {
         }
     }
 
+    /** Build Items & Creatures */
+    // Randomly add items/creatures
+    for (int i = 0; i < theBuilder->getDungeonLevel()->numberOfRooms(); i++) {
+        // Get a random double each loop to ensure there's actually a 25%/35% chance for items/creatures to spawn each loop
+        double r = randomDouble();
+
+        // If room has exit, will be made a Boss inside buildCreature()
+        if (rooms.at(i)->containsExit()){
+            theBuilder->buildCreature(rooms.at(i));
+            // This will randomly not build an item in the exit room like 10-20% of the time, no idea why
+            theBuilder->buildItem(rooms.at(i));
+        }
+        // 25% for creature AND not in first room
+        else if (r < 0.25 && i != 0)
+            theBuilder->buildCreature(rooms.at(i));
+        if (r >= 0.65 && i != 0)
+            theBuilder->buildItem(rooms.at(i));
+    }
+
     /** Build Doorways */
     MoveConstraints c;
     double r1;
@@ -322,7 +320,6 @@ void Game::createRandomLevel(std::string name, int width, int height) {
             }
         }
     }
-
     _level = theBuilder->getDungeonLevel();
 }
 
@@ -340,6 +337,27 @@ void Game::displayLevel(std::ostream& display) const {
 
 double Game::randomDouble() {
     return _realDistribution(_randomGenerator);
+}
+
+std::string Game::roomDescription(int id)
+{
+
+    std::string s;
+    if (_level->retrieveRoom(id)->description() == "A chamber that glitters like a thousand stars in the torchlight. (Quartz Chamber)\n"){
+        s += _level->retrieveRoom(id)->description();
+    } else if (_level->retrieveRoom(id)->description() == "A dark, gloomy chamber. (Rock Chamber) \n"){
+        s += _level->retrieveRoom(id)->description();
+    }
+    s += "To the NORTH is " + _level->retrieveRoom(id)->getNorth()->description() + "\n";
+    s += "To the SOUTH is " + _level->retrieveRoom(id)->getSouth()->description() + "\n";
+    s += "To the EAST is " + _level->retrieveRoom(id)->getEast()->description() + "\n";
+    s += "To the WEST is " + _level->retrieveRoom(id)->getWest()->description() + "\n";
+
+    if (_level->retrieveRoom(id)->hasCreature())
+        s += "There is a monster to fight.";
+    if (_level->retrieveRoom(id)->hasItem())
+        s += "There is an item to pick up.";
+    return s;
 }
 
 }

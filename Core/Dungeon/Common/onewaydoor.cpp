@@ -13,7 +13,6 @@ OneWayDoor::~OneWayDoor()
 {
     if (_opposite)
         _opposite = nullptr;
-    std::cout << "Deleting OneWayDoor";
 }
 
 void OneWayDoor::connect(Doorway *opposite)
@@ -62,7 +61,13 @@ char OneWayDoor::displayCharacter() const
 
 std::string OneWayDoor::description() const
 {
-    return "One Way Door";
+    if (_entrance){
+        return "The entrance to the dungeon level.";
+    } else if (_exit) {
+        return "The exit from the dungeon level.";
+    } else {
+        return "a One Way Door to another chamber";
+    }
 }
 }
 

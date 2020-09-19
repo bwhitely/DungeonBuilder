@@ -42,7 +42,7 @@ char LockedDoor::displayCharacter() const
 
 std::string LockedDoor::description() const
 {
-    return "Locked Door";
+    return "a Locked Door to another chamber";
 }
 
 }

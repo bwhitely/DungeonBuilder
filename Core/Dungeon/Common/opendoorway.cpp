@@ -9,8 +9,6 @@ OpenDoorway::OpenDoorway(Direction direction): Doorway{direction} {
 OpenDoorway::~OpenDoorway() {
     if (_opposite)
         _opposite = nullptr;
-
-    std::cout << "Deleting Opendoorway";
 }
 
 void OpenDoorway::connect(Doorway* opposite) {
@@ -51,7 +49,7 @@ char OpenDoorway::displayCharacter() const {
 }
 
 std::string OpenDoorway::description() const {
-    return "Open Doorway";
+    return "a Open Doorway to another chamber";
 }
 
 

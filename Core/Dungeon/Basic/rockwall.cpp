@@ -8,7 +8,7 @@ RockWall::RockWall(Direction direction): Wall{direction} {
 }
 
 RockWall::~RockWall() {
-    std::cout << "Destroying wall\n";
+
 }
 
 bool RockWall::isPassage() const {
@@ -23,7 +23,7 @@ char RockWall::displayCharacter() const {
 }
 
 std::string RockWall::description() const {
-    return "Rock Wall";
+    return "a Rock Wall";
 }
 
 void RockWall::printDirection() {

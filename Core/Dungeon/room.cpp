@@ -131,6 +131,38 @@ int Room::numberOfEdges()
     return num;
 }
 
+bool Room::hasCreature()
+{
+    if (_creature != nullptr)
+        return true;
+    else
+        return false;
+}
+
+bool Room::hasItem()
+{
+    if (_item != nullptr)
+        return true;
+    else
+        return false;
+}
+
+bool Room::containsExit()
+{
+    if (_west->displayCharacter() == 'O' || _east->displayCharacter() == 'O' || _south->displayCharacter() == 'O' || _north->displayCharacter() == 'O')
+        return true;
+    else
+        return false;
+}
+
+bool Room::containsEntrance()
+{
+    if (_west->displayCharacter() == 'I' || _east->displayCharacter() == 'I' || _south->displayCharacter() == 'I' || _north->displayCharacter() == 'I')
+        return true;
+    else
+        return false;
+}
+
 std::ostream& operator<<(std::ostream& out, const Room& room) {
     return out << room.description();
 }

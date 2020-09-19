@@ -10,7 +10,6 @@ public:
     BasicDungeonLevel(std::string name, int width, int height);
     virtual ~BasicDungeonLevel();
     std::string description() override;
-protected:
 };
 }
 

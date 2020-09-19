@@ -5,6 +5,7 @@
 #include <random>
 #include <ctime>
 #include <memory>
+#include <Core/Dungeon/dungeonlevel.h>
 
 namespace core {
 
@@ -23,6 +24,7 @@ class Game {
     void createRandomLevel(std::string name, int width, int height);
     void displayLevel(std::ostream &display) const;
     double randomDouble();
+    std::string roomDescription(int id);
 
   private:
     // unique ptr to builder
