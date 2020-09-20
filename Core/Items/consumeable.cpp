@@ -14,6 +14,7 @@ Consumeable::~Consumeable()
 
 std::unique_ptr<Item> Consumeable::clone()
 {
+    // return unique ptr clone
     return std::make_unique<Consumeable>(*this);
 }
 

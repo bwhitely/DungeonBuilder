@@ -52,7 +52,7 @@ void Game::createExampleLevel() {
     theBuilder->buildDoorway(rooms.at(1), rooms.at(4), South, None);
     theBuilder->buildDoorway(rooms.at(2), rooms.at(5), South, DestinationLocked);
     // Second row of Rooms
-    theBuilder->buildDoorway(rooms.at(3), rooms.at(4), East, OriginImpassable);
+    theBuilder->buildDoorway(rooms.at(3), rooms.at(4), East, DestinationImpassable);
     theBuilder->buildDoorway(rooms.at(3), rooms.at(6), South, OriginImpassable | DestinationImpassable);
     theBuilder->buildDoorway(rooms.at(4), rooms.at(5), East, None);
     theBuilder->buildDoorway(rooms.at(4), rooms.at(7), South, None);
@@ -242,7 +242,7 @@ void Game::createRandomLevel(std::string name, int width, int height) {
         double r = randomDouble();
 
         // If room has exit, will be made a Boss inside buildCreature()
-        if (rooms.at(i)->containsExit()){
+        if (rooms.at(i)->containsExit()) {
             theBuilder->buildCreature(rooms.at(i));
             // This will randomly not build an item in the exit room like 10-20% of the time, no idea why
             theBuilder->buildItem(rooms.at(i));
@@ -260,43 +260,45 @@ void Game::createRandomLevel(std::string name, int width, int height) {
 
     for (int i = 1; i <= numRooms; i++) {
         r1 = randomDouble();
-
-        // This is not correct
+        // 20% chance for None, then each other constraint has a 10% chance. Making a total of 100% with a 40/30/30 split
         // Traversable
         if (r1 < 0.4) {
-            if (r1 < 0.133)
-                c = None; // 0 2x
-            else if (r1 < 0.2)
-                c = DestinationImpassable; // 2 1x
-            else if (r1 < 0.266)
-                c = DestinationLocked; // 8 1x
-            else if (r1 < 0.333)
-                c = OriginLocked; // 4 1x
+            if (r1 < 0.2)
+                c = None; // 20% chance for None
+            else if (r1 < 0.25)
+                c = DestinationImpassable; // 2 5%
+            else if (r1 < 0.3)
+                c = DestinationLocked; // 8 5%
+            else if (r1 < 0.35)
+                c = OriginLocked; // 4 5%
             else
-                c = OriginImpassable; // 1 1x
+                c = OriginImpassable; // 1 5%
+
             // Locked
         } else if (r1 >= 0.4 && r1 < 0.7) {
-            if (r1 < 0.5)
-                c = DestinationLocked | OriginLocked; // 12 1x
+            if (r1 < 0.50)
+                c = DestinationLocked | OriginLocked; // double chance for constraint 12 to make 10%
             else if (r1 < 0.55)
-                c = OriginLocked; // 4 2x
-            else if (r1 < 0.6)
-                c = DestinationLocked; // 8 2x
+                c = OriginLocked; // 4 10%
+            else if (r1 < 0.60)
+                c = DestinationLocked; // 8 10%
             else if (r1 < 0.65)
-                c = DestinationLocked | OriginImpassable; // 3 1x
+                c = DestinationLocked | OriginImpassable; // 9 5%
             else
-                c = OriginLocked | DestinationImpassable; // 6 1x
-        } else {
+                c = OriginLocked | DestinationImpassable; // 6 5%
+
+            // Impassable
+        } else if (r1 >= 0.7) {
             if (r1 < 0.8)
-                c = DestinationImpassable | OriginImpassable; // 3 2x
+                c = DestinationImpassable | OriginImpassable; // double chance for constraint 3 to make 10%
             else if (r1 < 0.85)
-                c = DestinationImpassable; // 2 2x
+                c = DestinationImpassable; // 2 10%
             else if (r1 < 0.90)
-                c = OriginImpassable; // 1 2x
+                c = OriginImpassable; // 1 10%
             else if (r1 < 0.95)
-                c = OriginLocked | DestinationImpassable; //6 2x
+                c = OriginLocked | DestinationImpassable; // 6 10%
             else
-                c = DestinationLocked | OriginImpassable; // 9 1x
+                c = DestinationLocked | OriginImpassable; // 9 10%
         }
 
         // Not last col, add door from East (origin) to West (destination)
@@ -309,9 +311,11 @@ void Game::createRandomLevel(std::string name, int width, int height) {
             if (i <= numRooms - width) {
                 theBuilder->buildDoorway(rooms.at(i - 1), rooms.at((i - 1) + width), South, c);
             }
+
             // Otherwise roll for a south doorway, 50% chance
         } else {
             r1 = randomDouble();
+
             if (r1 < 0.5) {
                 // Not last row, add Door from South (origin) to North (destination)
                 if (i <= numRooms - width) {
@@ -320,6 +324,7 @@ void Game::createRandomLevel(std::string name, int width, int height) {
             }
         }
     }
+
     _level = theBuilder->getDungeonLevel();
 }
 
@@ -339,29 +344,31 @@ double Game::randomDouble() {
     return _realDistribution(_randomGenerator);
 }
 
-std::string Game::roomDescription(int id)
-{
+std::string Game::roomDescription(int id) {
 
     std::string s;
-    if (_level->retrieveRoom(id)->description() == "A chamber that glitters like a thousand stars in the torchlight. (Quartz Chamber)\n"){
+
+    if (_level->retrieveRoom(id)->description() == "A chamber that glitters like a thousand stars in the torchlight. (Quartz Chamber)\n") {
         s += _level->retrieveRoom(id)->description();
-    } else if (_level->retrieveRoom(id)->description() == "A dark, gloomy chamber. (Rock Chamber) \n"){
+    } else if (_level->retrieveRoom(id)->description() == "A dark, gloomy chamber. (Rock Chamber) \n") {
         s += _level->retrieveRoom(id)->description();
     }
+
     s += "To the NORTH is " + _level->retrieveRoom(id)->getNorth()->description() + "\n";
     s += "To the SOUTH is " + _level->retrieveRoom(id)->getSouth()->description() + "\n";
     s += "To the EAST is " + _level->retrieveRoom(id)->getEast()->description() + "\n";
     s += "To the WEST is " + _level->retrieveRoom(id)->getWest()->description() + "\n";
 
     if (_level->retrieveRoom(id)->hasCreature())
-        s += "There is a " + _level->retrieveRoom(id)->creature().name() + " to fight.";
+        s += "There is a " + _level->retrieveRoom(id)->creature().name() + " to fight.\n";
+
     if (_level->retrieveRoom(id)->hasItem())
-        s += "There is a " + _level->retrieveRoom(id)->item().name() + " to pick up.";
+        s += "There is a " + _level->retrieveRoom(id)->item().name() + " to pick up.\n";
+
     return s;
 }
 
-std::string Game::levelDescription()
-{
+std::string Game::levelDescription() {
     return _level->description();
 }
 

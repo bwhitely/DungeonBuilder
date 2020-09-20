@@ -49,7 +49,7 @@ void Test::test() {
     // set Dungeon Type
     game->setDungeonType(std::move(bd));
     // create Example level
-    game->createRandomLevel("Random Level", 3, 3);
+    game->createRandomLevel("Random Level", 4, 4);
 
     //game->createExampleLevel();
     // Display Level

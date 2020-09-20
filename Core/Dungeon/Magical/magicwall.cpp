@@ -8,7 +8,7 @@ MagicWall::MagicWall(Direction direction): Wall{direction} {
 }
 
 MagicWall::~MagicWall() {
-    std::cout << "Destroying magic wall\n";
+
 }
 
 bool MagicWall::isPassage() const {
@@ -16,6 +16,7 @@ bool MagicWall::isPassage() const {
 }
 
 char MagicWall::displayCharacter() const {
+    // Returns pipeline or hyphen depending on direction
     if (_direction == North || _direction == South)
         return '-';
     else if (_direction == East || _direction == West)

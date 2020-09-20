@@ -1,4 +1,5 @@
 #include "rockchamber.h"
+#include <iostream>
 
 namespace core::dungeon::basic{
 
@@ -9,7 +10,7 @@ RockChamber::RockChamber(const int id) : Room{id}
 
 RockChamber::~RockChamber()
 {
-    delete this;
+
 }
 
 std::string RockChamber::description () const

@@ -14,7 +14,7 @@ class RoomEdge {
     RoomEdge(Direction _direction);
     RoomEdge(const RoomEdge& other) = delete;
 
-    friend std::ostream &operator<<(std::ostream& out, const RoomEdge& roomEdge);  //operator overload (<<)
+    friend std::ostream &operator<<(std::ostream& out, const RoomEdge& roomEdge);
 
     virtual std::string description() const = 0;
     virtual char displayCharacter() const = 0;

@@ -12,7 +12,6 @@ LockedDoor::~LockedDoor()
     // remove dangling ptr
     if (_opposite)
         _opposite = nullptr;
-    std::cout << "Deleting LockedDoor";
 }
 
 void LockedDoor::connect(Doorway *opposite)

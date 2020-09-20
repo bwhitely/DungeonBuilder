@@ -6,6 +6,9 @@
 #include <Core/Creatures/monster.h>
 #include <vector>
 
+// enum
+enum Direction : unsigned {North, South, East, West};
+
 namespace core::dungeon {
 class RoomEdge;
 
@@ -31,13 +34,16 @@ class Room {
 
     // get/set room edges
     void setNorth(RoomEdge*);
-    RoomEdge* getNorth();
+    RoomEdge* getNorth() const;
     void setEast(RoomEdge*);
-    RoomEdge* getEast();
+    RoomEdge* getEast() const;
     void setSouth(RoomEdge*);
-    RoomEdge* getSouth();
+    RoomEdge* getSouth() const;
     void setWest(RoomEdge*);
-    RoomEdge* getWest();
+    RoomEdge* getWest() const;
+
+    void setEdge(Direction direction, std::string dwayType);
+    RoomEdge* getEdge(Direction direction) const;
 
     void setEntrance() const;
     void setExit() const;
@@ -60,7 +66,5 @@ protected:
 
 };
 }
-// enum
-enum Direction : unsigned {North, South, East, West};
 
 #endif // ROOM_H

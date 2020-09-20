@@ -2,6 +2,8 @@
 #define MAGICALDUNGEONLEVELBUILDER_H
 #include <Core/Dungeon/dungeonlevelbuilder.h>
 #include <Core/Dungeon/Magical/magicaldungeonlevel.h>
+#include <Core/Items/consumeable.h>
+#include <Core/Items/weapon.h>
 
 namespace core::dungeon::magical {
 class MagicalDungeonLevelBuilder : public DungeonLevelBuilder
@@ -18,6 +20,8 @@ public:
     void buildEntrance(Room* room, Direction direction) override;
     void buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) override;
     int getRandomNumber(int min, int max);
+
+    Direction getOpposite(Direction direction);
   private:
     MagicalDungeonLevel* level;
     std::vector<std::unique_ptr<AbstractCreature>> creatures;

@@ -20,6 +20,8 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
     void buildEntrance(Room* room, Direction direction) override;
     void buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) override;
     int getRandomNumber(int min, int max);
+
+    Direction getOpposite(Direction direction);
   private:
     BasicDungeonLevel* level;
     std::vector<std::unique_ptr<AbstractCreature>> creatures;

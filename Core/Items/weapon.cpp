@@ -12,6 +12,7 @@ Weapon::~Weapon() {
 
 std::unique_ptr<Item> Weapon::clone()
 {
+    // return unique ptr clone
     return std::make_unique<Weapon>(*this);
 }
 }

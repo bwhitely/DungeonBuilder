@@ -49,13 +49,13 @@ char OneWayDoor::displayCharacter() const
         return 'O';
 
     } if (_direction == North){
-        return '^';
-    } else if (_direction == East){
-        return '>';
-    } else if (_direction == South){
         return 'v';
-    } else if (_direction == West){
+    } else if (_direction == East){
         return '<';
+    } else if (_direction == South){
+        return '^';
+    } else if (_direction == West){
+        return '>';
     }
 }
 

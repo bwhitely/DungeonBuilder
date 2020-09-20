@@ -9,12 +9,12 @@ AlchemistsLaboratory::AlchemistsLaboratory(int id): Room{id}
 
 AlchemistsLaboratory::~AlchemistsLaboratory()
 {
-    delete this;
+
 }
 
 std::string AlchemistsLaboratory::description() const
 {
-    return "Alchemists Laboratory";
+    return "A room filled with potions and herbs. (Alchemists Laboratory)\n";
 }
 
 }

@@ -1,4 +1,5 @@
 #include "quartzchamber.h"
+#include <iostream>
 
 namespace core::dungeon::basic {
 
@@ -9,7 +10,6 @@ QuartzChamber::QuartzChamber(const int id) : Room{id}
 
 QuartzChamber::~QuartzChamber()
 {
-    delete this;
 }
 
 std::string QuartzChamber::description() const

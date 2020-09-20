@@ -14,11 +14,13 @@ DungeonLevel::DungeonLevel(std::string name, int width, int height) {
 }
 
 bool DungeonLevel::addRoom(Room* room) {
+    //rooms.emplace_back(room);
     _rooms.push_back(room);
     return true;
 }
 
 Room* DungeonLevel::retrieveRoom(int id) {
+    //return std::make_shared<Room>(rooms.at(id));
     return _rooms.at(id - 1);
 }
 
@@ -39,7 +41,7 @@ std::string DungeonLevel::name() const {
 }
 
 std::vector<std::string> DungeonLevel::display() {
-    // This is a very average algorithm
+    // This is a very average algorithm and is a bit janky
 
     // Vector of Rooms, size equal to height (num of Rows of Rooms) * 6 (6 rows in each Room vector)
     std::vector<std::string> level (_height * 6);

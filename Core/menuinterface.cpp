@@ -18,6 +18,10 @@ namespace core {
 
 // declare Director once here so I don't need to create multiple due scoping from separating the menu options
 core::Game* game = game->instance();
+std::string levelName;
+int rows;
+int cols;
+bool exampleLevel = false;
 
 MenuInterface::MenuInterface(std::ostream& display, std::istream& input) : _display(std::cout), _input(std::cin),
     mainMenuOptions{}, describeMenuOptions{}, explorationMenuOptions{} {
@@ -71,16 +75,18 @@ void MenuInterface::mainMenu() {
     } else if (in == 'g' && mainMenuOptions.count('g') == 1) {
         _display << "Creating Example Dungeon Level..." << std::endl;
 
+        std::unique_ptr<BasicDungeonLevelBuilder> bd{new BasicDungeonLevelBuilder()};
+        game->setDungeonType(std::move(bd));
+
         game->createExampleLevel();
+        exampleLevel = true;
+
 
         _display << "Dungeon level created!\n" << std::endl;
         describeMenu();
 
         //Input is 'r'
     } else if (in == 'r' && mainMenuOptions.count('r') == 1) {
-        std::string levelName;
-        int rows;
-        int cols;
         char dungType;
         bool withinRange = false;
         bool validLevelType = false;
@@ -154,9 +160,10 @@ void MenuInterface::mainMenu() {
             if (dungType == 'b') {
 
                 std::unique_ptr<BasicDungeonLevelBuilder> bd{new BasicDungeonLevelBuilder()};
-;                _display << "\nCreating " + levelName + "..." << std::endl;
+                _display << "\nCreating " + levelName + "..." << std::endl;
 
                 game->setDungeonType(std::move(bd));
+                game->createRandomLevel(levelName, rows, cols);
 
                 _display << "Dungeon level created!\n" << std::endl;
 
@@ -168,14 +175,14 @@ void MenuInterface::mainMenu() {
                 _display << "\nCreating " + levelName + "..." << std::endl;
 
                 game->setDungeonType(std::move(md));
+                game->createRandomLevel(levelName, rows, cols);
+
                 _display << "Dungeon level created!\n" << std::endl;
 
-
+                describeMenu();
             }
         }
-
-        // transition to the describe menu
-        describeMenu();
+        //describeMenu();
 
         // if input is 'q' (quit)
     } else if (in == 'q' && mainMenuOptions.count('q') == 1) {
@@ -183,6 +190,8 @@ void MenuInterface::mainMenu() {
         _input >> in;
 
         if (in == 'y') {
+            _input.sync();
+            _input.clear();
             _display << "Goodbye!" << std::endl;
 
         } else if (in == 'n') {
@@ -215,17 +224,14 @@ void MenuInterface::describeMenu() {
 
     } else if (in == 'd' && describeMenuOptions.count('d') == 1) {
         _display << game->levelDescription() << std::endl;
-        describeMenu();
+        explorationMenu();
     } else if (in == 'v' && describeMenuOptions.count('v') == 1) {
         game->displayLevel(_display);
 
-        while (true){
-            char c;
-            _display << "*Press Enter to continue*\n" << std::endl;
-            _input >> c;
-            if (_input.get() == '\n')
-                break;
-        }
+        _display << "*Press Enter to continue*" << std::endl;
+        _input.clear();
+        _input.sync();
+        _input.get();
         describeMenu();
 
     } else if (in == 'r' && describeMenuOptions.count('r') == 1) {
@@ -251,11 +257,27 @@ void MenuInterface::explorationMenu() {
         _input.clear();
 
     } else if (in == 'd' && explorationMenuOptions.count('d') == 1) {
-        _display << "Which room would you like to describe? (1-4)\n" << std::endl;
-
+        int numRooms = cols * rows;
         int roomNo;
-        _input >> roomNo;
-        _display << game->roomDescription(1) << std::endl;
+
+        if (exampleLevel){
+            _display << "Which room would you like to describe? (1-9)" << std::endl;
+            _input >> roomNo;
+            while (roomNo > 9 || roomNo < 1){
+                _display << "Please enter a room between 1 and 9.\n";
+                _input >> roomNo;
+            }
+        }
+        else{
+            _display << "Which room would you like to describe? (1-" + std::to_string(numRooms) + ")"  << std::endl;
+            _input >> roomNo;
+            while (roomNo > numRooms || roomNo < 1){
+                _display << "Please enter a room between 1 and " + std::to_string(numRooms) + "\n";
+                _input >> roomNo;
+            }
+        }
+
+        _display << game->roomDescription(roomNo) << std::endl;
     } else if (in == 'r' && explorationMenuOptions.count('r') == 1) {
         _input.sync();
         describeMenu();

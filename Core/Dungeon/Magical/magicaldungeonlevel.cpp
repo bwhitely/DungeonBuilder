@@ -16,7 +16,7 @@ MagicalDungeonLevel::~MagicalDungeonLevel()
 
 std::string MagicalDungeonLevel::description()
 {
-    std::string s = name() + "\n";
+    std::string s = "Name: " + name() + "\n";
             s += "Size: " + std::to_string(width()) + " x " + std::to_string(height()) + "\n";
             s += "Type: Wizardly Palace (Magical Dungeon)\n";
     return s;
