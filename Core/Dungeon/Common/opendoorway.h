@@ -24,14 +24,4 @@ class OpenDoorway : public Doorway {
 };
 }
 
-//class RaspberryPie : public Pie
-//{
-//public:
-//  RaspberryPie();
-//  virtual ~RaspberryPie();
-//  RaspberryPie(const RaspberryPie &) = default;
-//  std::string description() const override; // see comments in 'applepie.h'
-//  std::string tastiness() const override;
-//};
-
 #endif // OPENDOORWAY_H

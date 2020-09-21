@@ -1,5 +1,5 @@
 #include "opendoorway.h"
-#include <iostream>
+
 namespace core::dungeon::common {
 
 OpenDoorway::OpenDoorway(Direction direction): Doorway{direction} {

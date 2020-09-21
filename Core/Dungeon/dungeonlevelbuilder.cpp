@@ -39,7 +39,7 @@ void DungeonLevelBuilder::buildCreature(std::shared_ptr<Room>) {
 
 }
 
-std::shared_ptr<DungeonLevel> DungeonLevelBuilder::getDungeonLevel() {
+DungeonLevel* DungeonLevelBuilder::getDungeonLevel() {
 
 }
 }

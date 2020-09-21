@@ -2,13 +2,11 @@
 
 namespace core::items {
 
-Consumeable::Consumeable(std::string name) : Item{name}
-{
+Consumeable::Consumeable(std::string name) : Item{name} {
     _name = name;
 }
 
-Consumeable::~Consumeable()
-{
+Consumeable::~Consumeable() {
 
 }
 
@@ -16,8 +14,7 @@ Consumeable::~Consumeable()
  * @brief Consumeable::clone - Deep copy of Consumeable
  * @return
  */
-std::unique_ptr<Item> Consumeable::clone()
-{
+std::unique_ptr<Item> Consumeable::clone() {
     // return unique ptr clone
     return std::make_unique<Consumeable>(*this);
 }

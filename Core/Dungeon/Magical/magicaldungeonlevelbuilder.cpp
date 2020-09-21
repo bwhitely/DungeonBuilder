@@ -8,6 +8,7 @@
 #include <Core/Dungeon/Common/lockeddoor.h>
 #include <Core/Dungeon/Common/onewaydoor.h>
 #include <Core/Dungeon/Common/opendoorway.h>
+#include <iostream>
 
 namespace core::dungeon::magical {
 
@@ -16,6 +17,7 @@ namespace core::dungeon::magical {
  * Constructor fills in Item/Creature vectors with unique_ptrs to each type to later be cloned.
  */
 MagicalDungeonLevelBuilder::MagicalDungeonLevelBuilder() {
+    level = nullptr;
     srand(time(NULL));
     // add items to vectors
     items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Health Potion")));
@@ -29,11 +31,11 @@ MagicalDungeonLevelBuilder::MagicalDungeonLevelBuilder() {
     // add creatures to vectors
     creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Goblin")));
     creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Dragon")));
-    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Evil Wizard")));
+    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Wizard")));
 }
 
 MagicalDungeonLevelBuilder::~MagicalDungeonLevelBuilder() {
-    level = nullptr;
+    std::cout << "deleted magic builder" << std::endl;
 }
 
 /**
@@ -43,7 +45,10 @@ MagicalDungeonLevelBuilder::~MagicalDungeonLevelBuilder() {
  * @param height
  */
 void MagicalDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
-    level = std::make_unique<MagicalDungeonLevel>(name, width, height);
+    // delete level
+    delete level;
+    // new level
+    level = new MagicalDungeonLevel(name, width, height);
 }
 
 /**
@@ -140,10 +145,10 @@ std::shared_ptr<Room> MagicalDungeonLevelBuilder::buildRoom(int id) {
 
 /**
  * @brief MagicalDungeonLevelBuilder::getDungeonLevel - Returns built DungeonLevel
- * @return
+ * @return bare pointer of DungeonLevel
  */
-std::shared_ptr<DungeonLevel> MagicalDungeonLevelBuilder::getDungeonLevel() {
-    return std::move(level);
+DungeonLevel* MagicalDungeonLevelBuilder::getDungeonLevel() {
+    return level;
 }
 
 /**

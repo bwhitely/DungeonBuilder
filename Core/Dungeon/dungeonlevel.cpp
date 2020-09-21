@@ -4,7 +4,7 @@
 namespace core::dungeon {
 
 DungeonLevel::~DungeonLevel() {
-
+    std::cout << "deleted level" << std::endl;
 }
 
 DungeonLevel::DungeonLevel(std::string name, int width, int height) {
@@ -90,11 +90,11 @@ std::vector<std::string> DungeonLevel::display() {
             level.at(at + 3) += retrieveRoom(room)->display().at(3);
             level.at(at + 4) += retrieveRoom(room)->display().at(4);
             level.at(at + 5) += retrieveRoom(room)->display().at(5);
-            // increment room variable, so next loop will be currentRoom+1 until this row of Rooms is complete
+            // increment room variable, next loop will be current room + 1 until a row of Rooms is complete
             room++;
         }
 
-        // add 6 each iteration (as 6 is the number of rows in the vector, this allows me to move to the next row of Rooms in the vector
+        // add 6 each iteration (as 6 is the number of rows in the vector)
         at += 6;
         // row finished, increment
         rowDone++;

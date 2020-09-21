@@ -39,7 +39,7 @@ class Game {
     // static instance of Game
     static Game* theInstance;
 
-    std::shared_ptr<core::dungeon::DungeonLevel> _level;
+    core::dungeon::DungeonLevel* _level;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))};
     std::uniform_real_distribution<double> _realDistribution{0.0, 1.0};
 };

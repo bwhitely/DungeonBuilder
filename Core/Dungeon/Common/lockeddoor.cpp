@@ -1,5 +1,4 @@
 #include "lockeddoor.h"
-#include <iostream>
 
 namespace core::dungeon::common {
 
@@ -12,7 +11,7 @@ LockedDoor::LockedDoor(Direction direction): Doorway{direction} {
  * Sets _opposite to nullptr
  */
 LockedDoor::~LockedDoor() {
-    // remove dangling ptr
+    // set to nullptr
     if (_opposite)
         _opposite = nullptr;
 }

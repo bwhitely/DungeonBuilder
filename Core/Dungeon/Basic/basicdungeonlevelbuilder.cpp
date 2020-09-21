@@ -35,11 +35,11 @@ BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
     // add creatures to vectors
     creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Goblin")));
     creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Werewolf")));
-    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Evil Wizard")));
+    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Wizard")));
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
-
+    std::cout << "deleted basic builder" << std::endl;
 }
 
 /**
@@ -50,7 +50,10 @@ BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
  * @param height
  */
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
-    _level = std::make_shared<BasicDungeonLevel>(name, width, height);
+    // delete level
+    delete _level;
+    // new level
+    _level = new BasicDungeonLevel(name, width, height);
 }
 
 /**
@@ -148,9 +151,9 @@ std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
 
 /**
  * @brief BasicDungeonLevelBuilder::getDungeonLevel- Returns the dungeon level
- * @return shared_ptr of _level data member
+ * @return bare pointer of DungeonLevel
  */
-std::shared_ptr<DungeonLevel> BasicDungeonLevelBuilder::getDungeonLevel() {
+DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
     return _level;
 }
 

@@ -2,17 +2,14 @@
 
 namespace core::items {
 
-Item::Item(std::string name){
+Item::Item(std::string name) {
     _name = name;
 }
 
-Item::~Item()
-{
-
+Item::~Item() {
 }
 
-std::unique_ptr<Item> Item::clone()
-{
+std::unique_ptr<Item> Item::clone() {
 
 }
 
@@ -20,8 +17,7 @@ std::unique_ptr<Item> Item::clone()
  * @brief Item::name - Gets name of Item
  * @return
  */
-std::string Item::name() const
-{
+std::string Item::name() const {
     return _name;
 }
 
@@ -29,8 +25,7 @@ std::string Item::name() const
  * @brief Item::displayCharacter - Gets char of Item
  * @return
  */
-char Item::displayCharacter() const
-{
+char Item::displayCharacter() const {
     return 'L';
 }
 

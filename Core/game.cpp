@@ -11,13 +11,16 @@ namespace core {
 Game* Game::theInstance{nullptr};
 
 Game::Game() {
-
+    _level = nullptr;
+    theBuilder = nullptr;
+    theInstance = nullptr;
 }
 
 Game::~Game() {
     // reset theBuilder ptr
     theBuilder = nullptr;
     theInstance = nullptr;
+    _level = nullptr;
 }
 
 /**
@@ -87,6 +90,7 @@ void Game::createExampleLevel() {
     theBuilder->buildCreature(rooms.at(4));
     theBuilder->buildCreature(rooms.at(8));
     // Return Completed Dungeon Level
+
     _level = theBuilder->getDungeonLevel();
 
 }
@@ -100,6 +104,9 @@ void Game::createExampleLevel() {
  * @param height int
  */
 void Game::createRandomLevel(std::string name, int width, int height) {
+    // check for existing level and delete if found
+    if (_level)
+        delete _level;
     // Rooms vector
     std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
 
@@ -381,9 +388,10 @@ double Game::randomDouble() {
  */
 std::string Game::roomDescription(int id) {
 
+    // String to build upon
     std::string s;
 
-    // Just appends to string s the description of Room, uses the built in description methods from Edges.
+    // Just appends to string s the description of Room, uses the built in description methods from Edges/Items/Creatures
     if (_level->retrieveRoom(id)->description() == "A chamber that glitters like a thousand stars in the torchlight. (Quartz Chamber)\n") {
         s += _level->retrieveRoom(id)->description();
     } else if (_level->retrieveRoom(id)->description() == "A dark, gloomy chamber. (Rock Chamber) \n") {

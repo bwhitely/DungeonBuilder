@@ -1,5 +1,4 @@
 #include "blockeddoorway.h"
-#include <iostream>
 
 namespace core::dungeon::common {
 
