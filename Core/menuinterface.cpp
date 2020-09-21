@@ -171,6 +171,7 @@ void MenuInterface::mainMenu() {
             }
 
             if (dungType == 'b') {
+                exampleLevel = false;
                 // New builder
                 std::unique_ptr<BasicDungeonLevelBuilder> bd{new BasicDungeonLevelBuilder()};
                 _display << "\nCreating " + levelName + "..." << std::endl;
@@ -184,6 +185,7 @@ void MenuInterface::mainMenu() {
                 describeMenu();
 
             } else if (dungType == 'm') {
+                exampleLevel = false;
                 // New builder
                 std::unique_ptr<MagicalDungeonLevelBuilder> md{new MagicalDungeonLevelBuilder()};
 

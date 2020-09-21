@@ -25,17 +25,17 @@ BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
 
     srand(time(NULL));
     // add items to vectors
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Health Potion")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Molotov Cocktail")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Smoke Bomb")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Weapon("Boomerang")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Weapon("Short Sword")));
-    items.push_back(std::unique_ptr<items::Item>(new core::items::Weapon("Battle Axe")));
+    items.push_back(std::make_unique<items::Consumeable>("Health Potion"));
+    items.push_back(std::make_unique<items::Consumeable>("Molotov Cocktail"));
+    items.push_back(std::make_unique<items::Consumeable>("Smoke Bomb"));
+    items.push_back(std::make_unique<items::Weapon>("Boomerang"));
+    items.push_back(std::make_unique<items::Weapon>("Short Sword"));
+    items.push_back(std::make_unique<items::Weapon>("Battle Axe"));
 
     // add creatures to vectors
-    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Goblin")));
-    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Werewolf")));
-    creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Wizard")));
+    creatures.push_back(std::make_unique<Monster>("Goblin"));
+    creatures.push_back(std::make_unique<Monster>("Werewolf"));
+    creatures.push_back(std::make_unique<Monster>("Wizard"));
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
