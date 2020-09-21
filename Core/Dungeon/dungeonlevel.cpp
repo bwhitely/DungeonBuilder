@@ -4,7 +4,6 @@
 namespace core::dungeon {
 
 DungeonLevel::~DungeonLevel() {
-    std::cout << "deleted level" << std::endl;
 }
 
 DungeonLevel::DungeonLevel(std::string name, int width, int height) {

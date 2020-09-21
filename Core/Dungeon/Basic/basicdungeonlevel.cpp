@@ -10,7 +10,6 @@ BasicDungeonLevel::BasicDungeonLevel(std::string name, int width, int height) : 
 }
 
 BasicDungeonLevel::~BasicDungeonLevel() {
-    std::cout << "deleted basic level" << std::endl;
 }
 
 /**

@@ -35,11 +35,10 @@ MagicalDungeonLevelBuilder::MagicalDungeonLevelBuilder() {
 }
 
 MagicalDungeonLevelBuilder::~MagicalDungeonLevelBuilder() {
-    std::cout << "deleted magic builder" << std::endl;
 }
 
 /**
- * @brief MagicalDungeonLevelBuilder::BuildDungeonLevel - Creates new MagicalDungeonLevel and sets level data member to newly created object
+ * @brief MagicalDungeonLevelBuilder::BuildDungeonLevel - sets _level data member to a new bare pointer object of type MagicalDungeonLevel
  * @param name
  * @param width
  * @param height

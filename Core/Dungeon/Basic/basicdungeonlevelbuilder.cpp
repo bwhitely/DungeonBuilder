@@ -39,12 +39,11 @@ BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
-    std::cout << "deleted basic builder" << std::endl;
 }
 
 /**
  * @brief BasicDungeonLevelBuilder::BuildDungeonLevel
- * sets _level data member to a new shared_ptr object of type BasicDungeonLevel
+ * sets _level data member to a new bare pointer object of type BasicDungeonLevel
  * @param name
  * @param width
  * @param height
