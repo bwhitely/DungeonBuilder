@@ -23,6 +23,7 @@ class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
 
     Direction getOpposite(Direction direction);
   private:
+    std::shared_ptr<BasicDungeonLevel> _level;
     BasicDungeonLevel* level;
     std::vector<std::unique_ptr<AbstractCreature>> creatures;
     std::vector<std::unique_ptr<core::items::Item>> items;

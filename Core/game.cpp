@@ -34,6 +34,7 @@ void Game::setDungeonType(std::unique_ptr<dungeon::DungeonLevelBuilder> builder)
 }
 
 void Game::createExampleLevel() {
+    std::vector<std::shared_ptr<core::dungeon::Room>> _rooms;
     // rooms vector
     std::vector<core::dungeon::Room*> rooms;
 
@@ -72,6 +73,8 @@ void Game::createExampleLevel() {
     theBuilder->buildCreature(rooms.at(4));
     theBuilder->buildCreature(rooms.at(8));
     // Return Completed Dungeon Level
+
+    //__level = theBuilder->getDungeonLevel();
     _level = theBuilder->getDungeonLevel();
 
 }
