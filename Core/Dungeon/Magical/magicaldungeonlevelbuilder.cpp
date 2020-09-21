@@ -36,10 +36,10 @@ MagicalDungeonLevelBuilder::~MagicalDungeonLevelBuilder()
 
 void MagicalDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height)
 {
-    level = new MagicalDungeonLevel(name, width, height);
+    level = std::make_shared<MagicalDungeonLevel>(name, width, height);
 }
 
-void MagicalDungeonLevelBuilder::buildItem(Room *room)
+void MagicalDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room)
 {
     int r = getRandomNumber(1, 100);
     int r2 = getRandomNumber(1, 3);
@@ -66,7 +66,7 @@ void MagicalDungeonLevelBuilder::buildItem(Room *room)
     }
 }
 
-void MagicalDungeonLevelBuilder::buildCreature(Room *room)
+void MagicalDungeonLevelBuilder::buildCreature(std::shared_ptr<Room> room)
 {
     int r = getRandomNumber(1, 3);
 
@@ -84,12 +84,13 @@ void MagicalDungeonLevelBuilder::buildCreature(Room *room)
     }
 }
 
-Room *MagicalDungeonLevelBuilder::buildRoom(int id)
+std::shared_ptr<Room> MagicalDungeonLevelBuilder::buildRoom(int id)
 {
     // get int between 1 and 2
     int x = getRandomNumber(1, 2);
 
-    Room* r = nullptr;
+    std::shared_ptr<Room> r;
+    //Room* r = nullptr;
 
     // level is null
     if (!level) {
@@ -98,35 +99,32 @@ Room *MagicalDungeonLevelBuilder::buildRoom(int id)
     } else {
         if (x == 1) {
             // Set all edges to RockWalls, will replace with doors in further functions
-            r = new core::dungeon::magical::EnchantedLibrary(id);
+            r = std::make_shared<EnchantedLibrary>(id);
             r->setNorth(new MagicWall(North));
             r->setEast(new MagicWall(East));
             r->setSouth(new MagicWall(South));
             r->setWest(new MagicWall(West));
             level->addRoom(r);
-            //level->addRoom(std::make_shared<Room>(r));
 
         } else if (x == 2) {
-            //std::make_shared<QuartzChamber>(new core::dungeon::basic::QuartzChamber(id));
-            r = new core::dungeon::magical::AlchemistsLaboratory(id);
+            r = std::make_shared<AlchemistsLaboratory>(id);
             r->setNorth(new MagicWall(North));
             r->setEast(new MagicWall(East));
             r->setSouth(new MagicWall(South));
             r->setWest(new MagicWall(West));
             level->addRoom(r);
-            //level->addRoom(std::make_shared<Room>(r));
         }
 
         return r;
     }
 }
 
-DungeonLevel *MagicalDungeonLevelBuilder::getDungeonLevel()
+std::shared_ptr<DungeonLevel> MagicalDungeonLevelBuilder::getDungeonLevel()
 {
     return level;
 }
 
-void MagicalDungeonLevelBuilder::buildExit(Room *room, Direction direction)
+void MagicalDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction direction)
 {
     // Builds exit in specified direction in passed Room
     if (direction == North)
@@ -139,7 +137,7 @@ void MagicalDungeonLevelBuilder::buildExit(Room *room, Direction direction)
         room->setWest(new core::dungeon::common::OneWayDoor(West, false, true));
 }
 
-void MagicalDungeonLevelBuilder::buildEntrance(Room *room, Direction direction)
+void MagicalDungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Direction direction)
 {
     // Builds entrance in specified direction in passed Room
     if (direction == North)
@@ -152,7 +150,7 @@ void MagicalDungeonLevelBuilder::buildEntrance(Room *room, Direction direction)
         room->setWest(new core::dungeon::common::OneWayDoor(West, true, false));
 }
 
-void MagicalDungeonLevelBuilder::buildDoorway(Room *origin, Room *destination, Direction direction, MoveConstraints constraints)
+void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::shared_ptr<Room> destination, Direction direction, MoveConstraints constraints)
 {
     // Get opposite direction
     Direction opp = getOpposite(direction);

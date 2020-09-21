@@ -49,7 +49,7 @@ char OpenDoorway::displayCharacter() const {
 }
 
 std::string OpenDoorway::description() const {
-    return "a Open Doorway to another chamber";
+    return "an Open Doorway to another chamber";
 }
 
 

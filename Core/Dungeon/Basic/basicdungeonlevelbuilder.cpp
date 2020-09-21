@@ -16,6 +16,9 @@
 namespace core::dungeon::basic {
 
 BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
+    // set pointer to null upon construction
+    _level = nullptr;
+
     srand(time(NULL));
     // add items to vectors
     items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Health Potion")));
@@ -32,16 +35,14 @@ BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
-    // set level to null
-    level = nullptr;
+
 }
 
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
-    // needs transfer of ownership
-    level = new BasicDungeonLevel(name, width, height);
+    _level = std::make_shared<BasicDungeonLevel>(name, width, height);
 }
 
-void BasicDungeonLevelBuilder::buildItem(Room* room) {
+void BasicDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room) {
 
     int r = getRandomNumber(1, 100);
     int r2 = getRandomNumber(1, 3);
@@ -68,7 +69,7 @@ void BasicDungeonLevelBuilder::buildItem(Room* room) {
     }
 }
 
-void BasicDungeonLevelBuilder::buildCreature(Room* room) {
+void BasicDungeonLevelBuilder::buildCreature(std::shared_ptr<Room> room) {
     int r = getRandomNumber(1, 3);
 
     // clone existing creature into room
@@ -86,46 +87,48 @@ void BasicDungeonLevelBuilder::buildCreature(Room* room) {
 
 }
 
-Room* BasicDungeonLevelBuilder::buildRoom(int id) {
+std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
     // get int between 1 and 2
     int x = getRandomNumber(1, 2);
 
-    Room* r = nullptr;
+    std::shared_ptr<Room> r;
 
     // level is null
-    if (!level) {
+    if (!_level) {
         return nullptr;
         // level not null
     } else {
         if (x == 1) {
             // Set all edges to RockWalls, will replace with doors in further functions
-            r = new core::dungeon::basic::RockChamber(id);
+            r = std::make_shared<RockChamber>(id);
             r->setNorth(new RockWall(North));
             r->setEast(new RockWall(East));
             r->setSouth(new RockWall(South));
             r->setWest(new RockWall(West));
-            level->addRoom(r);
+            _level->addRoom(r);
+            //level->addRoom(r);
 
         } else if (x == 2) {
             //std::make_shared<QuartzChamber>(new core::dungeon::basic::QuartzChamber(id));
-            r = new core::dungeon::basic::QuartzChamber(id);
+            r = std::make_shared<QuartzChamber>(id);
             r->setNorth(new RockWall(North));
             r->setEast(new RockWall(East));
             r->setSouth(new RockWall(South));
             r->setWest(new RockWall(West));
-            level->addRoom(r);
+            _level->addRoom(r);
+            //level->addRoom(r);
         }
 
         return r;
     }
 }
 
-DungeonLevel* BasicDungeonLevelBuilder::getDungeonLevel() {
-    // needs transfer of ownership
-    return level;
+std::shared_ptr<DungeonLevel> BasicDungeonLevelBuilder::getDungeonLevel()
+{
+    return _level;
 }
 
-void BasicDungeonLevelBuilder::buildExit(Room* room, Direction direction) {
+void BasicDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction direction) {
     // Builds exit in passed Room in specified Direction
     if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, false, true));
@@ -137,7 +140,7 @@ void BasicDungeonLevelBuilder::buildExit(Room* room, Direction direction) {
         room->setWest(new core::dungeon::common::OneWayDoor(West, false, true));
 }
 
-void BasicDungeonLevelBuilder::buildEntrance(Room* room, Direction direction) {
+void BasicDungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Direction direction) {
     // Builds entrance in passed Room in specified Direction
     if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, true, false));
@@ -149,7 +152,7 @@ void BasicDungeonLevelBuilder::buildEntrance(Room* room, Direction direction) {
         room->setWest(new core::dungeon::common::OneWayDoor(West, true, false));
 }
 
-void BasicDungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) {
+void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::shared_ptr<Room> destination, Direction direction, MoveConstraints constraints) {
     /** I committed early on to the getNorth/West/East/South functions, so I had to implement extra helper functions for buildDoorway specifically
         otherwise I would have to have an if statement for each constraint, then 4 more if statements (nth/sth/est/wst) inside each of those which just
         looked disgusting. So I implemented the getOpposite, and set/getEdge functions, I may still have some getDirection/setDirection functions in the code elsewhere. */

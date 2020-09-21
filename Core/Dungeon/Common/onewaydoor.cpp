@@ -38,7 +38,11 @@ bool OneWayDoor::isExit()
 
 bool OneWayDoor::isPassage() const
 {
-    return true;
+    // exit/entrances can't be passages
+    if (_exit || _entrance)
+        return false;
+    else
+        return true;
 }
 
 char OneWayDoor::displayCharacter() const
@@ -66,7 +70,7 @@ std::string OneWayDoor::description() const
     } else if (_exit) {
         return "The exit from the dungeon level.";
     } else {
-        return "a One Way Door to another chamber";
+        return "an One Way Door to another chamber";
     }
 }
 }

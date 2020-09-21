@@ -23,4 +23,3 @@ std::string MagicalDungeonLevel::description()
 }
 
 }
-

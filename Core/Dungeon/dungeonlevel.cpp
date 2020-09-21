@@ -13,13 +13,14 @@ DungeonLevel::DungeonLevel(std::string name, int width, int height) {
     _height = height;
 }
 
-bool DungeonLevel::addRoom(Room* room) {
+bool DungeonLevel::addRoom(std::shared_ptr<Room> room) {
+    _rooms.emplace_back(room);
     //rooms.emplace_back(room);
-    _rooms.push_back(room);
+    //_rooms.push_back(room);
     return true;
 }
 
-Room* DungeonLevel::retrieveRoom(int id) {
+std::shared_ptr<Room> DungeonLevel::retrieveRoom(int id) {
     //return std::make_shared<Room>(rooms.at(id));
     return _rooms.at(id - 1);
 }

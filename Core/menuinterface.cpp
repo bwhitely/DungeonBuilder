@@ -278,6 +278,7 @@ void MenuInterface::explorationMenu() {
         }
 
         _display << game->roomDescription(roomNo) << std::endl;
+        describeMenu();
     } else if (in == 'r' && explorationMenuOptions.count('r') == 1) {
         _input.sync();
         describeMenu();

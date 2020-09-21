@@ -36,7 +36,7 @@ void Game::setDungeonType(std::unique_ptr<dungeon::DungeonLevelBuilder> builder)
 void Game::createExampleLevel() {
     std::vector<std::shared_ptr<core::dungeon::Room>> _rooms;
     // rooms vector
-    std::vector<core::dungeon::Room*> rooms;
+    std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
 
     // nullptr check
     if (theBuilder)
@@ -44,11 +44,11 @@ void Game::createExampleLevel() {
 
     // Create 9 Rooms and push to Room vector
     for (int i = 1; i < 10; i++)
-        rooms.push_back(theBuilder->buildRoom(i));
+        rooms.emplace_back(theBuilder->buildRoom(i));
 
     // First row of Rooms
     theBuilder->buildDoorway(rooms.at(0), rooms.at(1), East, None);
-    theBuilder->buildDoorway(rooms.at(0), rooms.at(3), South, OriginImpassable);
+    theBuilder->buildDoorway(rooms.at(0), rooms.at(3), South, DestinationImpassable);
     theBuilder->buildDoorway(rooms.at(1), rooms.at(2), East, OriginImpassable | DestinationImpassable);
     theBuilder->buildDoorway(rooms.at(1), rooms.at(4), South, None);
     theBuilder->buildDoorway(rooms.at(2), rooms.at(5), South, DestinationLocked);
@@ -74,14 +74,14 @@ void Game::createExampleLevel() {
     theBuilder->buildCreature(rooms.at(8));
     // Return Completed Dungeon Level
 
-    //__level = theBuilder->getDungeonLevel();
     _level = theBuilder->getDungeonLevel();
+    //_level = theBuilder->getDungeonLevel();
 
 }
 
 void Game::createRandomLevel(std::string name, int width, int height) {
     // Rooms vector
-    std::vector<core::dungeon::Room*> rooms;
+    std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
 
     // check for nullptr
     if (theBuilder)
@@ -329,6 +329,7 @@ void Game::createRandomLevel(std::string name, int width, int height) {
     }
 
     _level = theBuilder->getDungeonLevel();
+    //_level = theBuilder->getDungeonLevel();
 }
 
 void Game::displayLevel(std::ostream& display) const {

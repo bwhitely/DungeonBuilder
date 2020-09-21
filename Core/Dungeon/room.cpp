@@ -25,7 +25,6 @@ Room::~Room() {
     _east = nullptr;
     _item = nullptr;
     _creature = nullptr;
-    std::cout << "destroyed room" << std::endl;
 }
 
 std::vector<std::string> Room::display() {
@@ -239,8 +238,8 @@ bool Room::containsEntrance()
 }
 
 // Overloaded operator
-std::ostream& operator<<(std::ostream& out, const Room& room) {
-    return out << room.description();
+std::ostream& operator<<(std::ostream& out, const std::shared_ptr<Room> room) {
+    return out << room->description();
 }
 
 }

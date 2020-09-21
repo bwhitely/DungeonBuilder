@@ -17,11 +17,10 @@ class Room {
     Room() = delete;
     Room(const Room& room) = delete;
     Room(const int id);
-    // virtual destructor
     virtual ~Room();
 
     // overloading << as mentioned in specs
-    friend std::ostream& operator<<(std::ostream& out, const Room& room);
+    friend std::ostream& operator<<(std::ostream& out, const std::shared_ptr<Room> room);
 
     virtual std::string description() const = 0;
     std::vector<std::string> display();

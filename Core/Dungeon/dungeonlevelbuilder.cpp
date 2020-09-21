@@ -15,33 +15,38 @@ void DungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int hei
 
 }
 
-Room* DungeonLevelBuilder::buildRoom(int id) {
+std::shared_ptr<Room> DungeonLevelBuilder::buildRoom(int id) {
 
 }
 
-void DungeonLevelBuilder::buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints) {
+void DungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::shared_ptr<Room> destinmation, Direction direction, MoveConstraints constraints) {
 
 }
 
-void DungeonLevelBuilder::buildEntrance(Room* room, Direction direction) {
+void DungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Direction direction) {
 
 }
 
-void DungeonLevelBuilder::buildExit(Room* room, Direction direction) {
+void DungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction direction) {
 
 }
 
-void DungeonLevelBuilder::buildItem(Room*) {
+void DungeonLevelBuilder::buildItem(std::shared_ptr<Room>) {
 
 }
 
-void DungeonLevelBuilder::buildCreature(Room*) {
+void DungeonLevelBuilder::buildCreature(std::shared_ptr<Room>) {
 
 }
 
-DungeonLevel* DungeonLevelBuilder::getDungeonLevel() {
+std::shared_ptr<DungeonLevel> DungeonLevelBuilder::getDungeonLevel()
+{
 
 }
+
+//DungeonLevel* DungeonLevelBuilder::getDungeonLevel() {
+
+//}
 
 }
 
@@ -55,3 +60,4 @@ MoveConstraints operator&(const MoveConstraints &origin, const MoveConstraints &
 {
     return static_cast<MoveConstraints>(static_cast<unsigned>(origin) & static_cast<unsigned>(destination));
 }
+

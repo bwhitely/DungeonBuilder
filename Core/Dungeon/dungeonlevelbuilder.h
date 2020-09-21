@@ -10,6 +10,7 @@ MoveConstraints operator|(const MoveConstraints& origin, const MoveConstraints& 
 MoveConstraints operator&(const MoveConstraints& origin, const MoveConstraints& destination);
 
 namespace core::dungeon {
+
 // forward declaration of Room
 class Room;
 class DungeonLevelBuilder {
@@ -17,19 +18,18 @@ class DungeonLevelBuilder {
     DungeonLevelBuilder();
     virtual ~DungeonLevelBuilder();
     virtual void BuildDungeonLevel(std::string name, int width, int height);
-    virtual Room* buildRoom(int id);
-    virtual void buildDoorway(Room* origin, Room* destination, Direction direction, MoveConstraints constraints);
-    virtual void buildEntrance(Room* room, Direction direction);
-    virtual void buildExit(Room* room, Direction direction);
-    virtual void buildItem(Room*);
-    virtual void buildCreature(Room*);
-    virtual DungeonLevel* getDungeonLevel();
+    virtual std::shared_ptr<Room> buildRoom(int id);
+    virtual void buildDoorway(std::shared_ptr<Room> origin, std::shared_ptr<Room> destination, Direction direction, MoveConstraints constraints);
+    virtual void buildEntrance(std::shared_ptr<Room> room, Direction direction);
+    virtual void buildExit(std::shared_ptr<Room> room, Direction direction);
+    virtual void buildItem(std::shared_ptr<Room>);
+    virtual void buildCreature(std::shared_ptr<Room>);
+    virtual std::shared_ptr<DungeonLevel> getDungeonLevel();
 protected:
     std::string _name;
     int _width;
     int _height;
 };
 }
-
 
 #endif // DUNGEONLEVELBUILDER_H
