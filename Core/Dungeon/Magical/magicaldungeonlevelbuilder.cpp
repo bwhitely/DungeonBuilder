@@ -52,27 +52,27 @@ void MagicalDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, 
  * @param room
  */
 void MagicalDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room) {
-    int r = getRandomNumber(1, 100);
-    int r2 = getRandomNumber(1, 3);
+    int weapOrConsume = getRandomNumber(1, 100);
+    int itemType = getRandomNumber(1, 3);
 
     // Roughly a 65% chance it's a Consumeable
-    if (r <= 65) {
-        if (r2 == 1)
+    if (weapOrConsume < 65) {
+        if (itemType == 1)
             room->setItem(items.at(0)->clone());
-        else if (r2 == 2)
+        else if (itemType == 2)
             room->setItem(items.at(1)->clone());
-        else if (r == 3)
+        else if (itemType == 3)
             room->setItem(items.at(2)->clone());
 
         // Roughly a 35% chance it's a Weapon
-    } else if (r > 65) {
-        if (r2 == 1)
+    } else if (weapOrConsume >= 65) {
+        if (itemType == 1)
             room->setItem(items.at(3)->clone());
 
-        if (r2 == 2)
+        if (itemType == 2)
             room->setItem(items.at(4)->clone());
 
-        if (r2 == 3)
+        if (itemType == 3)
             room->setItem(items.at(5)->clone());
     }
 }

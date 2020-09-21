@@ -60,27 +60,27 @@ void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, in
  */
 void BasicDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room) {
 
-    int r = getRandomNumber(1, 100);
-    int r2 = getRandomNumber(1, 3);
+    int weapOrConsume = getRandomNumber(1, 100);
+    int itemType = getRandomNumber(1, 3);
 
-    // Roughly a 65% chance it's a Consumeable
-    if (r <= 65) {
-        if (r2 == 1)
+    // 65% chance it's a Consumeable
+    if (weapOrConsume < 65) {
+        if (itemType == 1)
             room->setItem(items.at(0)->clone());
-        else if (r2 == 2)
+        else if (itemType == 2)
             room->setItem(items.at(1)->clone());
-        else if (r == 3)
+        else if (itemType == 3)
             room->setItem(items.at(2)->clone());
 
-        // Roughly a 35% chance it's a Weapon
-    } else if (r > 65) {
-        if (r2 == 1)
+        // 35% chance it's a Weapon
+    } else if (weapOrConsume >= 65) {
+        if (itemType == 1)
             room->setItem(items.at(3)->clone());
 
-        if (r2 == 2)
+        if (itemType == 2)
             room->setItem(items.at(4)->clone());
 
-        if (r2 == 3)
+        if (itemType == 3)
             room->setItem(items.at(5)->clone());
     }
 }
@@ -121,10 +121,8 @@ std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
 
     std::shared_ptr<Room> r;
 
-    // level is null
     if (!_level) {
         return nullptr;
-        // level not null
     } else {
         if (x == 1) {
             // Set all edges to RockWalls, will replace with doors in further functions
@@ -136,7 +134,6 @@ std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
             _level->addRoom(r);
 
         } else if (x == 2) {
-            //std::make_shared<QuartzChamber>(new core::dungeon::basic::QuartzChamber(id));
             r = std::make_shared<QuartzChamber>(id);
             r->setNorth(new RockWall(North));
             r->setEast(new RockWall(East));
@@ -163,7 +160,6 @@ std::shared_ptr<DungeonLevel> BasicDungeonLevelBuilder::getDungeonLevel() {
  * @param direction Direction of exit
  */
 void BasicDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction direction) {
-    // Builds exit in passed Room in specified Direction
     if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, false, true));
     else if (direction == East)
@@ -180,7 +176,6 @@ void BasicDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction d
  * @param direction direction to build entrance in
  */
 void BasicDungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Direction direction) {
-    // Builds entrance in passed Room in specified Direction
     if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, true, false));
     else if (direction == East)
@@ -368,7 +363,6 @@ int BasicDungeonLevelBuilder::getRandomNumber(int min, int max) {
  * @return North if direction = South, South if direction = North, East if direction = West, West if direction = North
  */
 Direction BasicDungeonLevelBuilder::getOpposite(Direction direction) const {
-    // Returns opposite direction to the passed direction
     if (direction == North)
         return South;
     else if (direction == South)

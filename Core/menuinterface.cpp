@@ -319,7 +319,7 @@ void MenuInterface::explorationMenu() {
         explorationMenu();
     }
 
-    // deleting game - not actually sure if this is needed because this should only get deleted once the program ends but,
+    // deleting game - not actually sure if this is needed because this should only execute once the program ends but
     // i used the new keyword so i will also use the delete keyword.
     delete game;
 }

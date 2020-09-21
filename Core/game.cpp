@@ -52,7 +52,7 @@ void Game::createExampleLevel() {
     // rooms vector
     std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
 
-    // nullptr check
+    // non nullptr check
     if (theBuilder)
         theBuilder->BuildDungeonLevel("Example Level", 3, 3);
 
@@ -87,7 +87,6 @@ void Game::createExampleLevel() {
     theBuilder->buildCreature(rooms.at(4));
     theBuilder->buildCreature(rooms.at(8));
     // Return Completed Dungeon Level
-
     _level = theBuilder->getDungeonLevel();
 
 }
@@ -104,11 +103,10 @@ void Game::createRandomLevel(std::string name, int width, int height) {
     // Rooms vector
     std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
 
-    // check for nullptr
+    // check for non nullptr
     if (theBuilder)
         theBuilder->BuildDungeonLevel(name, width, height);
 
-    // Number of rooms
     int numRooms = width * height;
 
     /** If dungeon is 1x1 */
@@ -146,7 +144,6 @@ void Game::createRandomLevel(std::string name, int width, int height) {
             rooms.push_back(theBuilder->buildRoom(i));
 
         /** Build Entrance */
-        // Get a double for probability purposes
         double r = randomDouble();
 
         // If the row has 3 or 4 Rooms
@@ -265,7 +262,7 @@ void Game::createRandomLevel(std::string name, int width, int height) {
         // Get a random double each loop to ensure there's actually a 25%/35% chance for items/creatures to spawn each loop
         double r = randomDouble();
 
-        // If room has exit, will be made a Boss inside buildCreature()
+        // If room has exit, add Creature and Item. Creature will be made a boss inside buildCreature() function
         if (rooms.at(i)->containsExit()) {
             theBuilder->buildCreature(rooms.at(i));
             // This will randomly not build an item in the exit room like 10-20% of the time, no idea why
@@ -285,45 +282,45 @@ void Game::createRandomLevel(std::string name, int width, int height) {
     for (int i = 1; i <= numRooms; i++) {
         r1 = randomDouble();
 
-        // 20% chance for None, then each other constraint has a 10% chance. Making a total of 100% with a 40/30/30 split
+        // 20% chance for None, then each other constraint has a 10% chance (made up of 2x5% or 1x10%). Making a total of 100% with a 40/30/30 split
         // Traversable
         if (r1 < 0.4) {
             if (r1 < 0.2)
                 c = None; // 20% chance for None
             else if (r1 < 0.25)
-                c = DestinationImpassable; // 2 5%
+                c = DestinationImpassable;
             else if (r1 < 0.3)
-                c = DestinationLocked; // 8 5%
+                c = DestinationLocked;
             else if (r1 < 0.35)
-                c = OriginLocked; // 4 5%
+                c = OriginLocked;
             else
-                c = OriginImpassable; // 1 5%
+                c = OriginImpassable;
 
             // Locked
         } else if (r1 >= 0.4 && r1 < 0.7) {
             if (r1 < 0.50)
                 c = DestinationLocked | OriginLocked; // double chance for constraint 12 to make 10%
             else if (r1 < 0.55)
-                c = OriginLocked; // 4 10%
+                c = OriginLocked;
             else if (r1 < 0.60)
-                c = DestinationLocked; // 8 10%
+                c = DestinationLocked;
             else if (r1 < 0.65)
-                c = DestinationLocked | OriginImpassable; // 9 5%
+                c = DestinationLocked | OriginImpassable;
             else
-                c = OriginLocked | DestinationImpassable; // 6 5%
+                c = OriginLocked | DestinationImpassable;
 
             // Impassable
         } else if (r1 >= 0.7) {
             if (r1 < 0.8)
                 c = DestinationImpassable | OriginImpassable; // double chance for constraint 3 to make 10%
             else if (r1 < 0.85)
-                c = DestinationImpassable; // 2 10%
+                c = DestinationImpassable;
             else if (r1 < 0.90)
-                c = OriginImpassable; // 1 10%
+                c = OriginImpassable;
             else if (r1 < 0.95)
-                c = OriginLocked | DestinationImpassable; // 6 10%
+                c = OriginLocked | DestinationImpassable;
             else
-                c = DestinationLocked | OriginImpassable; // 9 10%
+                c = DestinationLocked | OriginImpassable;
         }
 
         // Not last col, add door from East (origin) to West (destination)
@@ -386,6 +383,7 @@ std::string Game::roomDescription(int id) {
 
     std::string s;
 
+    // Just appends to string s the description of Room, uses the built in description methods from Edges.
     if (_level->retrieveRoom(id)->description() == "A chamber that glitters like a thousand stars in the torchlight. (Quartz Chamber)\n") {
         s += _level->retrieveRoom(id)->description();
     } else if (_level->retrieveRoom(id)->description() == "A dark, gloomy chamber. (Rock Chamber) \n") {
