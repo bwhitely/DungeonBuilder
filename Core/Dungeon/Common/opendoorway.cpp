@@ -6,27 +6,47 @@ OpenDoorway::OpenDoorway(Direction direction): Doorway{direction} {
     _direction = direction;
 }
 
+/**
+ * @brief OpenDoorway::~OpenDoorway
+ * sets _opposite to nullptr
+ */
 OpenDoorway::~OpenDoorway() {
+    // remove dangling ptr
     if (_opposite)
         _opposite = nullptr;
 }
 
+/**
+ * @brief OpenDoorway::connect - Connects to opposite doorway via bare pointer
+ * @param opposite
+ */
 void OpenDoorway::connect(Doorway* opposite) {
     // connecting via bare pointer
     _opposite = opposite;
 }
 
-bool OpenDoorway::isEntrance() {
+/**
+ * @brief OpenDoorway::isEntrance
+ * @return false
+ */
+bool OpenDoorway::isEntrance() const {
     return false;
 }
 
-bool OpenDoorway::isExit() {
+/**
+ * @brief OpenDoorway::isExit
+ * @return false
+ */
+bool OpenDoorway::isExit() const {
     return false;
 }
-
+/**
+ * @brief OpenDoorway::isPassage
+ * @return true
+ */
 bool OpenDoorway::isPassage() const {
     // if opposite is an opendoorway then it's a passage
-    if (OpenDoorway* b = dynamic_cast<OpenDoorway*>(_opposite)){
+    if (OpenDoorway* b = dynamic_cast<OpenDoorway*>(_opposite)) {
         // delete pointer object
         delete b;
         return true;
@@ -35,6 +55,10 @@ bool OpenDoorway::isPassage() const {
     }
 }
 
+/**
+ * @brief OpenDoorway::displayCharacter
+ * @return '^', 'v', '>', '<' depending on Direction
+ */
 char OpenDoorway::displayCharacter() const {
 
     if(_direction == North) {
@@ -48,6 +72,10 @@ char OpenDoorway::displayCharacter() const {
     }
 }
 
+/**
+ * @brief OpenDoorway::description
+ * @return std::string description of Doorway type
+ */
 std::string OpenDoorway::description() const {
     return "an Open Doorway to another chamber";
 }

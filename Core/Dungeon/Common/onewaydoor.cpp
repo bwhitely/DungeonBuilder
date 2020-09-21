@@ -1,7 +1,7 @@
 #include "onewaydoor.h"
 #include <iostream>
 
-namespace core::dungeon::common{
+namespace core::dungeon::common {
 
 OneWayDoor::OneWayDoor(Direction direction, bool entrance, bool exit): Doorway{direction} {
     _direction = direction;
@@ -9,35 +9,51 @@ OneWayDoor::OneWayDoor(Direction direction, bool entrance, bool exit): Doorway{d
     _exit = exit;
 }
 
-OneWayDoor::~OneWayDoor()
-{
+/**
+ * @brief OneWayDoor::~OneWayDoor
+ * Sets _opposite to nullptr
+ */
+OneWayDoor::~OneWayDoor() {
+    // remove dangling ptr
     if (_opposite)
         _opposite = nullptr;
 }
 
-void OneWayDoor::connect(Doorway *opposite)
-{
+/**
+ * @brief OneWayDoor::connect - Connects to opposite doorway via bare pointer
+ * @param opposite
+ */
+void OneWayDoor::connect(Doorway* opposite) {
     _opposite = opposite;
 }
 
-bool OneWayDoor::isEntrance()
-{
+/**
+ * @brief OneWayDoor::isEntrance
+ * @return true if Doorway is entrance, false otherwise
+ */
+bool OneWayDoor::isEntrance() const {
     if (_entrance)
         return true;
     else
         return false;
 }
 
-bool OneWayDoor::isExit()
-{
+/**
+ * @brief OneWayDoor::isExit
+ * @return true if Doorway is exit, false otherwise
+ */
+bool OneWayDoor::isExit() const {
     if (_exit)
         return true;
     else
         return false;
 }
 
-bool OneWayDoor::isPassage() const
-{
+/**
+ * @brief OneWayDoor::isPassage - Determines if Doorway is a passage (can pass through)
+ * @return false if Doorway is exit or entrance, true otherwise
+ */
+bool OneWayDoor::isPassage() const {
     // exit/entrances can't be passages
     if (_exit || _entrance)
         return false;
@@ -45,27 +61,36 @@ bool OneWayDoor::isPassage() const
         return true;
 }
 
-char OneWayDoor::displayCharacter() const
-{
-    if (_entrance){
+/**
+ * @brief OneWayDoor::displayCharacter
+ * @return 'I' if entrance, 'O' if exit.
+ * 'v', '^', '>', '<' depending on Direction
+ */
+char OneWayDoor::displayCharacter() const {
+    if (_entrance) {
         return 'I';
-    } else if (_exit){
+    } else if (_exit) {
         return 'O';
 
-    } if (_direction == North){
+    }
+
+    if (_direction == North) {
         return 'v';
-    } else if (_direction == East){
+    } else if (_direction == East) {
         return '<';
-    } else if (_direction == South){
+    } else if (_direction == South) {
         return '^';
-    } else if (_direction == West){
+    } else if (_direction == West) {
         return '>';
     }
 }
 
-std::string OneWayDoor::description() const
-{
-    if (_entrance){
+/**
+ * @brief OneWayDoor::description
+ * @return std::string description of Doorway, varies depending on exit/entrance/neither
+ */
+std::string OneWayDoor::description() const {
+    if (_entrance) {
         return "The entrance to the dungeon level.";
     } else if (_exit) {
         return "The exit from the dungeon level.";

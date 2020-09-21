@@ -3,9 +3,8 @@
 #include <Core/Dungeon/wall.h>
 
 namespace core::dungeon::magical {
-class MagicWall : public Wall
-{
-public:
+class MagicWall : public Wall {
+  public:
     MagicWall() = delete;
     MagicWall(Wall& other) = delete;
 
@@ -15,7 +14,7 @@ public:
     bool isPassage() const override;
     char displayCharacter() const override;
     std::string description() const override;
-    void printDirection();
+    void printDirection() const;
 
 };
 }

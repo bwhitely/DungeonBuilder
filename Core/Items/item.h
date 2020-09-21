@@ -13,8 +13,8 @@ public:
 
     virtual std::unique_ptr<Item> clone() = 0;
 
-    std::string name();
-    char displayCharacter();
+    std::string name() const;
+    char displayCharacter() const;
 protected:
     std::string _name;
 };

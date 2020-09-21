@@ -22,7 +22,7 @@ class Game {
     void setDungeonType(std::unique_ptr<dungeon::DungeonLevelBuilder> builder);
     void createExampleLevel();
     void createRandomLevel(std::string name, int width, int height);
-    void displayLevel(std::ostream &display) const;
+    void displayLevel(std::ostream& display) const;
     double randomDouble();
     std::string roomDescription(int id);
     std::string levelDescription();

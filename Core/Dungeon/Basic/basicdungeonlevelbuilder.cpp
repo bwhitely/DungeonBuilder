@@ -15,6 +15,10 @@
 
 namespace core::dungeon::basic {
 
+/**
+ * @brief BasicDungeonLevelBuilder::BasicDungeonLevelBuilder
+ * Fills item and creature vectors with all available types for later cloning them into a Room.
+ */
 BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
     // set pointer to null upon construction
     _level = nullptr;
@@ -38,10 +42,22 @@ BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
 
 }
 
+/**
+ * @brief BasicDungeonLevelBuilder::BuildDungeonLevel
+ * sets _level data member to a new shared_ptr object of type BasicDungeonLevel
+ * @param name
+ * @param width
+ * @param height
+ */
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
     _level = std::make_shared<BasicDungeonLevel>(name, width, height);
 }
 
+/**
+ * @brief BasicDungeonLevelBuilder::buildItem
+ * Randomly clones an item into the Room param. 65% chance for consumable, 35% for item.
+ * @param room
+ */
 void BasicDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room) {
 
     int r = getRandomNumber(1, 100);
@@ -69,6 +85,11 @@ void BasicDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room) {
     }
 }
 
+/**
+ * @brief BasicDungeonLevelBuilder::buildCreature
+ * Randomly clones a creature into the Room. If room param contains exit, creature is set to boss.
+ * @param room
+ */
 void BasicDungeonLevelBuilder::buildCreature(std::shared_ptr<Room> room) {
     int r = getRandomNumber(1, 3);
 
@@ -87,6 +108,13 @@ void BasicDungeonLevelBuilder::buildCreature(std::shared_ptr<Room> room) {
 
 }
 
+/**
+ * @brief BasicDungeonLevelBuilder::buildRoom
+ * Builds a new room with the specified id.
+ * Sets all edges to the correct Wall type, these may be overriden with Doorways later.
+ * @param id
+ * @return Newly built room as a shared_ptr
+ */
 std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
     // get int between 1 and 2
     int x = getRandomNumber(1, 2);
@@ -106,7 +134,6 @@ std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
             r->setSouth(new RockWall(South));
             r->setWest(new RockWall(West));
             _level->addRoom(r);
-            //level->addRoom(r);
 
         } else if (x == 2) {
             //std::make_shared<QuartzChamber>(new core::dungeon::basic::QuartzChamber(id));
@@ -116,18 +143,25 @@ std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
             r->setSouth(new RockWall(South));
             r->setWest(new RockWall(West));
             _level->addRoom(r);
-            //level->addRoom(r);
         }
 
         return r;
     }
 }
 
-std::shared_ptr<DungeonLevel> BasicDungeonLevelBuilder::getDungeonLevel()
-{
+/**
+ * @brief BasicDungeonLevelBuilder::getDungeonLevel- Returns the dungeon level
+ * @return shared_ptr of _level data member
+ */
+std::shared_ptr<DungeonLevel> BasicDungeonLevelBuilder::getDungeonLevel() {
     return _level;
 }
 
+/**
+ * @brief BasicDungeonLevelBuilder::buildExit - Builds an exit in the specified room in the specified direction.
+ * @param room Room to build exit in
+ * @param direction Direction of exit
+ */
 void BasicDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction direction) {
     // Builds exit in passed Room in specified Direction
     if (direction == North)
@@ -140,6 +174,11 @@ void BasicDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction d
         room->setWest(new core::dungeon::common::OneWayDoor(West, false, true));
 }
 
+/**
+ * @brief BasicDungeonLevelBuilder::buildEntrance - Builds an entrance in the specified room in the specified direction
+ * @param room Room to build entrance in
+ * @param direction direction to build entrance in
+ */
 void BasicDungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Direction direction) {
     // Builds entrance in passed Room in specified Direction
     if (direction == North)
@@ -152,6 +191,14 @@ void BasicDungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Directi
         room->setWest(new core::dungeon::common::OneWayDoor(West, true, false));
 }
 
+/**
+ * @brief BasicDungeonLevelBuilder::buildDoorway - Builds a Doorway from the origin Room to the destination Room in the specified direction adhering
+ * to the specified constraint(s). Connects each Doorway via a bare pointer.
+ * @param origin Room to build Doorway from
+ * @param destination Room to build Doorway to
+ * @param direction Direction of Doorway
+ * @param constraints Enum, determines Doorway types
+ */
 void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::shared_ptr<Room> destination, Direction direction, MoveConstraints constraints) {
     /** I committed early on to the getNorth/West/East/South functions, so I had to implement extra helper functions for buildDoorway specifically
         otherwise I would have to have an if statement for each constraint, then 4 more if statements (nth/sth/est/wst) inside each of those which just
@@ -159,6 +206,7 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
 
     // Get opposite direction
     Direction opp = getOpposite(direction);
+
     /** OpenDoorway @ Origin & Destination */
     if (constraints == 0) {
         origin->setEdge(direction, "open");
@@ -299,6 +347,12 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
     }
 }
 
+/**
+ * @brief BasicDungeonLevelBuilder::getRandomNumber - Returns a random double
+ * @param min - floor
+ * @param max - ceiling
+ * @return random double
+ */
 int BasicDungeonLevelBuilder::getRandomNumber(int min, int max) {
     // I've tried like 5 different methods of getting random integers and they're all
     // seeded and end up giving the same results every single time the program runs. This was the best I could come up with,
@@ -308,7 +362,12 @@ int BasicDungeonLevelBuilder::getRandomNumber(int min, int max) {
     return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
 }
 
-Direction BasicDungeonLevelBuilder::getOpposite(Direction direction) {
+/**
+ * @brief BasicDungeonLevelBuilder::getOpposite Returns opposite Direction of the passed param.
+ * @param direction
+ * @return North if direction = South, South if direction = North, East if direction = West, West if direction = North
+ */
+Direction BasicDungeonLevelBuilder::getOpposite(Direction direction) const {
     // Returns opposite direction to the passed direction
     if (direction == North)
         return South;

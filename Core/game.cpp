@@ -20,6 +20,10 @@ Game::~Game() {
     theInstance = nullptr;
 }
 
+/**
+ * @brief Game::instance returns the instance if the instance exists, otherwise will create a new Game() instance and return it.
+ * @return non-nullptr theInstance object
+ */
 Game* Game::instance() {
     // check if nullptr, if it is make a new Game object
     if (theInstance == nullptr)
@@ -27,14 +31,24 @@ Game* Game::instance() {
 
     return theInstance;
 }
-
+/**
+ * @brief Game::setDungeonType sets theBuilder to a dungeon type (basic or magical)
+ * @param unique_ptr builder object
+ * @return transfers ownership of builder param to theBuilder data member.
+ */
 void Game::setDungeonType(std::unique_ptr<dungeon::DungeonLevelBuilder> builder) {
     // move unique ptr
     theBuilder = std::move(builder);
 }
 
+/**
+ * @brief Game::createExampleLevel - Creates an example level.
+ * Uses theBuilder to create the predetermined example level. size: 3x3. type: BasicDungeonLevel.
+ * First fills a vector with shared_ptr<Room> objects.
+ * Iterates over the vector and theBuilder calls buildRoom on each, then buildDoorway, then buildExit/Entrance, then Items/Creatures.
+ * sets _level data member to the newly created level.
+ */
 void Game::createExampleLevel() {
-    std::vector<std::shared_ptr<core::dungeon::Room>> _rooms;
     // rooms vector
     std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
 
@@ -75,10 +89,17 @@ void Game::createExampleLevel() {
     // Return Completed Dungeon Level
 
     _level = theBuilder->getDungeonLevel();
-    //_level = theBuilder->getDungeonLevel();
 
 }
 
+/**
+ * @brief Game::createRandomLevel- Creates a random level.
+ * Creates a random level of size 1x1 to 4x4 (specified by user). Functions similarly to createExampleLevel, except the Room types and Doorway types,
+ * and Item/Creature locations are randomised.
+ * @param name std::string
+ * @param width int
+ * @param height int
+ */
 void Game::createRandomLevel(std::string name, int width, int height) {
     // Rooms vector
     std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
@@ -263,6 +284,7 @@ void Game::createRandomLevel(std::string name, int width, int height) {
 
     for (int i = 1; i <= numRooms; i++) {
         r1 = randomDouble();
+
         // 20% chance for None, then each other constraint has a 10% chance. Making a total of 100% with a 40/30/30 split
         // Traversable
         if (r1 < 0.4) {
@@ -329,9 +351,12 @@ void Game::createRandomLevel(std::string name, int width, int height) {
     }
 
     _level = theBuilder->getDungeonLevel();
-    //_level = theBuilder->getDungeonLevel();
 }
 
+/**
+ * @brief Game::displayLevel - Uses the return of getDungeonLevel.display() to fill a vector of strings and iterates over vector to display level.
+ * @param display std::ostream&
+ */
 void Game::displayLevel(std::ostream& display) const {
 
     // Get vector and size of vector
@@ -344,10 +369,19 @@ void Game::displayLevel(std::ostream& display) const {
     }
 }
 
+/**
+ * @brief Game::randomDouble
+ * @return random double.
+ */
 double Game::randomDouble() {
     return _realDistribution(_randomGenerator);
 }
 
+/**
+ * @brief Game::roomDescription - Details the information of the room (edges, items/creatures if applicable)
+ * @param id
+ * @return std::string
+ */
 std::string Game::roomDescription(int id) {
 
     std::string s;
@@ -372,6 +406,10 @@ std::string Game::roomDescription(int id) {
     return s;
 }
 
+/**
+ * @brief Game::levelDescription - returns description of level (name, size, type)
+ * @return
+ */
 std::string Game::levelDescription() {
     return _level->description();
 }

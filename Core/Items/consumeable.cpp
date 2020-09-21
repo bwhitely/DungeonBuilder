@@ -12,6 +12,10 @@ Consumeable::~Consumeable()
 
 }
 
+/**
+ * @brief Consumeable::clone - Deep copy of Consumeable
+ * @return
+ */
 std::unique_ptr<Item> Consumeable::clone()
 {
     // return unique ptr clone

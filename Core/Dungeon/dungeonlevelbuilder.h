@@ -25,7 +25,7 @@ class DungeonLevelBuilder {
     virtual void buildItem(std::shared_ptr<Room>);
     virtual void buildCreature(std::shared_ptr<Room>);
     virtual std::shared_ptr<DungeonLevel> getDungeonLevel();
-protected:
+  protected:
     std::string _name;
     int _width;
     int _height;

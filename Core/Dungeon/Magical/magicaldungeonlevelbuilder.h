@@ -19,9 +19,9 @@ class MagicalDungeonLevelBuilder : public DungeonLevelBuilder {
     void buildEntrance(std::shared_ptr<Room> room, Direction direction) override;
     void buildDoorway(std::shared_ptr<Room> origin, std::shared_ptr<Room> destination, Direction direction, MoveConstraints constraints) override;
     int getRandomNumber(int min, int max);
-    Direction getOpposite(Direction direction);
+    Direction getOpposite(Direction direction) const;
   private:
-    std::shared_ptr<MagicalDungeonLevel> level;
+    std::unique_ptr<MagicalDungeonLevel> level;
     std::vector<std::unique_ptr<AbstractCreature>> creatures;
     std::vector<std::unique_ptr<core::items::Item>> items;
 };

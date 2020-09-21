@@ -9,10 +9,13 @@
 #include <Core/Dungeon/Common/onewaydoor.h>
 #include <Core/Dungeon/Common/opendoorway.h>
 
-namespace core::dungeon::magical{
+namespace core::dungeon::magical {
 
-MagicalDungeonLevelBuilder::MagicalDungeonLevelBuilder()
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::MagicalDungeonLevelBuilder
+ * Constructor fills in Item/Creature vectors with unique_ptrs to each type to later be cloned.
+ */
+MagicalDungeonLevelBuilder::MagicalDungeonLevelBuilder() {
     srand(time(NULL));
     // add items to vectors
     items.push_back(std::unique_ptr<items::Item>(new core::items::Consumeable("Health Potion")));
@@ -29,18 +32,26 @@ MagicalDungeonLevelBuilder::MagicalDungeonLevelBuilder()
     creatures.push_back(std::unique_ptr<AbstractCreature>(new Monster("Evil Wizard")));
 }
 
-MagicalDungeonLevelBuilder::~MagicalDungeonLevelBuilder()
-{
+MagicalDungeonLevelBuilder::~MagicalDungeonLevelBuilder() {
     level = nullptr;
 }
 
-void MagicalDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height)
-{
-    level = std::make_shared<MagicalDungeonLevel>(name, width, height);
+/**
+ * @brief MagicalDungeonLevelBuilder::BuildDungeonLevel - Creates new MagicalDungeonLevel and sets level data member to newly created object
+ * @param name
+ * @param width
+ * @param height
+ */
+void MagicalDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
+    level = std::make_unique<MagicalDungeonLevel>(name, width, height);
 }
 
-void MagicalDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room)
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::buildItem - Clones (deep copy) item from vector into specified Room
+ * 65% chance for consumeable, 35% for item
+ * @param room
+ */
+void MagicalDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room) {
     int r = getRandomNumber(1, 100);
     int r2 = getRandomNumber(1, 3);
 
@@ -66,8 +77,12 @@ void MagicalDungeonLevelBuilder::buildItem(std::shared_ptr<Room> room)
     }
 }
 
-void MagicalDungeonLevelBuilder::buildCreature(std::shared_ptr<Room> room)
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::buildCreature - Clones (deep copy) a randomo creature into the specified Room
+ * Sets creature to boss if Room contains exit
+ * @param room
+ */
+void MagicalDungeonLevelBuilder::buildCreature(std::shared_ptr<Room> room) {
     int r = getRandomNumber(1, 3);
 
     // clone existing creature into room
@@ -84,8 +99,12 @@ void MagicalDungeonLevelBuilder::buildCreature(std::shared_ptr<Room> room)
     }
 }
 
-std::shared_ptr<Room> MagicalDungeonLevelBuilder::buildRoom(int id)
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::buildRoom - Builds room at specified id
+ * @param id
+ * @return shared_ptr of built Room
+ */
+std::shared_ptr<Room> MagicalDungeonLevelBuilder::buildRoom(int id) {
     // get int between 1 and 2
     int x = getRandomNumber(1, 2);
 
@@ -119,13 +138,20 @@ std::shared_ptr<Room> MagicalDungeonLevelBuilder::buildRoom(int id)
     }
 }
 
-std::shared_ptr<DungeonLevel> MagicalDungeonLevelBuilder::getDungeonLevel()
-{
-    return level;
+/**
+ * @brief MagicalDungeonLevelBuilder::getDungeonLevel - Returns built DungeonLevel
+ * @return
+ */
+std::shared_ptr<DungeonLevel> MagicalDungeonLevelBuilder::getDungeonLevel() {
+    return std::move(level);
 }
 
-void MagicalDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction direction)
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::buildExit - Builds exit at specified Room in specified Direction
+ * @param room
+ * @param direction
+ */
+void MagicalDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction direction) {
     // Builds exit in specified direction in passed Room
     if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, false, true));
@@ -137,8 +163,12 @@ void MagicalDungeonLevelBuilder::buildExit(std::shared_ptr<Room> room, Direction
         room->setWest(new core::dungeon::common::OneWayDoor(West, false, true));
 }
 
-void MagicalDungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Direction direction)
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::buildEntrance - Builds entrance at specified Room in specified Direction
+ * @param room
+ * @param direction
+ */
+void MagicalDungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Direction direction) {
     // Builds entrance in specified direction in passed Room
     if (direction == North)
         room->setNorth(new core::dungeon::common::OneWayDoor(North, true, false));
@@ -150,10 +180,18 @@ void MagicalDungeonLevelBuilder::buildEntrance(std::shared_ptr<Room> room, Direc
         room->setWest(new core::dungeon::common::OneWayDoor(West, true, false));
 }
 
-void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::shared_ptr<Room> destination, Direction direction, MoveConstraints constraints)
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::buildDoorway - Builds doorway from origin Room to destination Room in specified Direction adhering to specified constraint(s)
+ * Connects origin Doorway to destination Doorway via bare pointer.
+ * @param origin
+ * @param destination
+ * @param direction
+ * @param constraints
+ */
+void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::shared_ptr<Room> destination, Direction direction, MoveConstraints constraints) {
     // Get opposite direction
     Direction opp = getOpposite(direction);
+
     /** OpenDoorway @ Origin & Destination */
     if (constraints == 0) {
         origin->setEdge(direction, "open");
@@ -294,15 +332,24 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
     }
 }
 
-int MagicalDungeonLevelBuilder::getRandomNumber(int min, int max)
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::getRandomNumber - Returns random double
+ * @param min - double floor
+ * @param max - double ceiling
+ * @return random double
+ */
+int MagicalDungeonLevelBuilder::getRandomNumber(int min, int max) {
     static constexpr double fraction { 1.0 / (RAND_MAX + 1.0) };  // static used for efficiency, so we only calculate this value once
     // evenly distribute the random number across our range
     return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
 }
 
-Direction MagicalDungeonLevelBuilder::getOpposite(Direction direction)
-{
+/**
+ * @brief MagicalDungeonLevelBuilder::getOpposite - Returns opposite Direction of passed Direction
+ * @param direction
+ * @return
+ */
+Direction MagicalDungeonLevelBuilder::getOpposite(Direction direction) const {
     // Returns opposite direction to the passed direction
     if (direction == North)
         return South;

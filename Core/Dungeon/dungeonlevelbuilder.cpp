@@ -39,25 +39,28 @@ void DungeonLevelBuilder::buildCreature(std::shared_ptr<Room>) {
 
 }
 
-std::shared_ptr<DungeonLevel> DungeonLevelBuilder::getDungeonLevel()
-{
+std::shared_ptr<DungeonLevel> DungeonLevelBuilder::getDungeonLevel() {
 
 }
-
-//DungeonLevel* DungeonLevelBuilder::getDungeonLevel() {
-
-//}
-
 }
 
-// Overloaded | and & as per assignment specs
-MoveConstraints operator|(const MoveConstraints &origin, const MoveConstraints &destination)
-{
+/**
+ * @brief operator | - Overloaded | for combining MoveConstraints
+ * @param origin
+ * @param destination
+ * @return
+ */
+MoveConstraints operator|(const MoveConstraints& origin, const MoveConstraints& destination) {
     return static_cast<MoveConstraints>(static_cast<unsigned>(origin) | static_cast<unsigned>(destination));
 }
 
-MoveConstraints operator&(const MoveConstraints &origin, const MoveConstraints &destination)
-{
+/**
+ * @brief operator & - Overloaded & for combinding MoveConstraints
+ * @param origin
+ * @param destination
+ * @return
+ */
+MoveConstraints operator&(const MoveConstraints& origin, const MoveConstraints& destination) {
     return static_cast<MoveConstraints>(static_cast<unsigned>(origin) & static_cast<unsigned>(destination));
 }
 

@@ -11,10 +11,18 @@ RockWall::~RockWall() {
 
 }
 
+/**
+ * @brief RockWall::isPassage
+ * @return false
+ */
 bool RockWall::isPassage() const {
     return false;
 }
 
+/**
+ * @brief RockWall::displayCharacter - Returns char representation, varies depending on RoomEdge direction
+ * @return
+ */
 char RockWall::displayCharacter() const {
     if (_direction == North || _direction == South)
         return '-';
@@ -22,11 +30,15 @@ char RockWall::displayCharacter() const {
         return '|';
 }
 
+/**
+ * @brief RockWall::description
+ * @return std::string simple description of type of Wall
+ */
 std::string RockWall::description() const {
     return "a Rock Wall";
 }
 
-void RockWall::printDirection() {
+void RockWall::printDirection() const {
     std::cout << _direction << std::endl;
 }
 }

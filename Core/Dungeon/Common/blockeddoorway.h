@@ -3,18 +3,17 @@
 #include <Core/Dungeon/doorway.h>
 
 namespace core::dungeon::common {
-class BlockedDoorWay : public Doorway
-{
-public:
+class BlockedDoorWay : public Doorway {
+  public:
     BlockedDoorWay(Direction direction);
     virtual ~BlockedDoorWay();
     void connect(Doorway* opposite);
-    bool isEntrance();
-    bool isExit();
+    bool isEntrance() const;
+    bool isExit() const;
     bool isPassage() const override;
     char displayCharacter() const override;
     std::string description() const override;
-protected:
+  protected:
     Direction _direction;
     Doorway* _opposite;
     bool _entrance;

@@ -3,9 +3,8 @@
 #include <Core/Dungeon/room.h>
 
 namespace core::dungeon::basic {
-class RockChamber : public Room
-{
-public:
+class RockChamber : public Room {
+  public:
     RockChamber(const int id);
     virtual ~RockChamber();
 

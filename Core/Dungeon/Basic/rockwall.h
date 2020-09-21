@@ -2,11 +2,10 @@
 #define ROCKWALL_H
 #include <Core/Dungeon/wall.h>
 
-namespace core::dungeon::basic{
+namespace core::dungeon::basic {
 
-class RockWall : public Wall
-{
-public:
+class RockWall : public Wall {
+  public:
     RockWall() = delete;
     RockWall(Wall& other) = delete;
 
@@ -17,7 +16,7 @@ public:
     char displayCharacter() const override;
     std::string description() const override;
 
-    void printDirection();
+    void printDirection() const;
 
 };
 }

@@ -3,9 +3,8 @@
 #include <Core/Dungeon/room.h>
 
 namespace core::dungeon::magical {
-class AlchemistsLaboratory : public Room
-{
-public:
+class AlchemistsLaboratory : public Room {
+  public:
     AlchemistsLaboratory(int id);
     virtual ~AlchemistsLaboratory();
 

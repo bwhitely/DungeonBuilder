@@ -41,17 +41,15 @@ Test::Test() {
 
 void Test::test() {
 
-    core::Game* game = game->instance(); // director
+    Game* game = game->instance(); // director
 
     // new concrete dungeon builder
     std::unique_ptr<core::dungeon::basic::BasicDungeonLevelBuilder> bd{new core::dungeon::basic::BasicDungeonLevelBuilder()};
 
     // set Dungeon Type
     game->setDungeonType(std::move(bd));
-    // create Example level
-    game->createRandomLevel("Random Level", 4, 4);
 
-    //game->createExampleLevel();
+    game->createRandomLevel("asd", 4, 4);
     // Display Level
     game->displayLevel(std::cout);
 

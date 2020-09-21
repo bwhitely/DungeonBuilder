@@ -5,13 +5,12 @@
 #include <set>
 
 namespace core {
-class MenuInterface
-{
-public:
+class MenuInterface {
+  public:
     // pass by ref MenuInterface streams
-    MenuInterface(std::ostream &display, std::istream &input);
+    MenuInterface(std::ostream& display, std::istream& input);
     // since displayWelcome strings would never be modified, im using const along with pass by ref
-    void displayWelcome(std::string const &author, std::string const &title) const;
+    void displayWelcome(std::string const& author, std::string const& title) const;
     void run();
     // Using sets for input validation because I have in the past
     void completeSets();
@@ -19,7 +18,7 @@ public:
     void mainMenu();
     void describeMenu();
     void explorationMenu();
-private:
+  private:
     std::ostream& _display;
     std::istream& _input;
     // input sets

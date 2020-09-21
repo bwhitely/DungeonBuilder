@@ -16,12 +16,20 @@ std::unique_ptr<Item> Item::clone()
 
 }
 
-std::string Item::name()
+/**
+ * @brief Item::name - Gets name of Item
+ * @return
+ */
+std::string Item::name() const
 {
     return _name;
 }
 
-char Item::displayCharacter()
+/**
+ * @brief Item::displayCharacter - Gets char of Item
+ * @return
+ */
+char Item::displayCharacter() const
 {
     return 'L';
 }

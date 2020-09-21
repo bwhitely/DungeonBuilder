@@ -3,9 +3,8 @@
 #include <Core/Dungeon/dungeonlevel.h>
 
 namespace core::dungeon::magical {
-class MagicalDungeonLevel : public DungeonLevel
-{
-public:
+class MagicalDungeonLevel : public DungeonLevel {
+  public:
     MagicalDungeonLevel(std::string name, int width, int height);
     virtual ~MagicalDungeonLevel();
     std::string description() override;

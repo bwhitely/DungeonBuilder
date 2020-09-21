@@ -16,7 +16,7 @@ class Doorway : public RoomEdge {
     bool isEntrance();
     bool isExit();
     void connect(Doorway* opposite);
-protected:
+  protected:
     Direction _direction;
     bool _entrance;
     bool _exit;

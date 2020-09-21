@@ -11,7 +11,7 @@ class DungeonLevel {
     virtual ~DungeonLevel();
 
     DungeonLevel(std::string name, int width, int height);
-    virtual bool addRoom(std::shared_ptr<Room> room);
+    virtual bool addRoom(const std::shared_ptr<Room> room);
     virtual std::shared_ptr<Room> retrieveRoom(int id);
     virtual int width() const;
     virtual int height() const;
@@ -19,7 +19,7 @@ class DungeonLevel {
     virtual std::string name() const;
     virtual std::string description() = 0;
     virtual std::vector<std::string> display();
-protected:
+  protected:
     std::vector<std::shared_ptr<Room>> _rooms;
     std::string _name;
     int _width;

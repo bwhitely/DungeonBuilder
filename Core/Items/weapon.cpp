@@ -10,6 +10,10 @@ Weapon::~Weapon() {
 
 }
 
+/**
+ * @brief Weapon::clone - Deep copy of weapon
+ * @return
+ */
 std::unique_ptr<Item> Weapon::clone()
 {
     // return unique ptr clone

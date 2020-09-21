@@ -6,15 +6,17 @@
 
 using namespace std;
 
+/**
+  * @brief main executes the displayWelcome() and run() functions in menuinterface.cpp to display the welcome header and start the program.
+  */
 int main() {
     core::MenuInterface m = core::MenuInterface(cout, cin);
-    m.displayWelcome("", "Assignment 1: Dungeon Builder");
+    m.displayWelcome("Ben Whitely", "Assignment 1: Dungeon Builder");
 
     Test t;
     t.test();
-    // run main menu loop
-    m.run();
 
+    m.run();
 
     return 0;
 }

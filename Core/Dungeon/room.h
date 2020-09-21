@@ -47,14 +47,14 @@ class Room {
     void setEntrance() const;
     void setExit() const;
 
-    int numberOfEdges();
-    bool hasCreature();
-    bool hasItem();
+    int numberOfEdges() const;
+    bool hasCreature() const;
+    bool hasItem() const;
 
-    bool containsExit();
-    bool containsEntrance();
+    bool containsExit() const;
+    bool containsEntrance() const;
 
-protected:
+  protected:
     const int _id;
     std::unique_ptr<items::Item> _item;
     std::unique_ptr<AbstractCreature> _creature;

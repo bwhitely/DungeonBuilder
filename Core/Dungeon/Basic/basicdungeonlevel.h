@@ -4,9 +4,8 @@
 #include <memory>
 
 namespace core::dungeon::basic {
-class BasicDungeonLevel : public DungeonLevel
-{
-public:
+class BasicDungeonLevel : public DungeonLevel {
+  public:
     BasicDungeonLevel(std::string name, int width, int height);
     virtual ~BasicDungeonLevel();
     std::string description() override;

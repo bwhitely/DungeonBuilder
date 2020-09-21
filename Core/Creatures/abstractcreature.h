@@ -7,19 +7,18 @@ namespace core::creatures {
 
 }
 
-class AbstractCreature
-{
-public:
+class AbstractCreature {
+  public:
     AbstractCreature() = delete;
     AbstractCreature(std::string name);
 
     virtual ~AbstractCreature();
     virtual std::unique_ptr<AbstractCreature> clone() = 0;
-    virtual std::string name();
-    virtual char displayCharacter();
+    virtual std::string name() const;
+    virtual char displayCharacter() const;
     void setBoss();
-    bool isBoss();
-protected:
+    bool isBoss() const;
+  protected:
     bool _isBoss;
     std::string _name;
     char _char;

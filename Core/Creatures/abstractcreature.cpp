@@ -19,24 +19,38 @@ std::unique_ptr<AbstractCreature> AbstractCreature::clone()
 
 }
 
-
-std::string AbstractCreature::name()
+/**
+ * @brief AbstractCreature::name - returns creature name
+ * @return std::string name
+ */
+std::string AbstractCreature::name() const
 {
     return _name;
 }
 
-char AbstractCreature::displayCharacter()
+/**
+ * @brief AbstractCreature::displayCharacter - returns creature char
+ * @return char
+ */
+char AbstractCreature::displayCharacter() const
 {
     return 'M';
 }
 
+/**
+ * @brief AbstractCreature::setBoss - Sets creature to boss
+ */
 void AbstractCreature::setBoss()
 {
     _isBoss = true;
     _name = "Evil " + _name;
 }
 
-bool AbstractCreature::isBoss()
+/**
+ * @brief AbstractCreature::isBoss
+ * @return bool, true if boss, false if not
+ */
+bool AbstractCreature::isBoss() const
 {
     return _isBoss;
 }

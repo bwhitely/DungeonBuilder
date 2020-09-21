@@ -2,8 +2,7 @@
 
 namespace core::dungeon {
 
-Wall::Wall(Direction direction) : RoomEdge(direction)
-{
+Wall::Wall(Direction direction) : RoomEdge(direction) {
 
 }
 
