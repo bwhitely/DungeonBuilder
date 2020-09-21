@@ -32,7 +32,7 @@ MenuInterface::MenuInterface(std::ostream&, std::istream&) : _display(std::cout)
 void MenuInterface::displayWelcome(const std::string& author, const std::string& title) const {
     _display << "Welcome to: " + title << std::endl
              << "Developed by " + author << std::endl
-             << "Software Development with C++\n" << std::endl;
+             << "COMP 3023 Software Development with C++\n" << std::endl;
 }
 
 /**
