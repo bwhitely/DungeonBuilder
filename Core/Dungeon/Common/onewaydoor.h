@@ -3,6 +3,10 @@
 #include <Core/Dungeon/doorway.h>
 
 namespace core::dungeon::common {
+/**
+ * @brief The OneWayDoor class - Type of Doorway that exists in a RoomEdge. Can be the exit/entrance to the DungeonLevel. Can allow travel to a destination,
+ * but will not allow travel back.
+ */
 class OneWayDoor : public Doorway {
   public:
     OneWayDoor(Direction direction, bool entrance, bool exit);

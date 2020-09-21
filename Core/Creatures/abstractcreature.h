@@ -7,6 +7,9 @@ namespace core::creatures {
 
 }
 
+/**
+ * @brief The AbstractCreature class - Base class for Monsters to be created from.
+ */
 class AbstractCreature {
   public:
     AbstractCreature() = delete;

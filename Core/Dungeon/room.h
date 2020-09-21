@@ -6,12 +6,18 @@
 #include <Core/Creatures/monster.h>
 #include <vector>
 
-// enum
+/**
+ * @brief The Direction enum - usigned enum containing North, South, East, West
+ */
 enum Direction : unsigned {North, South, East, West};
 
 namespace core::dungeon {
+
 class RoomEdge;
 
+/**
+ * @brief The Room class - Every DungeonLevel contains n Rooms. Rooms have 4 derived classes (aka. 4 different types of Rooms exist), and 4 RoomEdges.
+ */
 class Room {
   public:
     Room() = delete;

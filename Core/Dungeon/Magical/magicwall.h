@@ -3,6 +3,9 @@
 #include <Core/Dungeon/wall.h>
 
 namespace core::dungeon::magical {
+/**
+ * @brief The MagicWall class - Derived from Wall. Can only exist in MagicalDungeonLevels.
+ */
 class MagicWall : public Wall {
   public:
     MagicWall() = delete;

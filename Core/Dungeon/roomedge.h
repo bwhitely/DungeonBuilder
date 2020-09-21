@@ -7,6 +7,9 @@ namespace core::dungeon {
 
 class Room; // forward declaration
 
+/**
+ * @brief The RoomEdge class - Each Room has 4 RoomEdges. RoomEdge has child classes of Type Wall or Doorway.
+ */
 class RoomEdge {
   public:
     ~RoomEdge();

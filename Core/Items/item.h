@@ -4,6 +4,9 @@
 #include <memory>
 
 namespace core::items {
+/**
+ * @brief The Item class - Item interface.
+ */
 class Item
 {
 public:

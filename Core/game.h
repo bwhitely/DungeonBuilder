@@ -9,6 +9,10 @@
 
 namespace core {
 
+/**
+ * @brief The Game class - Uses the singleton design pattern to have a single static instance of Game, and is also a direction of the
+ * builder pattern within the DungeonLevelBuilder class.
+ */
 class Game {
   public:
     // deleting defaults

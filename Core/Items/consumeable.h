@@ -3,6 +3,9 @@
 #include <Core/Items/item.h>
 
 namespace core::items {
+/**
+ * @brief The Consumeable class - Derived from Item, Consumeables can exist inside Rooms.
+ */
 class Consumeable : public Item
 {
 public:

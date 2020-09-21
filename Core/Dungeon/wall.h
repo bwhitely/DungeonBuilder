@@ -3,6 +3,10 @@
 #include <Core/Dungeon/roomedge.h>
 
 namespace core::dungeon {
+
+/**
+ * @brief The Wall class - Subclass of Room, is virtual itself and will have further derived classes.
+ */
 class Wall : public RoomEdge {
   public:
     Wall() = delete;

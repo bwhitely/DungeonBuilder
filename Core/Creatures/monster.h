@@ -7,6 +7,9 @@ namespace core::creatures {
 
 }
 
+/**
+ * @brief The Monster class - Derived from AbstractCreature. Creatures can exist in Rooms, and can be a boss.
+ */
 class Monster : public AbstractCreature {
   public:
     Monster(std::string name);

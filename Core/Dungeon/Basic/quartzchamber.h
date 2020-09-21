@@ -3,6 +3,9 @@
 #include <Core/Dungeon/room.h>
 
 namespace core::dungeon::basic {
+/**
+ * @brief The QuartzChamber class - Type of Room that only exists in BasicDungeonLevel.
+ */
 class QuartzChamber : public Room {
   public:
     QuartzChamber(const int id);

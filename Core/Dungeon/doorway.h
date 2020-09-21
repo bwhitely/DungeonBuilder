@@ -3,6 +3,9 @@
 #include <Core/Dungeon/roomedge.h>
 
 namespace core::dungeon {
+/**
+ * @brief The Doorway class - Derived from RoomEdge, and has 4 further derived Doorway types.
+ */
 class Doorway : public RoomEdge {
   public:
     Doorway() = delete;

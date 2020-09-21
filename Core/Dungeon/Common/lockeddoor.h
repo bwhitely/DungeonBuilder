@@ -3,6 +3,9 @@
 #include <Core/Dungeon/doorway.h>
 
 namespace core::dungeon::common {
+/**
+ * @brief The LockedDoor class - Type of Doorway that exists in a RoomEdge. Is locked and does not allow travel through.
+ */
 class LockedDoor : public Doorway {
   public:
     LockedDoor(Direction direction);

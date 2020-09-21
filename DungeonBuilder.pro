@@ -63,3 +63,6 @@ HEADERS += \
     Core/game.h \
     Core/menuinterface.h \
     test.h
+
+DISTFILES += \
+    Doxyfile

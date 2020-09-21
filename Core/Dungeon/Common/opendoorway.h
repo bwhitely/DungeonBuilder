@@ -3,6 +3,9 @@
 #include <Core/Dungeon/doorway.h>
 
 namespace core::dungeon::common {
+/**
+ * @brief The OpenDoorway class - Type of Doorway that can exist in RoomEdges. Allows free travel between Rooms.
+ */
 class OpenDoorway : public Doorway {
   public:
     OpenDoorway(Direction direction);

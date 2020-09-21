@@ -5,6 +5,9 @@
 #include <Core/Dungeon/room.h>
 
 namespace core::dungeon {
+/**
+ * @brief The DungeonLevel class - Interface for the different types of DungeonLevel classes (bagic and magical)
+ */
 class DungeonLevel {
   public:
     DungeonLevel() = delete;

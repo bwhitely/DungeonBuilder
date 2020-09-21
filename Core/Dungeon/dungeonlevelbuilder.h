@@ -13,6 +13,10 @@ namespace core::dungeon {
 
 // forward declaration of Room
 class Room;
+
+/**
+ * @brief The DungeonLevelBuilder class - Interface for the different types of DungeonLevelBuilders (bagic & magical)
+ */
 class DungeonLevelBuilder {
   public:
     DungeonLevelBuilder();

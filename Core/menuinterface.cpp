@@ -7,6 +7,7 @@
 #include <Core/Dungeon/Basic/basicdungeonlevelbuilder.h>
 #include <Core/Dungeon/Magical/magicaldungeonlevelbuilder.h>
 #include <Core/Dungeon/Basic/basicdungeonlevel.h>
+
 using namespace std;
 using namespace core;
 using namespace core::dungeon;

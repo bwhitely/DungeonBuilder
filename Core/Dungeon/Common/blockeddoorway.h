@@ -3,6 +3,9 @@
 #include <Core/Dungeon/doorway.h>
 
 namespace core::dungeon::common {
+/**
+ * @brief The BlockedDoorWay class - Type of Doorway that exists in a RoomEdge. Does not allow travel.
+ */
 class BlockedDoorWay : public Doorway {
   public:
     BlockedDoorWay(Direction direction);

@@ -7,6 +7,9 @@
 #include <Core/Items/weapon.h>
 
 namespace core::dungeon::basic {
+/**
+ * @brief The BasicDungeonLevelBuilder class - Implement the DungeonLevelBuilder interface, and creates a BasicDungeonLevel.
+ */
 class BasicDungeonLevelBuilder : public DungeonLevelBuilder {
   public:
     BasicDungeonLevelBuilder();

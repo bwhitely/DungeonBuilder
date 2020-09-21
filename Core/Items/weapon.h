@@ -3,6 +3,9 @@
 #include <Core/Items/item.h>
 
 namespace core::items {
+/**
+ * @brief The Weapon class - Derived from Item. Weapons can exist inside Rooms.
+ */
 class Weapon : public Item
 {
 public:

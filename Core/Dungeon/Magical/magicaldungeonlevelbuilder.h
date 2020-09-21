@@ -6,6 +6,9 @@
 #include <Core/Items/weapon.h>
 
 namespace core::dungeon::magical {
+/**
+ * @brief The MagicalDungeonLevelBuilder class - Derived from DungeonLevelBuilder. Has different Items/Creatures/Room types and Walls than BasicDungeonLevelBuilder
+ */
 class MagicalDungeonLevelBuilder : public DungeonLevelBuilder {
   public:
     MagicalDungeonLevelBuilder();

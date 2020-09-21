@@ -5,6 +5,10 @@
 #include <set>
 
 namespace core {
+
+/**
+ * @brief The MenuInterface class - Where the user can interact with the program
+ */
 class MenuInterface {
   public:
     // pass by ref MenuInterface streams

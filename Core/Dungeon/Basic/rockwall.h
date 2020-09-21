@@ -4,6 +4,9 @@
 
 namespace core::dungeon::basic {
 
+/**
+ * @brief The RockWall class - Type of Wall that only exists in a BasicDungeonLevel.
+ */
 class RockWall : public Wall {
   public:
     RockWall() = delete;
