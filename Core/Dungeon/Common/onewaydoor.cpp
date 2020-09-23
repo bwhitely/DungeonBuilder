@@ -17,7 +17,6 @@ OneWayDoor::~OneWayDoor() {
     // remove dangling ptr
     if (_opposite)
         _opposite = nullptr;
-    std::cout << "delete door" << std::endl;
 }
 
 /**
@@ -25,14 +24,16 @@ OneWayDoor::~OneWayDoor() {
  * @param opposite
  */
 void OneWayDoor::connect(Doorway* opposite) {
-    _opposite = opposite;
+    // Not exit or Entrance
+    if (!_entrance || !_exit)
+        _opposite = opposite;
 }
 
 /**
  * @brief OneWayDoor::isEntrance
  * @return true if Doorway is entrance, false otherwise
  */
-bool OneWayDoor::isEntrance() const {
+bool OneWayDoor::isEntrance() {
     if (_entrance)
         return true;
     else
@@ -43,7 +44,7 @@ bool OneWayDoor::isEntrance() const {
  * @brief OneWayDoor::isExit
  * @return true if Doorway is exit, false otherwise
  */
-bool OneWayDoor::isExit() const {
+bool OneWayDoor::isExit() {
     if (_exit)
         return true;
     else

@@ -16,10 +16,11 @@ class Doorway : public RoomEdge {
     virtual char displayCharacter() const override;
     virtual std::string description() const override;
 
-    bool isEntrance();
-    bool isExit();
-    void connect(Doorway* opposite);
+    virtual bool isEntrance();
+    virtual bool isExit();
+    virtual void connect(Doorway* opposite);
   protected:
+    Doorway* _opposite;
     Direction _direction;
     bool _entrance;
     bool _exit;

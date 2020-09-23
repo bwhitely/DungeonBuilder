@@ -1,4 +1,5 @@
 #include "doorway.h"
+#include <iostream>
 
 namespace core::dungeon {
 
@@ -33,6 +34,5 @@ bool Doorway::isExit() {
 void Doorway::connect(Doorway* opposite) {
 
 }
-
 
 }

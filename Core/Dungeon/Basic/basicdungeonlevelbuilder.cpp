@@ -208,13 +208,12 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
     if (constraints == 0) {
         origin->setEdge(direction, "open");
         destination->setEdge(opp, "open");
-        // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        // cast to Doorway* and connect doorways
+        Doorway* d1 = dynamic_cast<core::dungeon::common::OpenDoorway*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::OpenDoorway*>(destination->getEdge(opp));
 
-        // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        // check for nullptr, ie. edge isnt a doorway or is exit/entrance
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }
@@ -223,13 +222,13 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
     else if (constraints == 1) {
         origin->setEdge(direction, "oneway");
         destination->setEdge(opp, "open");
+
         // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        Doorway* d1 = dynamic_cast<core::dungeon::common::OneWayDoor*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::OpenDoorway*>(destination->getEdge(opp));
 
         // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }
@@ -239,12 +238,11 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         origin->setEdge(direction, "open");
         destination->setEdge(opp, "oneway");
         // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        Doorway* d1 = dynamic_cast<core::dungeon::common::OpenDoorway*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::OneWayDoor*>(destination->getEdge(opp));
 
         // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }
@@ -254,12 +252,11 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         origin->setEdge(direction, "blocked");
         destination->setEdge(opp, "blocked");
         // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        Doorway* d1 = dynamic_cast<core::dungeon::common::BlockedDoorWay*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::BlockedDoorWay*>(destination->getEdge(opp));
 
         // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }
@@ -269,12 +266,11 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         origin->setEdge(direction, "locked");
         destination->setEdge(opp, "open");
         // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        Doorway* d1 = dynamic_cast<core::dungeon::common::LockedDoor*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::OpenDoorway*>(destination->getEdge(opp));
 
         // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }
@@ -285,12 +281,11 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         origin->setEdge(direction, "locked");
         destination->setEdge(opp, "oneway");
         // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        Doorway* d1 = dynamic_cast<core::dungeon::common::LockedDoor*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::OneWayDoor*>(destination->getEdge(opp));
 
         // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }
@@ -300,12 +295,11 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         origin->setEdge(direction, "open");
         destination->setEdge(opp, "locked");
         // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        Doorway* d1 = dynamic_cast<core::dungeon::common::OpenDoorway*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::LockedDoor*>(destination->getEdge(opp));
 
         // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }
@@ -315,12 +309,11 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         origin->setEdge(direction, "locked");
         destination->setEdge(opp, "oneway");
         // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        Doorway* d1 = dynamic_cast<core::dungeon::common::LockedDoor*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::OneWayDoor*>(destination->getEdge(opp));
 
         // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }
@@ -332,12 +325,11 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         origin->setEdge(direction, "locked");
         destination->setEdge(opp, "locked");
         // cast to Doorway* and conect doorways
-        Doorway* d1 = dynamic_cast<Doorway*>(origin->getEdge(direction));
-        Doorway* d2 = dynamic_cast<Doorway*>(destination->getEdge(opp));
+        Doorway* d1 = dynamic_cast<core::dungeon::common::LockedDoor*>(origin->getEdge(direction));
+        Doorway* d2 = dynamic_cast<core::dungeon::common::LockedDoor*>(destination->getEdge(opp));
 
         // check for nullptr, ie. edge isnt a doorway
-        if (d1 == nullptr || d2 == nullptr) {
-        } else {
+        if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
             d2->connect(d1);
         }

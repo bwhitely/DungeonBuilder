@@ -37,8 +37,16 @@ namespace core {
 }
 Test::Test() {
 
+
 }
 
 void Test::test() {
 
+    Game* game = game->instance();
+
+    std::unique_ptr<BasicDungeonLevelBuilder> bd{new BasicDungeonLevelBuilder()};
+    game->setDungeonType(std::move(bd));
+
+    game->createExampleLevel();
+    game->displayLevel(std::cout);
 }

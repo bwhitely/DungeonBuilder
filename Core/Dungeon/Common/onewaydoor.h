@@ -11,9 +11,9 @@ class OneWayDoor : public Doorway {
   public:
     OneWayDoor(Direction direction, bool entrance, bool exit);
     virtual ~OneWayDoor();
-    void connect(Doorway* opposite);
-    bool isEntrance() const;
-    bool isExit() const;
+    void connect(Doorway* opposite) override;
+    bool isExit() override;
+    bool isEntrance() override;
     bool isPassage() const override;
     char displayCharacter() const override;
     std::string description() const override;

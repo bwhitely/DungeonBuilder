@@ -1,4 +1,5 @@
 #include "opendoorway.h"
+#include <iostream>
 
 namespace core::dungeon::common {
 
@@ -29,7 +30,7 @@ void OpenDoorway::connect(Doorway* opposite) {
  * @brief OpenDoorway::isEntrance
  * @return false
  */
-bool OpenDoorway::isEntrance() const {
+bool OpenDoorway::isEntrance() {
     return false;
 }
 
@@ -37,7 +38,7 @@ bool OpenDoorway::isEntrance() const {
  * @brief OpenDoorway::isExit
  * @return false
  */
-bool OpenDoorway::isExit() const {
+bool OpenDoorway::isExit() {
     return false;
 }
 /**

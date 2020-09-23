@@ -1,4 +1,5 @@
 #include "blockeddoorway.h"
+#include <iostream>
 
 namespace core::dungeon::common {
 
@@ -29,15 +30,18 @@ void BlockedDoorWay::connect(Doorway* opposite) {
  * @brief BlockedDoorWay::isEntrance
  * @return false
  */
-bool BlockedDoorWay::isEntrance() const {
+bool BlockedDoorWay::isEntrance()
+{
     return false;
 }
+
 
 /**
  * @brief BlockedDoorWay::isExit
  * @return false
  */
-bool BlockedDoorWay::isExit() const {
+bool BlockedDoorWay::isExit()
+{
     return false;
 }
 
