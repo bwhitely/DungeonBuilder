@@ -17,6 +17,7 @@ OneWayDoor::~OneWayDoor() {
     // remove dangling ptr
     if (_opposite)
         _opposite = nullptr;
+        std::cout << "destroyed doorway" <<std::endl;
 }
 
 /**
@@ -25,8 +26,13 @@ OneWayDoor::~OneWayDoor() {
  */
 void OneWayDoor::connect(Doorway* opposite) {
     // Not exit or Entrance
-    if (!_entrance || !_exit)
-        _opposite = opposite;
+    if (!_entrance || !_exit){
+        if (_opposite == nullptr){
+        // connecting via bare pointer
+            _opposite = opposite;
+            opposite->connect(this);
+        }
+    }
 }
 
 /**

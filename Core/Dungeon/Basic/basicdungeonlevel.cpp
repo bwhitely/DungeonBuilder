@@ -1,5 +1,9 @@
 #include "basicdungeonlevel.h"
 #include <iostream>
+#include <Core/Dungeon/Common/blockeddoorway.h>
+#include <Core/Dungeon/Common/lockeddoor.h>
+#include <Core/Dungeon/Common/onewaydoor.h>
+#include <Core/Dungeon/Common/opendoorway.h>
 
 namespace core::dungeon::basic {
 
@@ -10,6 +14,16 @@ BasicDungeonLevel::BasicDungeonLevel(std::string name, int width, int height) : 
 }
 
 BasicDungeonLevel::~BasicDungeonLevel() {
+    for (int i = 0; i < numberOfRooms(); i++){
+        if (core::dungeon::Doorway* d = dynamic_cast<core::dungeon::common::BlockedDoorWay*>(retrieveRoom(i+1)->getEdge(West)))
+            delete d;
+        if (core::dungeon::Doorway* d = dynamic_cast<core::dungeon::common::BlockedDoorWay*>(retrieveRoom(i+1)->getEdge(East)))
+            delete d;
+        if (core::dungeon::Doorway* d = dynamic_cast<core::dungeon::common::BlockedDoorWay*>(retrieveRoom(i+1)->getEdge(North)))
+            delete d;
+        if (core::dungeon::Doorway* d = dynamic_cast<core::dungeon::common::BlockedDoorWay*>(retrieveRoom(i+1)->getEdge(South)))
+            delete d;
+    }
 }
 
 /**

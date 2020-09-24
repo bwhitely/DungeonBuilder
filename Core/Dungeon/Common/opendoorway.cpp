@@ -15,6 +15,7 @@ OpenDoorway::~OpenDoorway() {
     // remove dangling ptr
     if (_opposite)
         _opposite = nullptr;
+        std::cout << "destroyed doorway" <<std::endl;
 }
 
 /**
@@ -22,8 +23,11 @@ OpenDoorway::~OpenDoorway() {
  * @param opposite
  */
 void OpenDoorway::connect(Doorway* opposite) {
+    if (_opposite == nullptr){
     // connecting via bare pointer
-    _opposite = opposite;
+        _opposite = opposite;
+        opposite->connect(this);
+    }
 }
 
 /**

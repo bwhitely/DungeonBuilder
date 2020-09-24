@@ -15,6 +15,7 @@ LockedDoor::~LockedDoor() {
     // set to nullptr
     if (_opposite)
         _opposite = nullptr;
+        std::cout << "destroyed doorway" <<std::endl;
 }
 
 /**
@@ -22,7 +23,11 @@ LockedDoor::~LockedDoor() {
  * @param opposite
  */
 void LockedDoor::connect(Doorway* opposite) {
-    _opposite = opposite;
+    if (_opposite == nullptr){
+    // connecting via bare pointer
+        _opposite = opposite;
+        opposite->connect(this);
+    }
 }
 
 /**

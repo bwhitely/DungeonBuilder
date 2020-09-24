@@ -25,6 +25,7 @@ Room::~Room() {
     _east = nullptr;
     _item = nullptr;
     _creature = nullptr;
+
 }
 
 /**

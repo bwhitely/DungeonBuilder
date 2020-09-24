@@ -1,6 +1,9 @@
 #include "game.h"
 #include <Core/menuinterface.h>
 #include <Core/Dungeon/Common/onewaydoor.h>
+#include <Core/Dungeon/Common/blockeddoorway.h>
+#include <Core/Dungeon/Common/lockeddoor.h>
+#include <Core/Dungeon/Common/opendoorway.h>
 #include <Core/Dungeon/Basic/rockwall.h>
 #include <Core/Dungeon/Basic/quartzchamber.h>
 #include <Core/Dungeon/Basic/rockchamber.h>
@@ -52,6 +55,10 @@ void Game::setDungeonType(std::unique_ptr<dungeon::DungeonLevelBuilder> builder)
  * sets _level data member to the newly created level.
  */
 void Game::createExampleLevel() {
+    // Check for existing level and delete if found
+    if (_level)
+        delete _level;
+
     // rooms vector
     std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
 
@@ -104,9 +111,10 @@ void Game::createExampleLevel() {
  * @param height int
  */
 void Game::createRandomLevel(std::string name, int width, int height) {
-    // check for existing level and delete if found
+    // check for existing level and delete if found. Also delete doorways
     if (_level)
         delete _level;
+
     // Rooms vector
     std::vector<std::shared_ptr<core::dungeon::Room>> rooms;
 

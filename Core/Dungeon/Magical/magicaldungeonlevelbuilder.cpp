@@ -46,7 +46,8 @@ MagicalDungeonLevelBuilder::~MagicalDungeonLevelBuilder() {
  */
 void MagicalDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
     // delete level
-    delete level;
+    if (level)
+        delete level;
     // new level
     level = new MagicalDungeonLevel(name, width, height);
 }
@@ -209,7 +210,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway or is exit/entrance
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
     }
     /** OneWayDoor @ Origin, OpenDoorway @ Destination */
@@ -224,7 +224,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** OpenDoorway @ Origin, OneWayDoor @ Destination */
@@ -238,7 +237,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** BlockDoorway @ Origin & Destination */
@@ -252,7 +250,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** LockDoor @ Origin, OpenDoorway @ Destination */
@@ -266,7 +263,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
     }
 
@@ -281,7 +277,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** OpenDoorway @ Origin, LockedDoor @ Destination */
@@ -295,7 +290,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** LockedDoor @ Origin, OneWayDoor @ Destination */
@@ -309,7 +303,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
     }
@@ -325,7 +318,6 @@ void MagicalDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std:
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
     }
 }

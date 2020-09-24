@@ -39,6 +39,7 @@ BasicDungeonLevelBuilder::BasicDungeonLevelBuilder() {
 }
 
 BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
+
 }
 
 /**
@@ -50,7 +51,8 @@ BasicDungeonLevelBuilder::~BasicDungeonLevelBuilder() {
  */
 void BasicDungeonLevelBuilder::BuildDungeonLevel(std::string name, int width, int height) {
     // delete level
-    delete _level;
+    if (_level)
+        delete _level;
     // new level
     _level = new BasicDungeonLevel(name, width, height);
 }
@@ -215,7 +217,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway or is exit/entrance
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
     }
     /** OneWayDoor @ Origin, OpenDoorway @ Destination */
@@ -230,7 +231,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** OpenDoorway @ Origin, OneWayDoor @ Destination */
@@ -244,7 +244,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** BlockDoorway @ Origin & Destination */
@@ -258,7 +257,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** LockDoor @ Origin, OpenDoorway @ Destination */
@@ -272,7 +270,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
     }
 
@@ -287,7 +284,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** OpenDoorway @ Origin, LockedDoor @ Destination */
@@ -301,7 +297,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
         /** LockedDoor @ Origin, OneWayDoor @ Destination */
@@ -315,7 +310,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
 
     }
@@ -331,7 +325,6 @@ void BasicDungeonLevelBuilder::buildDoorway(std::shared_ptr<Room> origin, std::s
         // check for nullptr, ie. edge isnt a doorway
         if (d1 != nullptr || d2 != nullptr) {
             d1->connect(d2);
-            d2->connect(d1);
         }
     }
 }

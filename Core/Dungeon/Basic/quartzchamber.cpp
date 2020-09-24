@@ -8,6 +8,7 @@ QuartzChamber::QuartzChamber(const int id) : Room{id} {
 }
 
 QuartzChamber::~QuartzChamber() {
+
 }
 
 /**
