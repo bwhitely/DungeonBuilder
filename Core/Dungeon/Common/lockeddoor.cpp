@@ -15,7 +15,6 @@ LockedDoor::~LockedDoor() {
     // set to nullptr
     if (_opposite)
         _opposite = nullptr;
-        std::cout << "destroyed doorway" <<std::endl;
 }
 
 /**

@@ -1,5 +1,7 @@
 #include "dungeonlevel.h"
 #include <iostream>
+#include <Core/Dungeon/Basic/quartzchamber.h>
+#include <Core/Dungeon/Basic/rockchamber.h>
 
 namespace core::dungeon {
 

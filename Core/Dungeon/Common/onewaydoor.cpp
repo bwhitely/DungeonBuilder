@@ -17,7 +17,6 @@ OneWayDoor::~OneWayDoor() {
     // remove dangling ptr
     if (_opposite)
         _opposite = nullptr;
-        std::cout << "destroyed doorway" <<std::endl;
 }
 
 /**

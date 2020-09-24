@@ -130,7 +130,7 @@ std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
     } else {
         if (x == 1) {
             // Set all edges to RockWalls, will replace with doors in further functions
-            r = std::make_shared<RockChamber>(id);
+            r = std::make_shared<RockChamber>(id); // std::make_shared as per assignment specs
             r->setNorth(new RockWall(North));
             r->setEast(new RockWall(East));
             r->setSouth(new RockWall(South));
@@ -138,7 +138,7 @@ std::shared_ptr<Room> BasicDungeonLevelBuilder::buildRoom(int id) {
             _level->addRoom(r);
 
         } else if (x == 2) {
-            r = std::make_shared<QuartzChamber>(id);
+            r = std::make_shared<QuartzChamber>(id); // std::make_shared as per assignment specs
             r->setNorth(new RockWall(North));
             r->setEast(new RockWall(East));
             r->setSouth(new RockWall(South));

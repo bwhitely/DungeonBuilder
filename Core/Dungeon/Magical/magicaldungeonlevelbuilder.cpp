@@ -36,6 +36,7 @@ MagicalDungeonLevelBuilder::MagicalDungeonLevelBuilder() {
 }
 
 MagicalDungeonLevelBuilder::~MagicalDungeonLevelBuilder() {
+
 }
 
 /**
