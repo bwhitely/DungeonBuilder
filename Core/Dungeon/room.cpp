@@ -18,14 +18,11 @@ Room::Room(const int id): _id{id}, _north{nullptr}, _east{nullptr}, _south{nullp
 }
 
 Room::~Room() {
-    // set ptrs to null
-    _north = nullptr;
-    _south = nullptr;
-    _west = nullptr;
-    _east = nullptr;
-    _item = nullptr;
-    _creature = nullptr;
-
+    // delete Doorways and Walls
+    delete _north;
+    delete _south;
+    delete _east;
+    delete _west;
 }
 
 /**

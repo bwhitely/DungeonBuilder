@@ -12,7 +12,7 @@ class Room; // forward declaration
  */
 class RoomEdge {
   public:
-    ~RoomEdge();
+    virtual ~RoomEdge();
     RoomEdge();
     RoomEdge(Direction _direction);
     RoomEdge(const RoomEdge& other) = delete;

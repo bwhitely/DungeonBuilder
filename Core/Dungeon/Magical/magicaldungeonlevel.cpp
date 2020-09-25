@@ -23,7 +23,6 @@ MagicalDungeonLevel::~MagicalDungeonLevel() {
         if (core::dungeon::Doorway* d = dynamic_cast<core::dungeon::common::BlockedDoorWay*>(retrieveRoom(i+1)->getEdge(South)))
             delete d;
     }
-
 }
 
 /**
